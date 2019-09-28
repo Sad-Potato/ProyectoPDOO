@@ -91,6 +91,7 @@ public class TestP1 {
         
         
         
+        
         System.out.println(test.nuevaPosicion(0,9)+"------"+test.calcularTirada(3,0));
         
         
