@@ -7,7 +7,7 @@ package civitas;
 import java.util.Random;
 
 public class Dado {
-    private Random random;
+    private Random random=new Random();
     private int ultimoResultado;
     private Boolean debug;
     private static final Dado instance=new Dado();
@@ -27,7 +27,7 @@ public class Dado {
             ultimoResultado=1;
         }
         else{
-            ultimoResultado=random.nextInt(6-1)+1;
+            ultimoResultado=random.nextInt(6)+1;
         }
         return ultimoResultado;
     }
@@ -38,7 +38,7 @@ public class Dado {
     
     int quienEmpieza(int n){
         Random casual=new Random();
-        return casual.nextInt(n-1);
+        return casual.nextInt(n);
     }
     
     void setDebug(Boolean d){

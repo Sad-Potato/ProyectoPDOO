@@ -59,6 +59,7 @@ public class Tablero {
         if(!tieneJuez){
             Casilla Juez=new Casilla("Juez");
             tieneJuez=true;
+            casillas.add(Juez);        
         }
     }
     

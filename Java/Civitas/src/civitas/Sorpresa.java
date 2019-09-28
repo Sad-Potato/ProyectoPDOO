@@ -6,5 +6,11 @@
 package civitas;
 
 public class Sorpresa {
-    
+    private String surprise;
+    public Sorpresa(String n){
+        surprise=n;
+    }
+    public String getSorpresa(){
+        return surprise;
+    }
 }
