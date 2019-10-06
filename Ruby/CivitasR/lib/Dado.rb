@@ -5,10 +5,11 @@ require_relative 'diario'
 module Civitas
     class Dado
         include Singleton
-        attr_reader:getUltimoResultado
+        attr_reader :ultimoResultado
     
     def tirar
-        @debug ? @random=1:@random=(rand(6)+1)
+        @debug ? @random=1 : @random=(rand(6)+1)
+        @ultimoResultado=@random
         return @random
     end
 
@@ -24,7 +25,7 @@ module Civitas
     def setDebug(d)
         @debug=d
         d ? st="Dado en modo debug" : st="Dado en modo no debug"
-        Diario.ocurreEvento(st)
+        Diario.instance.ocurre_evento(st)
     end
 
     private
@@ -35,7 +36,4 @@ module Civitas
             @@SalidaCarcel=5
         end
     end
-    puts("Hola")
-    puts Dado.instance.tirar.to_s
-    
 end

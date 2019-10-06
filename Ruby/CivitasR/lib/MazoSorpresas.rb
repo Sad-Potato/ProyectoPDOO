@@ -1,9 +1,21 @@
+require_relative 'diario'
+
+
 module Civitas
     class MazoSorpresas
+        def init
+            @barajada=false
+            @usadas=0
+            @sorpresas=[]
+            @cartasEspeciales=[]
+            @ultimaSorpresa
+        end
+
+
         def initialize(n=false)
             @debug=n
-            n ? diario.ocurre_evento("Se ha activado el modo debug del mazo.") : diario.ocurre_evento("Se ha desactivado el modo debug del mazo.")
-            self.init
+            n ? Diario.instance.ocurre_evento("Se ha activado el modo debug del mazo.") : Diario.instance.ocurre_evento("Se ha desactivado el modo debug del mazo.")
+            init
         end
 
         def alMazo(s)
@@ -28,7 +40,7 @@ module Civitas
                 if(@sorpresas.include?(s))
                     @sorpresas.delete(s)
                     @cartasEspeciales.push(s)
-                    diario.ocurre_evento("Se ha eliminado la carta especial "+s.to_s)
+                    Diario.instance.ocurre_evento("Se ha eliminado la carta especial "+s.to_s)
                 end
         end
 
@@ -36,20 +48,11 @@ module Civitas
                 if(@cartasEspeciales.include?(s))
                     @cartasEspeciales.delete(s)
                     @sorpresas.push(s)
-                    diario.ocurre_evento("Se ha añadido la carta especial "+s.to_s)
+                    Diario.instance.ocurre_evento("Se ha añadido la carta especial "+s.to_s)
                 end
         end
-
-
-
-        private
-        def init
-            @barajada=false
-            @usadas=0
-            @sorpresas=[]
-            @cartasEspeciales=[]
-            @ultimaSorpresa
-        end
+        private :init
+        
 
     end
 end

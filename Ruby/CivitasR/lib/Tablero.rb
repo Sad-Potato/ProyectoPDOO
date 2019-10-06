@@ -9,7 +9,7 @@ module Civitas
     attr_reader:casillas
     
     def initialize(carcel)
-      @numCasillaCarcel=carcel>=1?carcel:0
+      @numCasillaCarcel=carcel>=1 ? carcel : 0
       @casillas=[Casilla.new("Salida")]
       @porSalida=0
       @tieneJuez=false
@@ -50,7 +50,7 @@ module Civitas
     end
 
     def getCasilla(numCasilla)
-      return correcto1(numCasilla)? @casillas[numCasilla]:nil
+      return correcto1(numCasilla) ? @casillas[numCasilla] : nil
     end
 
     def nuevaPosicion(actual,tirada)
@@ -70,12 +70,6 @@ module Civitas
       (destino-origen)>0 ? resul=destino-origen : resul+=@casillas.length
       return resul
     end
-  
-    p1=Tablero.new(2)
-    puts p1.casillas[0].nombre + p1.correcto.to_s
-    puts p1.getPorSalida().to_s
-    p1.añadeCasilla(Casilla.new("Hotel jaja"))
-    p1.añadeJuez
   end
 end
 
