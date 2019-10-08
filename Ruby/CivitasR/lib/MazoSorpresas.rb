@@ -1,7 +1,8 @@
-require_relative 'diario'
-
-
 module Civitas
+
+
+  require_relative 'diario'
+  require_relative 'Sorpresa'
     class MazoSorpresas
         def init
             @barajada=false
@@ -36,20 +37,34 @@ module Civitas
             return @ultimaSorpresa
         end
 
-        def inhabilitarCartaEspecial(s)
-                if(@sorpresas.include?(s))
-                    @sorpresas.delete(s)
-                    @cartasEspeciales.push(s)
-                    Diario.instance.ocurre_evento("Se ha eliminado la carta especial "+s.to_s)
-                end
+        def inhabilitarCartaEspecial(s)   
+          p=false
+              for g in @sorpresas do
+                if s.nomb==g.nomb
+                    p=true
+                    @sorpresas.delete(g)
+                  end
+              end
+              if(p)
+                @cartasEspeciales.push(s)
+              end
+                Diario.instance.ocurre_evento("Se ha eliminado la carta especial "+s.to_s)
+          
+                
         end
 
         def habilitarCartaEspecial(s)
-                if(@cartasEspeciales.include?(s))
-                    @cartasEspeciales.delete(s)
-                    @sorpresas.push(s)
-                    Diario.instance.ocurre_evento("Se ha añadido la carta especial "+s.to_s)
+              p=false
+                for g in @cartasEspeciales do
+                  if(g.nomb==s.nomb)
+                    p=true
+                    @cartasEspeciales.delete(g)
+                  end
                 end
+                if(p)
+                @sorpresas.push(s)
+                end
+                    Diario.instance.ocurre_evento("Se ha añadido la carta especial "+s.to_s)
         end
         private :init
         

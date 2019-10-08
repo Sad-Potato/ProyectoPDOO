@@ -67,7 +67,7 @@ module Civitas
     end
 
     def calcularTirada(origen,destino)
-      (destino-origen)>0 ? resul=destino-origen : resul+=@casillas.length
+      (destino-origen)>0 ? resul=destino-origen : resul=@casillas.length+(destino-origen)
       return resul
     end
   end
