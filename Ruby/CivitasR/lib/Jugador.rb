@@ -1,6 +1,12 @@
 module Civitas
     require_relative 'diario'
     require_relative 'Dado'
+
+    # Cosas pendientes:
+    #   -Generalizar el uso de la clase diario
+    #   -Constructores
+    #   -Visibilidad de los metodos
+
     class Jugador
 
         include Comparable
@@ -15,10 +21,11 @@ module Civitas
 
         def initialize(name)
             @nombre=name
-            @encarcelado=nil
-            @salvoconducto=nil
+            @encarcelado=false
+            @salvoconducto=false
             @puedeComprar=nil
             @propiedades=nil
+            @numCasillaActual=0
         end
 
         def self.copia(p)
@@ -181,10 +188,52 @@ module Civitas
         return 
         
         def existeLaPropiedad(ip)
-            
+            @propiedades.length<ip
         end
 
+        def getNombre
+            @nombre
+        end
 
+        def getNumCasillaActual
+            @numCasillaActual
+        end
+
+        def self.getPrecioLibertad
+            @@PrecioLibertad
+        end
+
+        def self.getPremioPasoSalida
+            @@PasoPorSalida
+        end
+
+        def getPropiedades
+             @propiedades
+        end
+
+        def getPuedeComprar
+            @puedeComprar
+        end
+        
+        def getSaldo
+            @saldo
+        end
+
+        def isEncarcelado
+            @encarcelado
+        end
+
+        def puedeEdificarCasa(propiedad)
+            return propiedad.getNumCasas<@@CasasMax
+        end
+
+        def puedeEdificarHotel(propiedad)
+            return propiedad.getNumCasas==4
+        end
+
+        def toString
+            return "Jugador/ Nombre: " + @nombre + " Saldo: " + @saldo + " Casilla: " + @numCasillaActual
+        end
 
         private_class_method :getCasasMax :getHotelesMax
 

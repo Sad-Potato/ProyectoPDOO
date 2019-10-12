@@ -11,11 +11,13 @@ public class TituloPropiedad {
     private static float factorInteresesHipoteca;
     private float factorRevalorizacion;
     private float hipotecaBase;
+    private Boolean hipotecado;
     private String nombre;
     private int numCasas;
     private int numHoteles;
     private float precioCompra;
     private float precioEdificar;
+    private Jugador propietario;
     
     void actualizaPropietarioPorConversion(Jugador jugador){
         
@@ -46,7 +48,7 @@ public class TituloPropiedad {
         
     }
     
-    private Boolean esEstePropietario(Jugador jugador){
+    private Boolean esEsteElPropietario(Jugador jugador){
         
     }
     
@@ -55,11 +57,11 @@ public class TituloPropiedad {
     }
     
     float getImporteCancelarHipoteca(){
-        
+        return getImporteHipoteca*factorInteresesHipoteca
     }
     
     private float getImporteHipoteca(){
-        
+        return hipotecaBase*(1+(numCasas*0.5)+(numHoteles*2.5))
     }
     
     String getNombre(){
@@ -75,7 +77,7 @@ public class TituloPropiedad {
     }
     
     private float getPrecioAlquiler(){
-        
+        return (propietarioEncarcelado || hipotecado) ? 0 : alquilerBase*(1+(numCasas*0.5)+(numHoteles*2.5))
     }
     
     float getPrecioCompra(){
@@ -107,15 +109,28 @@ public class TituloPropiedad {
     }
     
     TituloPropiedad(String nom,float ab,float fr,float hb,float pc,float pe){
-        
+        this.nombre=nom;
+        this.alquilerBase=ab;
+        this.factorRevalorizacion=fr;
+        this.hipotecaBase=hb;
+        this.precioCompra=pc;
+        this.precioEdificar=pe;
+        this.numCasas=0;
+        this.numHoteles=0;
+        this.hipotecado=false;
+        this.propietario=null;
     }
     
     public String toString(){
-        
+        return "Nombre de la propiedad: " + nombre.to_String() + " Precio de compra: "+ precioCompra.to_String() + " Precio de edificar: " + precioEdificar.to_String() + " Propietario: " + propietario.toString();
     }
     
     void tramitarAlquiler(Jugador jugador){
-        
+        if(this.esEsteElPropietario(jugador) && tienePropietario()){
+            float p=this.getPrecioAlquiler();
+            jugador.pagaAlquiler(p);
+            propietario.recibe(p);
+        }
     }
     
     Boolean vender(Jugador jugador){
