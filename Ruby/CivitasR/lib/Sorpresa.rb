@@ -9,38 +9,30 @@ module Civitas
     class Sorpresa
       attr_accessor :nombre
 
-        def init
-          @valor=-1
-          @mazo=nil
-          @tablero=nil
-        end
 
-        def initialize(tipo,valor=nil,texto=nil,tablero=nil,mazo=nil)
-            init
-            @tipo=tipo
-            @tablero=tablero
-            @mazo=mazo
-            @valor=valor
-            @texto=texto
+        def initialize(tipo,valor,texto,tablero,mazo)
+            @valor = valor
+            @tipo = tipo
+            @tablero = tablero
+            @mazo = mazo
+            @valor = valor
+            @texto = texto
         end
 
         def self.new1(tipo,tablero)
-          init
-          @tipo=tipo
-          @tablero=tablero
-
+          return new(tipo, nil, nil, tablero, nil)
         end
 
         def self.new2(tipo,tablero,valor,texto)
-          init
+          return new(tipo, valor, texto, tablero, nil)
         end
 
         def self.new3(tipo,valor,texto)
-          init
+          return new(tipo, valor, texto, nil, nil)
         end
 
         def self.new4(tipo,mazo)
-          init
+          return new(tipo, nil, nil, nil, mazo)
         end
 
         def jugadorCorrecto(actual,todos)
@@ -48,7 +40,7 @@ module Civitas
         end
 
         def informe(actual,todos)
-          Diario.instance.ocurre_evento("")
+          Diario.instance.ocurre_evento("Sorpresa -- Se aplica una sorpresa al jugador " + todos[actual].getNombre())
         end
 
         def aplicarAJugador(actual,todos)
