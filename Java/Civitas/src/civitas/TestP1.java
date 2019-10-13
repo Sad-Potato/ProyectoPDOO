@@ -8,9 +8,15 @@ public class TestP1 {
 		ArrayList<String> nombres = new ArrayList<>();
 		nombres.add("Miguel");
 		nombres.add("Sergio");
-		nombres.add("Urbano");
-		nombres.add("Gaspar");
+		nombres.add("Juan");
+		nombres.add("Pepe");
         CivitasJuego juego = new CivitasJuego(nombres);
 		
+		ArrayList<Jugador> testSubjects = new ArrayList<>();
+		testSubjects.add(new Jugador("Dummy 1"));
+		testSubjects.add(new Jugador("Dummy 2"));
+		testSubjects.add(new Jugador("Dummy 3"));
+		testSubjects.add(new Jugador("Dummy 4"));
+		System.out.println(testSubjects.get(0).toString());
     }
 }

@@ -15,35 +15,35 @@ public class Casilla {
     private TituloPropiedad tituloPropiedad;
     private MazoSorpresas mazo;
     
-    Casilla(TipoCasilla type,String nombr){
-        tipo=type;
+    Casilla(String nombr){
+        tipo=TipoCasilla.DESCANSO;
         nombre=nombr;
     }
 
-    Casilla (TipoCasilla type,TituloPropiedad titulo){
+    Casilla (TituloPropiedad titulo){
         init();
-        tipo=type;
+        tipo=TipoCasilla.CALLE;
         nombre=titulo.getNombre();
         tituloPropiedad=titulo;
     }
 
-    Casilla (TipoCasilla type,float cantidad,String nombr){
+    Casilla (float cantidad,String tnombre){
         init();
-        tipo=type;
+        tipo=TipoCasilla.IMPUESTO;
         importe=cantidad;
-        nombre=nombr;
+        nombre=tnombre;
     }
 
-    Casilla (TipoCasilla type,int numCasillaCarcel,String nombr){
+    Casilla (int numCasillaCarcel,String tnombre){
         init();
-        tipo=type;
+        tipo=TipoCasilla.JUEZ;
         carcel=numCasillaCarcel;
-        nombre=nombr;
+        nombre=tnombre;
     }
 
-    Casilla (TipoCasilla type,MazoSorpresas Mazo,String nombr){
+    Casilla (MazoSorpresas Mazo,String nombr){
         init();
-        tipo=type;
+        tipo=TipoCasilla.SORPRESA;
         mazo=Mazo;
         nombre=nombr;
     }
