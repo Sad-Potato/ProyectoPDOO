@@ -31,7 +31,8 @@ public class CivitasJuego{
         }
 
         public Boolean comprar(){
-            throw new UnsupportedOperationException("No implementado");
+            int i = 0;
+			return true;
         }
 
         public Boolean construirCasa(int ip){
@@ -75,7 +76,7 @@ public class CivitasJuego{
         }
 
         private void inicializarMazoSorpresas(Tablero tablero){
-                throw new UnsupportedOperationException("No implementado");
+			int i = 0;
         }
 
         private void inicializarTablero(MazoSorpresas mazo){
@@ -105,9 +106,9 @@ public class CivitasJuego{
             return jugadores.get(indiceJugadorActual).salirCarcelTirando();
         }
 
-        public OperacionesJuego siguientePaso(){
-                throw new UnsupportedOperationException("No implementado");
-
+        public void siguientePaso(){
+                int i = 0;
+				
         }
 
         public void siguientePasoCompletado(OperacionesJuego operacion){
