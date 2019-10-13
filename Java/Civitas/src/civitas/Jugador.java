@@ -208,9 +208,29 @@ public class Jugador implements Comparable<Jugador>{
 				+ nombre + " ha pasado por la casilla de salida");
 		return true;
 	}
+        @Override
+        public String toString(){
+            return "Jugador: " + nombre + "Casilla: " + numCasillaActual;
+        }
 	
 	public int compareTo(Jugador otro){
 		return (int) Math.signum(saldo - otro.saldo);
 	}
+        
+        Boolean cancelarHipoteca(int ip){
+            throw new UnsupportedOperationException("No implementado");
+        }
+        
+        Boolean construirCasa(int ip){
+            throw new UnsupportedOperationException("No implementado");
+        }
+        
+        Boolean construirHotel(int ip){
+            throw new UnsupportedOperationException("No implementado");
+        }
+
+    Boolean hipotecar(int ip) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 	
 }

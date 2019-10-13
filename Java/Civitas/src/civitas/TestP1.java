@@ -50,21 +50,22 @@ public class TestP1 {
         /**
          * 4-
          */
+        Tablero test=new Tablero(5);
         MazoSorpresas baraja=new MazoSorpresas();
-        Sorpresa g=new Sorpresa("Tiracoo");
-        Sorpresa h=new Sorpresa("Headshot");
+        Sorpresa g=new Sorpresa(TipoSorpresa.IRCARCEL,test);
+        Sorpresa h=new Sorpresa(TipoSorpresa.IRCARCEL,test);
         baraja.alMazo(g);
         baraja.alMazo(h);
-        System.out.println(baraja.siguiente().getSorpresa());
-        System.out.println(baraja.siguiente().getSorpresa());
+        System.out.println(baraja.siguiente().toString());
+        System.out.println(baraja.siguiente().toString());
         baraja.inhabilitarCartaEspecial(g);
         for(int i=0;i<5;i++){
-            System.out.println(baraja.siguiente().getSorpresa());
+            System.out.println(baraja.siguiente().toString());
         }
         baraja.inhabilitarCartaEspecial(h);
         baraja.habilitarCartaEspecial(g);
         for(int i=0;i<5;i++){
-            System.out.println(baraja.siguiente().getSorpresa());
+            System.out.println(baraja.siguiente().toString());
         }
         
         /**
@@ -79,10 +80,10 @@ public class TestP1 {
         /**
          * 7-
          */
-        Tablero test=new Tablero(5);
+        
         ArrayList<Casilla>Prueba=new ArrayList<>();
         for(int i=0;i<7;i++){
-            Casilla test4=new Casilla("wooooo");
+            Casilla test4=new Casilla(TipoCasilla.DESCANSO,"Descanso1");
             Prueba.add(test4);
             test.añadeCasilla(Prueba.get(i));
         }

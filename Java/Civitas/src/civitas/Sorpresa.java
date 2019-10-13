@@ -92,7 +92,7 @@ public class Sorpresa {
 	private void aplicarAJugador_porCasaHotel(int actual, ArrayList<Jugador> todos){
 		if(jugadorCorrecto(actual, todos)){
             informe(actual, todos);
-			todos.get(actual).modificarSaldo(valor*todos.get(actual).cantidadCasasHoteles);
+			todos.get(actual).modificarSaldo(valor*todos.get(actual).cantidadCasasHoteles());
 		}
 	}
 	

@@ -129,7 +129,7 @@ public class TituloPropiedad {
     }
     
     public String toString(){
-        return "Nombre de la propiedad: " + nombre.to_String() + " Precio de compra: "+ precioCompra.to_String() + " Precio de edificar: " + precioEdificar.to_String() + " Propietario: " + propietario.toString();
+        return "Nombre de la propiedad: " + nombre + " Precio de compra: "+ precioCompra + " Precio de edificar: " + precioEdificar + " Propietario: " + propietario;
     }
     
     void tramitarAlquiler(Jugador jugador){
@@ -141,7 +141,7 @@ public class TituloPropiedad {
     }
     
     Boolean vender(Jugador jugador){
-        if(jugador==propietario && !jugador.hipotecado()){
+        if(jugador==propietario && !hipotecado){
             jugador.recibe(getPrecioVenta());
             propietario=null;
             numCasas=0;
