@@ -27,7 +27,7 @@ public class CivitasJuego{
 	}
 
 	public Boolean cancelarHipoteca(int ip){
-			return jugadores.get(indiceJugadorActual).cancelarHipoteca(ip);
+		return jugadores.get(indiceJugadorActual).cancelarHipoteca(ip);
 	}
 
 	public Boolean comprar(){
@@ -44,9 +44,9 @@ public class CivitasJuego{
 	}
 
 	private void contabilizarPasosPorSalida(Jugador jugadorActual){
-			while(tablero.getPorSalida()>0){
-				jugadorActual.pasaPorSalida();
-			}
+		while(tablero.getPorSalida()>0){
+			jugadorActual.pasaPorSalida();
+		}
 	}
 
 	public Boolean finalDelJuego(){
@@ -88,7 +88,7 @@ public class CivitasJuego{
 	}
 
 	private void pasarTurno(){
-		indiceJugadorActual = (indiceJugadorActual+ 1) % jugadores.size();
+		indiceJugadorActual = (indiceJugadorActual + 1) % jugadores.size();
 	}
 
 	private ArrayList<Jugador> ranking(){
@@ -108,7 +108,7 @@ public class CivitasJuego{
 	}
 
 	public void siguientePaso(){
-			int i = 0;
+		int i = 0;
 
 	}
 
@@ -117,7 +117,6 @@ public class CivitasJuego{
 	}
 
 	public Boolean vender(int ip){
-		   return jugadores.get(indiceJugadorActual).vender(ip);
+		return jugadores.get(indiceJugadorActual).vender(ip);
 	}
-
 }

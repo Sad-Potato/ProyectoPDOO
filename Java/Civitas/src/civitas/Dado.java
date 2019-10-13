@@ -33,7 +33,7 @@ public class Dado {
     }
     
     Boolean salgoDeLaCarcel(){
-        return tirar()>=5;
+        return tirar()>=SalidaCarcel;
     }
     
     int quienEmpieza(int n){
@@ -43,7 +43,7 @@ public class Dado {
     
     void setDebug(Boolean d){
         debug=d;
-            Diario.getInstance().ocurreEvento("Se ha " + (d?"activado":"desactivado")+" el modo debug del dado.");
+		Diario.getInstance().ocurreEvento("Se ha " + (d?"activado":"desactivado")+" el modo debug del dado.");
     }
     
     public int getUltimoResultado(){

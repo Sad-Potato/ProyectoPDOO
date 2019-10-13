@@ -15,9 +15,9 @@ public class Casilla {
     private TituloPropiedad tituloPropiedad;
     private MazoSorpresas mazo;
     
-    Casilla(String nombr){
+    Casilla(String tnombre){
         tipo=TipoCasilla.DESCANSO;
-        nombre=nombr;
+        nombre=tnombre;
     }
 
     Casilla (TituloPropiedad titulo){
@@ -41,11 +41,11 @@ public class Casilla {
         nombre=tnombre;
     }
 
-    Casilla (MazoSorpresas Mazo,String nombr){
+    Casilla (MazoSorpresas tmazo,String tnombre){
         init();
         tipo=TipoCasilla.SORPRESA;
-        mazo=Mazo;
-        nombre=nombr;
+        mazo=tmazo;
+        nombre=tnombre;
     }
 
     public String getNombre(){
@@ -56,40 +56,40 @@ public class Casilla {
         return tituloPropiedad;
     }
 
-    private void informe(int iactual,ArrayList <Jugador> todos){
-        Diario.getInstance().ocurreEvento(todos.get(iactual).toString() + " " + this.toString());
+    private void informe(int iactual,ArrayList<Jugador> todos){
+        Diario.getInstance().ocurreEvento(todos.get(iactual).toString() + " " + toString());
     }
 
     private void init(){
-            carcel=0;
-            importe=0;
-            tituloPropiedad=null;
-            mazo=null;
+		carcel=0;
+		importe=0;
+		tituloPropiedad=null;
+		mazo=null;
     }
 
     public Boolean jugadorCorrecto(int iactual,ArrayList<Jugador> todos){
-            return iactual<todos.size();
+		return iactual<todos.size();
     }
 
     void recibeJugador(int iactual,ArrayList<Jugador> todos){
-
+		int i = 0;
     }
 
-    private void recibeJugador_calle(int iactual,ArrayList<Jugador> todos){
-        
+    private void recibeJugador_calle(int actual,ArrayList<Jugador> todos){
+        int i = 0;
     }
 
-    private void recibeJugador_impuesto(int iactual,ArrayList <Jugador> todos){
-        if(jugadorCorrecto(iactual,todos)){
-            this.informe(iactual,todos);
-            todos.get(iactual).pagaImpuesto(importe);
+    private void recibeJugador_impuesto(int actual,ArrayList <Jugador> todos){
+        if(jugadorCorrecto(actual,todos)){
+            this.informe(actual,todos);
+            todos.get(actual).pagaImpuesto(importe);
         }
     }
 
-    private void recibeJugador_juez(int iactual,ArrayList <Jugador> todos){
-        if(jugadorCorrecto(iactual,todos)){
-                informe(iactual,todos);
-                todos.get(iactual).encarcelar(carcel);
+    private void recibeJugador_juez(int actual,ArrayList <Jugador> todos){
+        if(jugadorCorrecto(actual,todos)){
+                informe(actual,todos);
+                todos.get(actual).encarcelar(carcel);
         }
     }
 
@@ -98,6 +98,6 @@ public class Casilla {
     }
 
     public String toString(){
-        return "SquareType: " + nombre;
+        return "Nombre: " + nombre;
     }
 }

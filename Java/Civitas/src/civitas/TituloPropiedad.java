@@ -103,7 +103,7 @@ public class TituloPropiedad {
     }
     
     Boolean hipotecar(Jugador jugador){
-        throw new UnsupportedOperationException("No implementado");
+        return true;
     }
     
     private Boolean propietarioEncarcelado(){
@@ -115,8 +115,8 @@ public class TituloPropiedad {
         return propietario!=null;
     }
     
-    TituloPropiedad(String nom,float ab,float fr,float hb,float pc,float pe){
-        this.nombre=nom;
+    TituloPropiedad(String nombre,float ab,float fr,float hb,float pc,float pe){
+        this.nombre=nombre;
         this.alquilerBase=ab;
         this.factorRevalorizacion=fr;
         this.hipotecaBase=hb;
@@ -129,11 +129,11 @@ public class TituloPropiedad {
     }
     
     public String toString(){
-        return "Nombre de la propiedad: " + nombre + " Precio de compra: "+ precioCompra + " Precio de edificar: " + precioEdificar + " Propietario: " + propietario;
+        return "Nombre de la propiedad: " + nombre + "; Precio de compra: "+ precioCompra + "; Precio de edificar: " + precioEdificar + "; Propietario: " + propietario + ";";
     }
     
     void tramitarAlquiler(Jugador jugador){
-        if(this.esEsteElPropietario(jugador) && tienePropietario()){
+        if(tienePropietario() && esEsteElPropietario(jugador)){
             float p=this.getPrecioAlquiler();
             jugador.pagaAlquiler(p);
             propietario.recibe(p);
@@ -147,8 +147,7 @@ public class TituloPropiedad {
             numCasas=0;
             numHoteles=0;
             return true;
-        }
-        else{
+        } else {
             return false;
         }
     }
