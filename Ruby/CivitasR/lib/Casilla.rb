@@ -4,10 +4,13 @@ module Civitas
   class Casilla
     @@carcel = 0
     
+    
     def init
       @importe = 0
       @nombre = "Sample Text"
     end
+    
+    private :init
     
     def initialize(tipo, nombre, titulo, cantidad, mazo)
       @nombre = nombre
@@ -79,6 +82,7 @@ module Civitas
     def getTituloPropiedad
       return @titulo
     end
+    
     
   end
 end
