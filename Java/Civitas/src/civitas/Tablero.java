@@ -37,13 +37,13 @@ public class Tablero {
     public void añadeCasilla(Casilla casilla){
         casillas.add(casilla);
         if (casillas.size() >= numCasillaCarcel){
-            casillas.add(numCasillaCarcel,new Casilla(TipoCasilla.DESCANSO,"Carcel"));
+            casillas.add(new Casilla("Carcel"));
         }
     }
     
     public void añadeJuez(){
         if (!tieneJuez){
-            añadeCasilla(new Casilla(TipoCasilla.JUEZ,2,"Juez"));
+            añadeCasilla(new Casilla(2,"Juez"));
             tieneJuez = true;
         }
     }
