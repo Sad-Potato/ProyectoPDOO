@@ -7,7 +7,7 @@ require_relative 'MazoSorpresas'
 
 module Civitas 
     class Sorpresa
-      attr_accessor :nomb
+      attr_accessor :nombre
 
         def init
           @valor=-1
@@ -18,26 +18,28 @@ module Civitas
         def initialize(tipo,valor=nil,texto=nil,tablero=nil,mazo=nil)
             init
             @tipo=tipo
-            valor==nil ? (mazo==nil ? @tablero=tablero : @mazo=mazo) : (tablero==nil ? (@valor=valor && @texto=texto) : (@tablero=tablero && @valor=valor && @texto=texto))
+            @tablero=tablero
+            @mazo=mazo
+            @valor=valor
+            @texto=texto
         end
 
-
-        def self.new_1(tipo,tablero)
+        def self.new1(tipo,tablero)
           init
           @tipo=tipo
           @tablero=tablero
 
         end
 
-        def self.new_2(tipo,tablero,valor,texto)
+        def self.new2(tipo,tablero,valor,texto)
           init
         end
 
-        def self.new_3(tipo,valor,texto)
+        def self.new3(tipo,valor,texto)
           init
         end
 
-        def self.new_4(tipo,mazo)
+        def self.new4(tipo,mazo)
           init
         end
 

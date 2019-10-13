@@ -14,7 +14,7 @@ module Civitas
   testPosibilidades = Array.new(jugadores, 0)
   
   for i in 1..100
-    testPosibilidades[Dado.instance.quienempieza(jugadores)] += 1
+    testPosibilidades[Dado.instance.quienEmpieza(jugadores)] += 1
   end
   
   puts "Test de quienempieza de Dado, " + jugadores.to_s + " jugadores\n"
@@ -39,7 +39,7 @@ module Civitas
     mazo.alMazo(i)
   end
   
-  puts mazo.siguiente.nombre
+  puts mazo.siguiente.getNombre
   
   mazo.inhabilitarCartaEspecial(s[1])
   mazo.habilitarCartaEspecial(s[1])

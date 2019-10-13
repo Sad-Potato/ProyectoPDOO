@@ -171,11 +171,7 @@ module Civitas
         end 
 
         def <=> (otro)
-            if @saldo<otro.saldo then return -1
-            if @saldo==otro.saldo then return 0
-            if @saldo>otro.saldo then return 1
-         #   if @saldo and otro.saldo are not comparable then return nil
-            
+          @saldo <=> otro.saldo
         end
 
 
@@ -197,7 +193,7 @@ module Civitas
 
         def enBancarrota
             @saldo<0
-        return 
+        end
         
         def existeLaPropiedad(ip)
             @propiedades.length<ip
@@ -247,8 +243,7 @@ module Civitas
             return "Jugador/ Nombre: " + @nombre + " Saldo: " + @saldo + " Casilla: " + @numCasillaActual
         end
 
-        private_class_method :getCasasMax :getHotelesMax
+        private_class_method :getCasasMax, :getHotelesMax
 
     end
-    
 end
