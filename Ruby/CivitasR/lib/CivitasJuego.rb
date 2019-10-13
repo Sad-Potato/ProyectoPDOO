@@ -2,6 +2,7 @@
 
 module Civitas
   class CivitasJuego
+    
     def initialize(nombres)
       @jugadores = nombres.map { |nombre|  Jugador.new(nombre) }
       @gestorEstados = GestorEstados.new()
@@ -30,20 +31,27 @@ module Civitas
 
     def inicializaTablero(mazo)
       @tablero = Tablero.new(15)
-
     end
+    
+    private :inicializarTablero
 
     def inicializaMazoSorpresas(tablero)
       puts "JAJA"
     end
+    
+    private :inicializaMazoSorpresas
 
     def contabilizarPasosPorSalida(jugadorActual)
 
     end
+    
+    private :contabilizarPasosPorSalida
 
 		def pasarTurno
 			@indiceJugadorActual = (@indiceJugadorActual + 1) % @jugadores.size
 		end
+    
+    private :pasarTurno
 
 		def siguientePasoCompletado(operacion)
 			@estado = GestorEstados.siguienteEstado(@jugadores[@indiceJugadorActual], @estado, operacion)
@@ -84,6 +92,8 @@ module Civitas
 		def ranking
 			return @jugadores.sort
 		end
+    
+    private :ranking
 
   end
 end
