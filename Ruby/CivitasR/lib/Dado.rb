@@ -6,11 +6,12 @@ module Civitas
   class Dado
     include Singleton
     attr_reader :ultimoResultado
+    
+    @@SalidaCarcel = 5
 
     def initialize
       @ultimoResultado = -1
       @debug = false
-      @SalidaCarcel = 5
     end
 
     def tirar
@@ -19,7 +20,7 @@ module Civitas
     end
 
     def salgoDeLaCarcel
-      return @SalidaCarcel >= rand(1..6)
+      return @@SalidaCarcel >= rand(1..6)
     end
 
     def quienEmpieza(n)
