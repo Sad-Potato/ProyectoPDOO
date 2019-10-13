@@ -122,8 +122,7 @@ public class Jugador implements Comparable<Jugador>{
 	}
 	
 	boolean puedeComprarCasilla(){
-		puedeComprar = !encarcelado;
-		return puedeComprar;
+		return !encarcelado;
 	}
 	
 	boolean modificarSaldo(float cantidad){
@@ -217,20 +216,20 @@ public class Jugador implements Comparable<Jugador>{
 		return (int) Math.signum(saldo - otro.saldo);
 	}
         
-        Boolean cancelarHipoteca(int ip){
-            throw new UnsupportedOperationException("No implementado");
-        }
-        
-        Boolean construirCasa(int ip){
-            throw new UnsupportedOperationException("No implementado");
-        }
-        
-        Boolean construirHotel(int ip){
-            throw new UnsupportedOperationException("No implementado");
-        }
+	Boolean cancelarHipoteca(int ip){
+		return true;
+	}
+
+	Boolean construirCasa(int ip){
+		return true;
+	}
+
+	Boolean construirHotel(int ip){
+		return true;
+	}
 
     Boolean hipotecar(int ip) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return true;
     }
 	
 }

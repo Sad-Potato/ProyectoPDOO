@@ -52,8 +52,8 @@ public class MazoSorpresas {
         if(i >= 0){
             sorpresas.remove(i);
             cartasEspeciales.add(s);
-            //Diario.getInstance().ocurreEvento("MazoSorpresas -- "
-            //        + "Carta especial " + s.nombre + " deshabilitada");
+            Diario.getInstance().ocurreEvento("MazoSorpresas -- "
+                    + "Carta especial deshabilitada");
         }
     }
     
@@ -62,12 +62,9 @@ public class MazoSorpresas {
         if(i >= 0){
             cartasEspeciales.remove(i);
             sorpresas.add(s);
-        //    Diario.getInstance().ocurreEvento("MazoSorpresas -- "
-        //            + "Carta especial " + s.nombre + " habilitada");
+            Diario.getInstance().ocurreEvento("MazoSorpresas -- "
+                    + "Carta especial habilitada");
         }
-    }
-    public static void main(String[] args){
-        System.out.println("Jaja me da pereza");
     }
     
 }

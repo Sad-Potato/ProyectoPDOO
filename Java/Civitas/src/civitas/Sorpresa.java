@@ -13,6 +13,7 @@ public class Sorpresa {
         valor = -1;
         mazo = null;
         tablero = null;
+		texto = null;
     }
     
     Sorpresa(TipoSorpresa ttipo, int tvalor, String ttexto){
