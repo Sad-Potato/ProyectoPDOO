@@ -41,7 +41,7 @@ module Civitas
         end
 
         def debeSerEncarcelado
-            if(encarcelado)
+            if(@encarcelado)
                 resul=false
             else
                 if(tieneSalvoconducto)
@@ -215,12 +215,14 @@ module Civitas
         def toString
             return "Jugador/ Nombre: " + @nombre + " Saldo: " + @saldo + " Casilla: " + @numCasillaActual
         end
-
+         
+        attr_reader :CasasPorHotel,:encarcelado,:puedeComprar,:numCasillaActual
+        
         private 
-          attr_reader :nombre, :numCasillaActual,:propiedades,:puedeComprar,:saldo,:encarcelado
+          attr_reader  :HotelesMax,:CasasMax,:numCasillaActual,:PasoPorSalida,:PrecioLibertad
         
         protected
-          attr_reader :CasasMax, :CasasPorHotel ,:HotelesMax,:PasoPorSalida,:PrecioLibertad,:SaldoInicial
+          attr_reader :nombre,:saldo,:propiedades
         
 
     end

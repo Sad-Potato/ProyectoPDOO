@@ -42,7 +42,7 @@ module Civitas
         def inhabilitarCartaEspecial(s)   
           p=false
               for g in @sorpresas do
-                if s.nomb==g.nomb
+                if s==g
                     p=true
                     @sorpresas.delete(g)
                   end
@@ -58,7 +58,7 @@ module Civitas
         def habilitarCartaEspecial(s)
               p=false
                 for g in @cartasEspeciales do
-                  if(g.nomb==s.nomb)
+                  if(g==s)
                     p=true
                     @cartasEspeciales.delete(g)
                   end
