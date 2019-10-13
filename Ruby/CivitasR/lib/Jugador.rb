@@ -91,15 +91,15 @@ module Civitas
         end
         
         def pagaImpuesto(cantidad)
-            @encarcelado return false : return paga(cantidad)
+            @encarcelado ? false : paga(cantidad)
         end
 
         def pagaAlquiler(cantidad)
-            @encarcelado ? return false : return paga(cantidad)
+            @encarcelado ? false : paga(cantidad)
         end
 
         def recibe(cantidad)
-            @encarcelado ? return false : return modificarSaldo(cantidad)
+            @encarcelado ? false : modificarSaldo(cantidad)
         end
 
         def modificarSaldo(cantidad)
@@ -120,7 +120,7 @@ module Civitas
         end
 
         def puedoGastar(precio)
-            @encarcelado ? return false : return @saldo>=precio
+            @encarcelado ? false : @saldo>=precio
         end
 
         def vender(ip)
@@ -169,7 +169,7 @@ module Civitas
         end 
 
         def <=> (otro)
-            self.@saldo <=> otro.getSaldo
+            self.@saldo <=> otro.saldo
         end
 
 
