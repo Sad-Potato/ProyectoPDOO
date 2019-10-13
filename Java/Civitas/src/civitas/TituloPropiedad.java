@@ -24,7 +24,7 @@ public class TituloPropiedad {
     }
     
     Boolean cancelarHipoteca(Jugador jugador){
-        
+        throw new UnsupportedOperationException("No implementado");
     }
     
     int cantidadCasasHoteles(){
@@ -32,16 +32,16 @@ public class TituloPropiedad {
     }
     
     Boolean comprar(Jugador jugador){
-      
+      throw new UnsupportedOperationException("No implementado");
     }
     
     Boolean construirCasa(Jugador jugador){
-        
+        throw new UnsupportedOperationException("No implementado");
     }
     
     Boolean construirHotel(Jugador jugador){
         
-        
+        throw new UnsupportedOperationException("No implementado");
     }
     
     Boolean derruirCasas(int n,Jugador jugador){
@@ -103,7 +103,7 @@ public class TituloPropiedad {
     }
     
     Boolean hipotecar(Jugador jugador){
-        
+        throw new UnsupportedOperationException("No implementado");
     }
     
     private Boolean propietarioEncarcelado(){
