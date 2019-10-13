@@ -169,7 +169,11 @@ module Civitas
         end 
 
         def <=> (otro)
-            self.@saldo <=> otro.saldo
+            if @saldo<otro.saldo then return -1
+            if @saldo==otro.saldo then return 0
+            if @saldo>otro.saldo then return 1
+         #   if @saldo and otro.saldo are not comparable then return nil
+            
         end
 
 
