@@ -34,13 +34,13 @@ public class Jugador implements Comparable<Jugador>{
 		numCasillaActual = otro.numCasillaActual;
 		puedeComprar = otro.puedeComprar;
 		saldo = otro.saldo;
-		salvoconducto = null;
+		salvoconducto = otro.salvoconducto;
 		propiedades = new ArrayList<>(otro.propiedades);		
 	}
         
-        public Boolean isEncarcelado(){
-            return encarcelado;
-        }
+	public Boolean isEncarcelado(){
+		return encarcelado;
+	}
 	
 	private int getCasasMax(){
 		return CasasMax;
