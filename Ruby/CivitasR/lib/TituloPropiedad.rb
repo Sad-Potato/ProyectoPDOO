@@ -1,3 +1,5 @@
+encoding:utf-8
+
 module Civitas
 	class TituloPropiedad
 		@@factorInteresesHipoteca = 1.1

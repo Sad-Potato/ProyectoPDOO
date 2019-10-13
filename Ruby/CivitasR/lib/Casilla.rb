@@ -1,3 +1,5 @@
+encoding:utf-8
+
 module Civitas
   class Casilla
     @@carcel = 0

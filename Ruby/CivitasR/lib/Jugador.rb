@@ -1,3 +1,5 @@
+encoding:utf-8
+
 module Civitas
     require_relative 'diario'
     require_relative 'Dado'

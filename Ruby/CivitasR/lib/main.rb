@@ -1,7 +1,11 @@
+encoding:utf-8
+
 require_relative "Dado"
 require_relative "Enum"
 require_relative "MazoSorpresas"
-require_relative "Diario"
+require_relative "diario"
+require_relative "Tablero"
+require_relative "Jugador"
 
 module Civitas
 
@@ -14,6 +18,7 @@ module Civitas
   end
   
   puts "Test de quienempieza de Dado, " + jugadores.to_s + " jugadores\n"
+  
   for i in 1..jugadores
     puts i.to_s + ", " + testPosibilidades[i-1].to_s
   end

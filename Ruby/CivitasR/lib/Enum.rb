@@ -1,4 +1,4 @@
-#encoding : UTF-8
+encoding:utf-8
 
 module Civitas
   module Operaciones_juego

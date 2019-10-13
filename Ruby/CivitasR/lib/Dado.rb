@@ -1,3 +1,5 @@
+encoding:utf-8
+
 require 'singleton'
 module Civitas
 
@@ -20,13 +22,13 @@ module Civitas
       return @SalidaCarcel >= rand(1..6)
     end
 
-    def quienempieza(n)
+    def quienEmpieza(n)
       return rand(n)
     end
 
     def setDebug(d)
       @debug = d
-      Diario.instance.ocurre_evento("Dado -- modo debug: " + d)
+      Diario.instance.ocurre_evento("Dado -- modo debug: " + d.to_s)
     end
 
 
