@@ -11,25 +11,31 @@ module Civitas
 
         include Comparable
 
-        @@CasasMax=4
-        @@CasasPorHotel=4
-        @@HotelesMax=4
-        @@PasoPorSalida=1000.0
-        @@PrecioLibertad=200.0
-        @@SaldoInicial=7500.0
+        @@CasasMax = 4
+        @@CasasPorHotel = 4
+        @@HotelesMax = 4
+        @@PasoPorSalida = 1000.0
+        @@PrecioLibertad = 200.0
+        @@SaldoInicial = 7500.0
 
 
         def initialize(name)
             @nombre=name
             @encarcelado=false
-            @salvoconducto=false
+            @salvoconducto=nil
             @puedeComprar=nil
             @propiedades=nil
             @numCasillaActual=0
         end
 
-        def self.copia(p)
-            #Puedo preguntarle a jugador (p) por su nombre?
+        def self.copia(tjugador)
+            jugador = new(tjugador.nombre)
+            jugador.encarcelado = tjugador.encarcelado
+            jugador.salvoconducto = tjugador.salvoconducto
+            jugador.puedeComprar = tjugador.puedeComprar
+            jugador.propiedades = tjugador.propiedades
+            jugador.numCasillaActual = tjugador.numCasillaActual
+            return jugador
         end
 
         def debeSerEncarcelado
@@ -67,12 +73,12 @@ module Civitas
         end 
 
         def perderSalvoConducto
-            usada
+            @salvoconducto.usada
             @salvoconducto=nil
         end
 
         def tieneSalvoconducto 
-            @salvoconducto==nil ? return true : return false
+            @salvoconducto == nil
         end
 
         def puedeComprarCasilla
@@ -85,7 +91,7 @@ module Civitas
         end
         
         def pagaImpuesto(cantidad)
-            @encarcelado ? return false : return paga(cantidad)
+            @encarcelado return false : return paga(cantidad)
         end
 
         def pagaAlquiler(cantidad)
