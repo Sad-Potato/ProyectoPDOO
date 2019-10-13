@@ -7,8 +7,6 @@ require_relative 'MazoSorpresas'
 
 module Civitas 
     class Sorpresa
-      attr_accessor :nombre
-
 
         def initialize(tipo,valor,texto,tablero,mazo)
             @valor = valor
@@ -20,7 +18,7 @@ module Civitas
         end
 
         def self.new1(tipo,tablero)
-          return new(tipo, nil, nil, tablero, nil)
+          return new(tipo, -1, nil, tablero, nil)
         end
 
         def self.new2(tipo,tablero,valor,texto)
@@ -32,7 +30,7 @@ module Civitas
         end
 
         def self.new4(tipo,mazo)
-          return new(tipo, nil, nil, nil, mazo)
+          return new(tipo, -1, nil, nil, mazo)
         end
 
         def jugadorCorrecto(actual,todos)
@@ -44,8 +42,41 @@ module Civitas
         end
 
         def aplicarAJugador(actual,todos)
+          case @tipo
+            when TipoSorpresa::IRCARCEL
+                 aplicarAJugador_irCarcel(actual,todos)
+            when TipoSorpresa::IRCASILLA
+                 aplicarAJugador_irACasilla(actual,todos)
+            when TipoSorpresa::PAGARCOBRAR
+                 aplicarAJugador_pagarCobrar(actual,todos)
+            when TipoSorpresa::PORCASAHOTEL
+                 aplicarAJugador_porCasaHotel(actual,todos)
+            when TipoSorpresa::PORJUGADOR
+                 aplicarAJugador_porJugador(actual,todos)
+            when TipoSorpresa::SALIRCARCEL
+                 aplicarAJugador_salirCarcel(actual,todos)
+          end
             
         end
+
+        def salirDelMazo
+            if(@tipo==TipoSorpresa::SALIRCARCEL)
+              @mazo.inhabilitarCartaEspecial()
+            end
+        end
+
+
+        def usada
+          if(@tipo==TipoSorpresa::SALIRCARCEL)
+              @mazo.inhabilitarCartaEspecial()
+          end
+        end
+
+        def toString
+          return @tipo.to_s
+        end
+        
+        private
         
         def aplicarAJugador_irCarcel(actual,todos)
             if(jugadorCorrecto(actual,todos))
@@ -80,16 +111,16 @@ module Civitas
         def aplicarAJugador_porJugador(actual,todos)
           if(jugadorCorrecto(actual,todos))
             informe(actual,todos)
-
+            h=0
+            l.aplicarAJugador(actual,todos)
+            for g in todos do
+              p=new.Sorpresa(TipoSorpresa::PAGARCOBRAR,h==actual ? @valor*-1 : @valor*todos.length,"aplicarAJugador_porJugador")
+              p.aplicarAJugador(h,todos)
+              h+=1
+            end
           end
         end
-
-        def salirDelMazo
-            if(@tipo==TipoSorpresa::SALIRCARCEL)
-              @mazo.inhabilitarCartaEspecial()
-            end
-        end
-
+        
         def aplicarAJugador_salirCarcel(actual,todos)
           if(jugadorCorrecto(actual,todos))
             informe(actual,todos)
@@ -104,16 +135,6 @@ module Civitas
               salirDelMazo
             end
           end
-        end
-
-        def usada
-          if(@tipo==TipoSorpresa::SALIRCARCEL)
-              @mazo.inhabilitarCartaEspecial()
-          end
-        end
-
-        def toString
-          return @tipo.to_s
         end
         
     end
