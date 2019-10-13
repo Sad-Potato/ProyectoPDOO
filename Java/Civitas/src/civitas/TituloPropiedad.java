@@ -28,7 +28,7 @@ public class TituloPropiedad {
     }
     
     int cantidadCasasHoteles(){
-        return numCasas+numHoteles
+        return numCasas+numHoteles;
     }
     
     Boolean comprar(Jugador jugador){
@@ -46,60 +46,60 @@ public class TituloPropiedad {
     
     Boolean derruirCasas(int n,Jugador jugador){
         if(jugador==propietario && numCasas>=n){
-            numCasas-n;
-            return true
+            numCasas-=n;
+            return true;
         }
         else{
-            return false
+            return false;
         }
     }
     
     private Boolean esEsteElPropietario(Jugador jugador){
-        return jugador==propietario
+        return jugador==propietario;
     }
     
     public Boolean getHipotecado(){
-        return hipotecado
+        return hipotecado;
     }
     
     float getImporteCancelarHipoteca(){
-        return getImporteHipoteca*factorInteresesHipoteca
+        return getImporteHipoteca()*factorInteresesHipoteca;
     }
     
     private float getImporteHipoteca(){
-        return hipotecaBase*(1+(numCasas*0.5)+(numHoteles*2.5))
+        return (float) (hipotecaBase*(1+(numCasas*0.5)+(numHoteles*2.5)));
     }
     
     String getNombre(){
-        return nombre
+        return nombre;
     }
     
     int getNumCasas(){
-        return numCasas
+        return numCasas;
     }
     
     int getNumHoteles(){
-        return numHoteles
+        return numHoteles;
     }
     
     private float getPrecioAlquiler(){
-        return (propietarioEncarcelado || hipotecado) ? 0 : alquilerBase*(1+(numCasas*0.5)+(numHoteles*2.5))
+        return (float) ((propietarioEncarcelado() || hipotecado) ? 0 : alquilerBase*(1+(numCasas*0.5)+(numHoteles*2.5)));
     }
     
     float getPrecioCompra(){
-        return precioCompra
+        return precioCompra;
     }
     
     float getPrecioEdificar(){
-        return precioEdificar
+        return precioEdificar;
     }
     
     private float getPrecioVenta(){
-        return precioCompra+(numCasas+5*numHoteles)*precioEdificar*factorRevalorizacion
+        return precioCompra+(numCasas+5*numHoteles)*precioEdificar*factorRevalorizacion;
     }
     
     Jugador getPropietario(){
-        return propietario
+        return propietario;
     }
     
     Boolean hipotecar(Jugador jugador){
@@ -107,11 +107,12 @@ public class TituloPropiedad {
     }
     
     private Boolean propietarioEncarcelado(){
-        (!propietario.isEncarcelado() || propietario==null) ? return true : return false;
+        Boolean resul=(!(propietario.isEncarcelado()) || propietario==null); 
+                return resul;
     }
     
     Boolean tienePropietario(){
-        propietario==null ? false : true;
+        return propietario!=null;
     }
     
     TituloPropiedad(String nom,float ab,float fr,float hb,float pc,float pe){
@@ -140,15 +141,15 @@ public class TituloPropiedad {
     }
     
     Boolean vender(Jugador jugador){
-        if(jugador==propietario && !jugador.hipotecado){
+        if(jugador==propietario && !jugador.hipotecado()){
             jugador.recibe(getPrecioVenta());
             propietario=null;
             numCasas=0;
             numHoteles=0;
-            return true
+            return true;
         }
         else{
-            return false
+            return false;
         }
     }
     

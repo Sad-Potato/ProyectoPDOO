@@ -1,5 +1,6 @@
 package civitas;
 import java.lang.Math;
+import java.util.ArrayList;
 
 public class Jugador implements Comparable<Jugador>{
     protected static int CasasMax = 4;
@@ -36,6 +37,10 @@ public class Jugador implements Comparable<Jugador>{
 		salvoconducto = null;
 		propiedades = new ArrayList<>(otro.propiedades);		
 	}
+        
+        public Boolean isEncarcelado(){
+            return encarcelado;
+        }
 	
 	private int getCasasMax(){
 		return CasasMax;
@@ -195,6 +200,7 @@ public class Jugador implements Comparable<Jugador>{
 		}
 		return b;
 	}
+        
 	
 	boolean pasaPorSalida(){
 		saldo += PasoPorSalida;
