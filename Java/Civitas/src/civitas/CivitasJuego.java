@@ -20,12 +20,8 @@ public class CivitasJuego{
             gestorEstados.estadoInicial();
             indiceJugadorActual=Dado.getInstance().quienEmpieza(nombres.size());
             mazo=new MazoSorpresas();
-           /* tablero=new Tablero(int carcel)
-                De donde coño saco el indice de la carcel????????
-
-            */
-
-
+            inicializarTablero(mazo);
+            inicializarMazoSorpresas(tablero);
         }
 
         public Boolean cancelarHipoteca(int ip){
@@ -77,12 +73,11 @@ public class CivitasJuego{
         }
 
         private void inicializarMazoSorpresas(Tablero tablero){
-
-
+                return 0
         }
 
         private void inicializarTablero(MazoSorpresas mazo){
-
+                tablero=new Tablero(15)
         }
 
         private void pasarTurno(){
