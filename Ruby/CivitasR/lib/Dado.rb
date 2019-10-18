@@ -1,39 +1,37 @@
+#encoding:utf-8
+
 require 'singleton'
-require_relative 'diario'
-
-
 module Civitas
-    class Dado
-        include Singleton
-        attr_reader :ultimoResultado
+
+  class Dado
+    include Singleton
+    attr_reader :ultimoResultado
     
+    @@SalidaCarcel = 5
+
+    def initialize
+      @ultimoResultado = -1
+      @debug = false
+    end
+
     def tirar
-        @debug ? @random=1 : @random=(rand(6)+1)
-        @ultimoResultado=@random
-        return @random
+      @ultimoResultado = @debug? 1:rand(1..6)
+      return @ultimoResultado
     end
 
     def salgoDeLaCarcel
-        self.tirar()==5 ? cond=true : cond=false
-        return cond
+      return @@SalidaCarcel >= rand(1..6)
     end
 
     def quienEmpieza(n)
-        return rand(n)
+      return rand(n)
     end
 
     def setDebug(d)
-        @debug=d
-        d ? st="Dado en modo debug" : st="Dado en modo no debug"
-        Diario.instance.ocurre_evento(st)
+      @debug = d
+      Diario.instance.ocurre_evento("Dado -- modo debug: " + d.to_s)
     end
 
-    private
-        def initialize
-            @random
-            @ultimoResultado
-            @debug=false
-            @@SalidaCarcel=5
-        end
-    end
+
+  end
 end

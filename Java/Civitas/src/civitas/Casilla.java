@@ -15,81 +15,81 @@ public class Casilla {
     private TituloPropiedad tituloPropiedad;
     private MazoSorpresas mazo;
     
-    Casilla(TipoCasilla type,String nombr){
-        tipo=type;
-        nombre=nombr;
+    Casilla(String tnombre){
+        tipo=TipoCasilla.DESCANSO;
+        nombre=tnombre;
     }
 
-    Casilla (TipoCasilla type,TituloPropiedad titulo){
+    Casilla (TituloPropiedad titulo){
         init();
-        tipo=type;
+        tipo=TipoCasilla.CALLE;
         nombre=titulo.getNombre();
         tituloPropiedad=titulo;
     }
 
-    Casilla (TipoCasilla type,float cantidad,String nombr){
+    Casilla (float cantidad,String tnombre){
         init();
-        tipo=type;
+        tipo=TipoCasilla.IMPUESTO;
         importe=cantidad;
-        nombre=nombr;
+        nombre=tnombre;
     }
 
-    Casilla (TipoCasilla type,int numCasillaCarcel,String nombr){
+    Casilla (int numCasillaCarcel,String tnombre){
         init();
-        tipo=type;
+        tipo=TipoCasilla.JUEZ;
         carcel=numCasillaCarcel;
-        nombre=nombr;
+        nombre=tnombre;
     }
 
-    Casilla (TipoCasilla type,MazoSorpresas Mazo,String nombr){
+    Casilla (MazoSorpresas tmazo,String tnombre){
         init();
-        tipo=type;
-        mazo=Mazo;
-        nombre=nombr;
+        tipo=TipoCasilla.SORPRESA;
+        mazo=tmazo;
+        nombre=tnombre;
     }
 
     public String getNombre(){
-        return nombre
+        return nombre;
     }
 
     TituloPropiedad getTituloPropiedad(){
-        return tituloPropiedad
+        return tituloPropiedad;
     }
 
-    private void informe(int iactual,Jugador todos){
-        Diario.ocurreEvento(todos[iactual].toString() + " " + this.toString());
+    private void informe(int iactual,ArrayList<Jugador> todos){
+        Diario.getInstance().ocurreEvento(todos.get(iactual).toString() + " " + toString());
     }
 
     private void init(){
-            carcel=null;
-            importe=null;
-            tituloPropiedad=null;
-            mazo=null;
+		carcel=0;
+		importe=0;
+		tituloPropiedad=null;
+		mazo=null;
     }
 
-    public Boolean jugadorCorrecto(int iactual,Jugador todos){
-            return iactual<todos.size()
+    public Boolean jugadorCorrecto(int iactual,ArrayList<Jugador> todos){
+		return iactual<todos.size();
     }
 
-    void recibeJugador(int iactual,Jugador todos){
-
+    void recibeJugador(int iactual,ArrayList<Jugador> todos){
+		int i = 0;
     }
 
-    private void recibeJugador_calle(int iactual,Jugador todos){
-        
+    private void recibeJugador_calle(int actual,ArrayList<Jugador> todos){
+        int i = 0;
     }
 
-    private void recibeJugador_impuesto(int iactual,Jugador todos){
-        if(jugadorCorrecto(iactual,todos)){
-            this.informe(iactual,todos);
-            todos[iactual].pagaImpuesto(importe);
+    private void recibeJugador_impuesto(int actual,ArrayList <Jugador> todos){
+        if(jugadorCorrecto(actual,todos)){
+            this.informe(actual,todos);
+            todos.get(actual).pagaImpuesto(importe);
         }
     }
 
-    private void recibeJugador_juez(int iactual,Jugador todos){
-        if(jugadorCorrecto(iactual,todos)){
-                informe(iactual,todos);
-                todos[iactual].encarcelar(carcel);
+    private void recibeJugador_juez(int actual,ArrayList <Jugador> todos){
+        if(jugadorCorrecto(actual,todos)){
+                informe(actual,todos);
+                todos.get(actual).encarcelar(carcel);
         }
     }
 
@@ -98,6 +98,6 @@ public class Casilla {
     }
 
     public String toString(){
-        return "SquareType: " + nombre;
+        return "Nombre: " + nombre;
     }
 }

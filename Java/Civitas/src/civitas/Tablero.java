@@ -1,97 +1,70 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package civitas;
 import java.util.ArrayList;
 
-
 public class Tablero {
     private int numCasillaCarcel;
-    private int porSalida;
     private ArrayList<Casilla> casillas;
-    private Boolean tieneJuez;
-  
-    public Tablero(int indexcarcel){
-      if(indexcarcel>=1){
-          numCasillaCarcel=indexcarcel;
-      }
-      else{
-          numCasillaCarcel=1;
-      }
-      casillas=new ArrayList<>();
-      Casilla obj =new Casilla("Salida");
-      casillas.add(obj);
-      porSalida=0;
-      tieneJuez=false;
+    private int porSalida;
+    private boolean tieneJuez;
+    
+    public Tablero(int tNumCasillaCarcel){
+        numCasillaCarcel = tNumCasillaCarcel;
+        porSalida = 0;
+        tieneJuez = false;
+        casillas = new ArrayList<>();
     }
-
-    private Boolean correcto(){
-        return casillas.size()>numCasillaCarcel && tieneJuez;
+    
+    private boolean correcto(){
+        return casillas.size() > numCasillaCarcel;
     }
-
-    private Boolean correcto(int numCasilla){
-        return correcto() && numCasilla<casillas.size();
+    
+    private boolean correcto(int numCasilla){
+        return correcto() && (casillas.size() > numCasilla);
     }
-
+    
     public int getCarcel(){
         return numCasillaCarcel;
     }
-
+    
     public int getPorSalida(){
-        int copia=porSalida;
-        if(porSalida>0){
-            porSalida-=1;
+        int t = porSalida;
+        if (t != 0){
+            porSalida--;
         }
-        return copia;
+        return t;
     }
-
+    
     public void añadeCasilla(Casilla casilla){
-        Casilla Carcel=new Casilla("Carcel");
-        if(casillas.size()==numCasillaCarcel){
-            casillas.add(Carcel);
-        }
         casillas.add(casilla);
+        if (casillas.size() >= numCasillaCarcel){
+            casillas.add(new Casilla("Carcel"));
+        }
     }
-
+    
     public void añadeJuez(){
-        if(!tieneJuez){
-            Casilla Juez=new Casilla("Juez");
-            tieneJuez=true;
-            casillas.add(Juez);        
+        if (!tieneJuez){
+            añadeCasilla(new Casilla(2,"Juez"));
+            tieneJuez = true;
         }
     }
     
     public Casilla getCasilla(int numCasilla){
-            return correcto(numCasilla) ? casillas.get(numCasilla):null;
-    }
- 
-    public int nuevaPosicion(int actual,int tirada){
-        int resultado=actual+tirada;
-        if(correcto(actual)){
-            if(!(actual+tirada<casillas.size())){
-                resultado=resultado%casillas.size();
-                porSalida++;
-            }
-        }
-        else{
-            resultado=-1;
-        }
-        return resultado;
+        return (numCasilla >= 0) && (numCasilla < casillas.size()) ? casillas.get(numCasilla) : null;
     }
     
-    public int calcularTirada(int origen,int destino){
-        int resultado;
-        if(destino-origen>0){
-            resultado=destino-origen;
+    public int nuevaPosicion(int actual, int tirada){
+        if(!correcto()){
+            return -1;
         }
-        else{
-            resultado=destino-origen+casillas.size();
+        int ncasilla = (actual + tirada) % casillas.size();
+        if(ncasilla != actual + tirada){
+            porSalida++;
         }
-        return resultado;
+        return ncasilla;
     }
     
-    
+    public int calcularTirada(int origen, int destino){
+        return (destino-origen+casillas.size())%casillas.size();
+    }
     
 }

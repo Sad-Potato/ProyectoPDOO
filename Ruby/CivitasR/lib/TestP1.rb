@@ -1,3 +1,5 @@
+#encoding:utf-8
+
 require_relative 'Casilla'
 require_relative 'Dado'
 require_relative 'diario'
@@ -57,11 +59,11 @@ module Civitas
       puts Diario.instance.eventos_pendientes
      
     test2=Tablero.new(5)
-    test2.añadeCasilla(Casilla.new("Tuputamadreeee"))
-    test2.añadeCasilla(Casilla.new("segunda"))
-    test2.añadeCasilla(Casilla.new("tercera"))
-    test2.añadeCasilla(Casilla.new("cuarta"))
-    test2.añadeCasilla(Casilla.new("quinta"))
+    test2.añadeCasilla(Casilla.descanso("Tuputamadreeee"))
+    test2.añadeCasilla(Casilla.descanso("segunda"))
+    test2.añadeCasilla(Casilla.descanso("tercera"))
+    test2.añadeCasilla(Casilla.descanso("cuarta"))
+    test2.añadeCasilla(Casilla.descanso("quinta"))
     test2.añadeJuez
     puts test2.nuevaPosicion(0,7).to_s + "------" + test2.calcularTirada(0,0).to_s
     puts test2.inspect

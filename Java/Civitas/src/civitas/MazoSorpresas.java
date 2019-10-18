@@ -1,36 +1,31 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package civitas;
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class MazoSorpresas {
     private ArrayList<Sorpresa> sorpresas;
-    private Boolean barajada;
+    private boolean barajada;
     private int usadas;
-    private Boolean debug;
+    private boolean debug;
     private ArrayList<Sorpresa> cartasEspeciales;
     private Sorpresa ultimaSorpresa;
     
     private void init(){
-        usadas=0;
-        sorpresas=new ArrayList<>();
-        cartasEspeciales=new ArrayList<>();
-        barajada=false;
-    }
-    
-    public MazoSorpresas(Boolean d){
-        debug=d;
-        this.init();
-        Diario.getInstance().ocurreEvento("Se ha " + (d?"activado":"desactivado")+" el modo debug del mazo.");
+        sorpresas = new ArrayList<>();
+        cartasEspeciales = new ArrayList<>();
+        barajada = false;
+        usadas = 0;
     }
     
     public MazoSorpresas(){
         init();
-        debug=false;
+        debug = false;
+    }
+    
+    public MazoSorpresas(boolean tdebug){
+        init();
+        debug = tdebug;
+        Diario.getInstance().ocurreEvento("MazoSorpresas -- modo debug : " + debug);
     }
     
     public void alMazo(Sorpresa s){
@@ -40,45 +35,35 @@ public class MazoSorpresas {
     }
     
     public Sorpresa siguiente(){
-        Sorpresa copia;
-        if((barajada==false || usadas==sorpresas.size()) && !debug){
+        if(!barajada || usadas >= sorpresas.size()){
             Collections.shuffle(sorpresas);
-            usadas=0;
-            barajada=true;
+            usadas = 0;
+            barajada = true;
         }
+        ultimaSorpresa = sorpresas.get(0);
+        sorpresas.set(0, sorpresas.get(sorpresas.size()-1));
+        sorpresas.set(sorpresas.size()-1, ultimaSorpresa);
         usadas++;
-        ultimaSorpresa=sorpresas.get(0);
-        for(int i=0;i<sorpresas.size()-1;i++){
-            sorpresas.set(i,sorpresas.get(i+1));
-        }
-        sorpresas.set(sorpresas.size()-1,ultimaSorpresa);
         return ultimaSorpresa;
     }
     
-    public void inhabilitarCartaEspecial(Sorpresa sorpresa){
-        Boolean satisfactoria=false;
-        for(int i=0;i<sorpresas.size();i++){
-            if(sorpresa==sorpresas.get(i)){
-                cartasEspeciales.add(sorpresa);
-                sorpresas.remove(i);
-                satisfactoria=true;
-            }
-        }
-        if(satisfactoria){
-            Diario.getInstance().ocurreEvento("Se ha eliminado una carta sorpresa.");
+    public void inhabilitarCartaEspecial(Sorpresa s){
+        int i = sorpresas.indexOf(s);
+        if(i >= 0){
+            sorpresas.remove(i);
+            cartasEspeciales.add(s);
+            Diario.getInstance().ocurreEvento("MazoSorpresas -- "
+                    + "Carta especial deshabilitada");
         }
     }
     
-    public void habilitarCartaEspecial(Sorpresa sorpresa){
-        Boolean satisfactoria=false;
-        for(int i=0;i<cartasEspeciales.size();i++){
-            if(sorpresa==cartasEspeciales.get(i)){
-                sorpresas.add(sorpresa);
-                satisfactoria=true;
-            }
-        }
-        if(satisfactoria==true){
-            Diario.getInstance().ocurreEvento("Se ha añadido una carta sorpresa.");
+    public void habilitarCartaEspecial(Sorpresa s){
+        int i = cartasEspeciales.indexOf(s);
+        if(i >= 0){
+            cartasEspeciales.remove(i);
+            sorpresas.add(s);
+            Diario.getInstance().ocurreEvento("MazoSorpresas -- "
+                    + "Carta especial habilitada");
         }
     }
     

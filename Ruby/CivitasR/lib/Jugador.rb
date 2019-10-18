@@ -1,3 +1,5 @@
+#encoding:utf-8
+
 module Civitas
     require_relative 'diario'
     require_relative 'Dado'
@@ -11,29 +13,35 @@ module Civitas
 
         include Comparable
 
-        @@CasasMax=4
-        @@CasasPorHotel=4
-        @@HotelesMax=4
-        @@PasoPorSalida=1000.0
-        @@PrecioLibertad=200.0
-        @@SaldoInicial=7500.0
+        @@CasasMax = 4
+        @@CasasPorHotel = 4
+        @@HotelesMax = 4
+        @@PasoPorSalida = 1000.0
+        @@PrecioLibertad = 200.0
+        @@SaldoInicial = 7500.0
 
 
         def initialize(name)
             @nombre=name
             @encarcelado=false
-            @salvoconducto=false
+            @salvoconducto=nil
             @puedeComprar=nil
             @propiedades=nil
             @numCasillaActual=0
         end
 
-        def self.copia(p)
-            #Puedo preguntarle a jugador (p) por su nombre?
+        def self.copia(tjugador)
+            jugador = new(tjugador.nombre)
+            jugador.encarcelado = tjugador.encarcelado
+            jugador.salvoconducto = tjugador.salvoconducto
+            jugador.puedeComprar = tjugador.puedeComprar
+            jugador.propiedades = tjugador.propiedades
+            jugador.numCasillaActual = tjugador.numCasillaActual
+            return jugador
         end
 
         def debeSerEncarcelado
-            if(encarcelado)
+            if(@encarcelado)
                 resul=false
             else
                 if(tieneSalvoconducto)
@@ -46,6 +54,8 @@ module Civitas
             end
             return resul 
         end
+        
+        protected :debeSerEncarcelado
 
         def encarcelar(numCasillaCarcel)
             if(debeSerEncarcelado)
@@ -67,12 +77,14 @@ module Civitas
         end 
 
         def perderSalvoConducto
-            usada
+            @salvoconducto.usada
             @salvoconducto=nil
         end
+        
+        private :perderSalvoConducto
 
         def tieneSalvoconducto 
-            @salvoconducto==nil ? return true : return false
+            @salvoconducto == nil
         end
 
         def puedeComprarCasilla
@@ -85,15 +97,15 @@ module Civitas
         end
         
         def pagaImpuesto(cantidad)
-            @encarcelado ? return false : return paga(cantidad)
+            @encarcelado ? false : paga(cantidad)
         end
 
         def pagaAlquiler(cantidad)
-            @encarcelado ? return false : return paga(cantidad)
+            @encarcelado ? false : paga(cantidad)
         end
 
         def recibe(cantidad)
-            @encarcelado ? return false : return modificarSaldo(cantidad)
+            @encarcelado ? false : modificarSaldo(cantidad)
         end
 
         def modificarSaldo(cantidad)
@@ -114,8 +126,10 @@ module Civitas
         end
 
         def puedoGastar(precio)
-            @encarcelado ? return false : return @saldo>=precio
+            @encarcelado ? false : @saldo>=precio
         end
+        
+        private :puedoGastar
 
         def vender(ip)
             if(@encarcelado)
@@ -134,6 +148,8 @@ module Civitas
         def puedeSalirCarcelPagando
             return @saldo>=@@PrecioLibertad
         end
+        
+        private :puedeSalirCarcelPagando
 
         def salirCarcelPagando
             if(@encarcelado && puedeSalirCarcelPagando)
@@ -163,7 +179,7 @@ module Civitas
         end 
 
         def <=> (otro)
-            self.@saldo <=> otro.getSaldo
+          @saldo <=> otro.saldo
         end
 
 
@@ -171,72 +187,43 @@ module Civitas
         #   Metodos que no estan en el guion pero si
         #   en el diagrama estructural.
 
-        def self.getCasasMax
-            @@CasasMax
-        end
-
-        def self.getCasasPorHotel
-            @@CasasPorHotel
-        end
-
-        def self.getHotelesMax
-            @@HotelesMax
-        end
+        
 
         def enBancarrota
             @saldo<0
-        return 
+        end
         
         def existeLaPropiedad(ip)
             @propiedades.length<ip
         end
-
-        def getNombre
-            @nombre
-        end
-
-        def getNumCasillaActual
-            @numCasillaActual
-        end
-
-        def self.getPrecioLibertad
-            @@PrecioLibertad
-        end
-
-        def self.getPremioPasoSalida
-            @@PasoPorSalida
-        end
-
-        def getPropiedades
-             @propiedades
-        end
-
-        def getPuedeComprar
-            @puedeComprar
-        end
         
-        def getSaldo
-            @saldo
-        end
+        private :existeLaPropiedad
 
-        def isEncarcelado
-            @encarcelado
-        end
 
         def puedeEdificarCasa(propiedad)
             return propiedad.getNumCasas<@@CasasMax
         end
+        
+        private :puedeEdificarCasa
 
         def puedeEdificarHotel(propiedad)
             return propiedad.getNumCasas==4
         end
+        
+        private :puedeEdificarHotel
 
         def toString
             return "Jugador/ Nombre: " + @nombre + " Saldo: " + @saldo + " Casilla: " + @numCasillaActual
         end
-
-        private_class_method :getCasasMax :getHotelesMax
+         
+        attr_reader :CasasPorHotel,:encarcelado,:puedeComprar,:numCasillaActual
+        
+        private 
+          attr_reader  :HotelesMax,:CasasMax,:numCasillaActual,:PasoPorSalida,:PrecioLibertad
+        
+        protected
+          attr_reader :nombre,:saldo,:propiedades
+        
 
     end
-    
 end

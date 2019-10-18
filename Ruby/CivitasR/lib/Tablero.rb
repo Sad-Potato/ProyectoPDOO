@@ -1,3 +1,4 @@
+#encoding:utf-8
 # To change this license header, choose License Headers in Project Properties.
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
@@ -6,26 +7,20 @@ require_relative 'Enum'
 
 module Civitas
   class Tablero
-    attr_reader:casillas
+    
     
     def initialize(carcel)
-      @numCasillaCarcel=carcel>=1 ? carcel : 0
-      @casillas=[Casilla.new("Salida")]
+      @numCasillaCarcel= carcel >= 1 ? carcel : 1
+      @casillas=[Casilla.descanso("Salida")]
       @porSalida=0
       @tieneJuez=false
     end
     
-    def correcto
-      return @tieneJuez && @casillas.length>@numCasillaCarcel
+    def correcto(numCasilla = -1)
+       return @tieneJuez && @casillas.length > @numCasillaCarcel && numCasilla < @casillas.length
     end
     
-    def correcto1(numCasilla)
-       return self.correcto && numCasilla<@casillas.length
-    end
-    
-    def getCarcel
-        return @numCasillaCarcel
-    end
+    private :correcto
 
     def getPorSalida
       xp=@porSalida
@@ -35,27 +30,27 @@ module Civitas
       return xp
     end
 
-    def añadeCasilla(casp)
+    def añadeCasilla(casilla)
       if(@casillas.length==@numCasillaCarcel)
-        @casillas.push(Casilla.new("Carcel"))
+        @casillas.push(Casilla.descanso("Carcel"))
       end
-      @casillas.push(casp)
+      @casillas.push(casilla)
     end
 
     def añadeJuez
       if(!@tieneJuez)  
-        @casillas.push(Casilla.new("Juez"))
+        @casillas.push(Casilla.juez(@numCasillaCarcel,"Juez"))
         @tieneJuez=true
       end
     end
 
     def getCasilla(numCasilla)
-      return correcto1(numCasilla) ? @casillas[numCasilla] : nil
+      return correcto(numCasilla) ? @casillas[numCasilla] : nil
     end
 
     def nuevaPosicion(actual,tirada)
       resultado=actual+tirada
-        if(correcto1(actual))
+        if(correcto(actual))
           if((actual+tirada)>=@casillas.length)
             resultado%=@casillas.length
             @porSalida+=1
@@ -70,6 +65,9 @@ module Civitas
       (destino-origen)>0 ? resul=destino-origen : resul=@casillas.length+(destino-origen)
       return resul
     end
+    
+    attr_reader:casillas,:numCasillaCarcel
+    
   end
 end
 
