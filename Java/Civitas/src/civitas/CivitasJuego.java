@@ -6,6 +6,7 @@ import java.util.Arrays;
 
 
 public class CivitasJuego{
+
 	private int indiceJugadorActual;
 	private ArrayList<Jugador> jugadores;
 	private GestorEstados gestorEstados;
@@ -119,4 +120,5 @@ public class CivitasJuego{
 	public Boolean vender(int ip){
 		return jugadores.get(indiceJugadorActual).vender(ip);
 	}
+
 }
