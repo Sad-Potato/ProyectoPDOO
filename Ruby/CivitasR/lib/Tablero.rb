@@ -7,7 +7,7 @@ require_relative 'Enum'
 
 module Civitas
   class Tablero
-    attr_reader:casillas
+    
     
     def initialize(carcel)
       @numCasillaCarcel= carcel >= 1 ? carcel : 1
@@ -20,9 +20,7 @@ module Civitas
        return @tieneJuez && @casillas.length > @numCasillaCarcel && numCasilla < @casillas.length
     end
     
-    def getCarcel
-        return @numCasillaCarcel
-    end
+    private :correcto
 
     def getPorSalida
       xp=@porSalida
@@ -67,6 +65,9 @@ module Civitas
       (destino-origen)>0 ? resul=destino-origen : resul=@casillas.length+(destino-origen)
       return resul
     end
+    
+    attr_reader:casillas,:numCasillaCarcel
+    
   end
 end
 

@@ -29,6 +29,8 @@ module Civitas
 		def getPrecioAlquiler
 			return @alquilerBase*(1+(@numCasas*0.5)+(@numHoteles*2.5))
 		end
+    
+    private :getPrecioAlquiler
 
 		def getImporteCancelarHipoteca
 			return @@factorInteresesHipoteca * @hipotecaBase
@@ -59,10 +61,18 @@ module Civitas
 				@propietario.recibe(getPrecioAlquiler)
 			end
 		end
+    
+    def esEsteElPropietario(jugador)
+      return jugador==@propietario
+    end
+    
+    private :esEstePropietario
 
 		def propietarioEncarcelado
 			return @propietario != nil && @propietario.isEncarcelado
 		end
+    
+    private :propietarioEncarcelado
 
 		def cantidadCasasHoteles
 			return @numCasas + @numHoteles
@@ -79,6 +89,8 @@ module Civitas
 		def getPrecioVenta
 			return (@precioCompra+@precioEdificar*(@numCasas+@numHoteles))*@factorRevalorizacion
 		end
+    
+    private :getPrecioVenta
 
 		def construirCasa(jugador)
 			b = esEsteElPropietario(jugador)
