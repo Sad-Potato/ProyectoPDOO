@@ -83,6 +83,8 @@ public class CivitasJuego{
 		mazo.alMazo(new Sorpresa(TipoSorpresa.IRCASILLA, tablero, 3, "Ruleta rusa."));
 		mazo.alMazo(new Sorpresa(TipoSorpresa.PORCASAHOTEL, 50, "Dineros por cada casa"));
 		mazo.alMazo(new Sorpresa(TipoSorpresa.PORCASAHOTEL, -50, "Dineros (negativos) por casas"));
+		mazo.alMazo(new Sorpresa(TipoSorpresa.SALIRCARCEL, mazo));
+		mazo.alMazo(new Sorpresa(TipoSorpresa.IRCARCEL, tablero, 0, "Sorpresa! Carcel"));
 	}
 
 	private void inicializarTablero(MazoSorpresas mazo){
