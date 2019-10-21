@@ -46,7 +46,7 @@ module Civitas
             else
                 if(tieneSalvoconducto)
                     perderSalvoconducto
-                    diario.ocurre_evento("El jugador se libra de ir a la carcel.")
+                    Diario.ocurre_evento("El jugador se libra de ir a la carcel.")
                     resul=false
                 else
                     resul=true
@@ -61,7 +61,7 @@ module Civitas
             if(debeSerEncarcelado)
                 moverACasilla(numCasillaCarcel)
                 @encarcelado=true
-                diario.ocurre_evento("El jugador ha sido encarcelado")
+                Diario.ocurre_evento("El jugador ha sido encarcelado")
             end
             return @encarcelado
         end
@@ -110,7 +110,7 @@ module Civitas
 
         def modificarSaldo(cantidad)
             @saldo+=cantidad
-            diario.ocurre_evento("Se ha modificado el saldo en " + cantidad.to_s + " euros.")
+            Diario.ocurre_evento("Se ha modificado el saldo en " + cantidad.to_s + " euros.")
             return true
         end
 
@@ -120,7 +120,7 @@ module Civitas
             else
                 @numCasillaActual=numCasilla
                 @puedeComprar=false
-                diario.ocurre_evento("Se ha movido al jugador a la casilla "+@numCasillaActual.to_s)
+                Diario.ocurre_evento("Se ha movido al jugador a la casilla "+@numCasillaActual.to_s)
                 return true
             end
         end
@@ -155,7 +155,7 @@ module Civitas
             if(@encarcelado && puedeSalirCarcelPagando)
                 paga(@@PrecioLibertad)
                 @encarcelado=false
-                diario.ocurre_evento("El jugador deja de estar encarcelado.")
+                Diario.ocurre_evento("El jugador deja de estar encarcelado.")
                 return true
             else
                 return false
@@ -165,7 +165,7 @@ module Civitas
         def salirCarcelTirando
             if(Dado.salgoDeLaCarcel)
                 @encarcelado=false
-                diario.ocurre_evento("El jugador deja de estar encarcelado.")
+                Diario.ocurre_evento("El jugador deja de estar encarcelado.")
                 return true
             else
                 return false
@@ -174,7 +174,7 @@ module Civitas
 
         def pasaPorSalida
             modificarSaldo(@@PasoPorSalida)
-            diario.ocurre_evento("El jugador ha pasado por salida.")
+            Diario.ocurre_evento("El jugador ha pasado por salida.")
             return true
         end 
 

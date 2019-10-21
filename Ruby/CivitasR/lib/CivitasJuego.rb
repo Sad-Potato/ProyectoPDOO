@@ -36,13 +36,30 @@ module Civitas
     private :inicializarTablero
 
     def inicializaMazoSorpresas(tablero)
-      puts "JAJA"
+      @mazo.alMazo(Sorpresa.new(TipoSorpresa::IRCARCEL,tablero))
+      @mazo.alMazo(Sorpresa.new(TipoSorpresa::SALIRCARCEL,@mazo))
+      @mazo.alMazo(Sorpresa.new(TipoSorpresa::IRCASILLA,tablero,10,"Te muevo de casilla porque puedo."))
+      @mazo.alMazo(Sorpresa.new(TipoSorpresa::IRCASILLA,tablero,1,"Por gracioso"))
+      @mazo.alMazo(Sorpresa.new(TipoSorpresa::IRCASILLA,tablero,20,"Evitar la carcel"))
+      @mazo.alMazo(Sorpresa.new(TipoSorpresa::PORCASAHOTEL,1,"??????"))
+      @mazo.alMazo(Sorpresa.new(TipoSorpresa::PORCASAHOTEL,1,"?????"))
+      @mazo.alMazo(Sorpresa.new(TipoSorpresa::PAGARCOBRAR,-100,"A pagar por gracioso"))
+      @mazo.alMazo(Sorpresa.new(TipoSorpresa::PAGARCOBRAR,100,"Toma crack"))
+    
+        
+      
+      
+      
+      
+      
     end
     
     private :inicializaMazoSorpresas
 
     def contabilizarPasosPorSalida(jugadorActual)
-
+      while @tablero.getPorSalida != 0
+        jugadorActual.pasaPorSalida
+      end
     end
     
     private :contabilizarPasosPorSalida
@@ -92,8 +109,19 @@ module Civitas
 		def ranking
 			return @jugadores.sort
 		end
-    
     private :ranking
+    
+    def avanzaJugador
+      jugadorActual = @jugadores[@indiceJugadorActual]
+      posicionActual = jugadorActual.getNumCasillaActual
+      tirada = Dado.instance.tirar
+      posicionNueva = @tablero.nuevaPosicion(posicionActual,tirada)
+      casilla = @tablero.getCasilla(posicionNueva)
+      contabilizarPasosPorSalida(jugadorActual)
+      jugadorActual.moverACasilla(posicionNueva)
+      casilla.recibeJugador(@indiceJugadorActual,@jugadores)
+      contabilizarPasosPorSalida(jugadorActual)
+    end
 
   end
 end
