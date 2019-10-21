@@ -39,7 +39,26 @@ module Civitas
             jugador.numCasillaActual = tjugador.numCasillaActual
             return jugador
         end
-
+        
+        def cancelarHipoteca(ip)
+          result=false
+          if @encarcelado
+            return result
+          end
+          if existeLaPropiedad(ip)
+            propiedad=@propiedades.get(ip);
+            cantidad=propiedad.getImporteCancelarHipoteca
+            puedoGastar=puedoGastar(cantidad)
+            if puedoGastar
+              result=propiedad.cancelarHipoteca(self)
+              if result
+                Diario.ocurreEvento("El jugador "+@nombre+" cancela la hipoteca de la propiedad "+ip.to_s)
+              end
+            end
+          end
+          return result
+        end
+        
         def debeSerEncarcelado
             if(@encarcelado)
                 resul=false
@@ -134,11 +153,16 @@ module Civitas
         def vender(ip)
             if(@encarcelado)
                 return false
-            else
-                if(existeLaPropiedad)
-
-                end
             end
+            if(existeLaPropiedad(ip))
+              resul=@propiedades.at(ip).vender(self)
+              if resul
+                @propiedades.delete_at(ip)
+                Diario.ocurre_evento("Vendida la propiedad : "+ip.to_s)
+                return true
+              end
+            end
+            return false
         end
 
         def tieneAlgoQueGestionar
