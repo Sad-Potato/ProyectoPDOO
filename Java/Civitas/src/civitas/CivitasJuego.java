@@ -6,10 +6,6 @@ import java.util.Arrays;
 
 
 public class CivitasJuego{
-<<<<<<< HEAD
-=======
-
->>>>>>> miguel
 	private int indiceJugadorActual;
 	private ArrayList<Jugador> jugadores;
 	private GestorEstados gestorEstados;
@@ -80,7 +76,13 @@ public class CivitasJuego{
 	}
 
 	private void inicializarMazoSorpresas(Tablero tablero){
-		int i = 0;
+		mazo.alMazo(new Sorpresa(TipoSorpresa.PAGARCOBRAR, 500, "Concurso de belleza, cobra 500."));
+		mazo.alMazo(new Sorpresa(TipoSorpresa.PAGARCOBRAR, -500, "Multa de trafico, paga 500."));
+		mazo.alMazo(new Sorpresa(TipoSorpresa.IRCASILLA, tablero, tablero.getCarcel(), "Visita a tu compañero de la carcel"));
+		mazo.alMazo(new Sorpresa(TipoSorpresa.IRCASILLA, tablero, 2, "Ruleta rusa."));
+		mazo.alMazo(new Sorpresa(TipoSorpresa.IRCASILLA, tablero, 3, "Ruleta rusa."));
+		mazo.alMazo(new Sorpresa(TipoSorpresa.PORCASAHOTEL, 50, "Dineros por cada casa"));
+		mazo.alMazo(new Sorpresa(TipoSorpresa.PORCASAHOTEL, -50, "Dineros (negativos) por casas"));
 	}
 
 	private void inicializarTablero(MazoSorpresas mazo){
@@ -123,8 +125,4 @@ public class CivitasJuego{
 	public Boolean vender(int ip){
 		return jugadores.get(indiceJugadorActual).vender(ip);
 	}
-<<<<<<< HEAD
-=======
-
->>>>>>> miguel
 }
