@@ -42,7 +42,9 @@ module Civitas
     private :inicializaMazoSorpresas
 
     def contabilizarPasosPorSalida(jugadorActual)
-
+      while @tablero.getPorSalida != 0
+        jugadorActual.pasaPorSalida
+      end
     end
     
     private :contabilizarPasosPorSalida
@@ -92,8 +94,19 @@ module Civitas
 		def ranking
 			return @jugadores.sort
 		end
-    
     private :ranking
+    
+    def avanzaJugador
+      jugadorActual = @jugadores[@indiceJugadorActual]
+      posicionActual = jugadorActual.getNumCasillaActual
+      tirada = Dado.instance.tirar
+      posicionNueva = @tablero.nuevaPosicion(posicionActual,tirada)
+      casilla = @tablero.getCasilla(posicionNueva)
+      contabilizarPasosPorSalida(jugadorActual)
+      jugadorActual.moverACasilla(posicionNueva)
+      casilla.recibeJugador(@indiceJugadorActual,@jugadores)
+      contabilizarPasosPorSalida(jugadorActual)
+    end
 
   end
 end
