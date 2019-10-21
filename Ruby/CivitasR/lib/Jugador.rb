@@ -59,6 +59,29 @@ module Civitas
           return result
         end
         
+        def construirHotel(ip)
+          result=false
+          if @encarcelado
+            return result
+          end
+          if existeLaPropiedad(ip)
+            propiedad=@propiedades.at(ip)
+            puedoEdificarHotel=puedoEdificarHotel(propiedad)
+            puedoEdificarHotel=false
+            precio=propiedad.getPrecioEdificar
+            if(puedoGastar(precio) && (propiedad.numHoteles<@@HotelesMax) && (propiedad.numCasas>=@@CasasPorHotel))
+              puedoEdificarHotel=true
+            end
+            if puedoEdificarHotel
+              result=propiedad.construirHotel(self)
+              casasPorHotel=@@CasasPorHotel
+              propiedad.derruirCasas(casasPorHotel,self)
+            end
+            Diario.ocurre_evento("El jugador "+@nombre+" construye hotel en la propiedad "+ip.to_s)
+          end
+          return result
+        end
+        
         def debeSerEncarcelado
             if(@encarcelado)
                 resul=false

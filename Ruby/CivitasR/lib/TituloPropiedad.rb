@@ -105,7 +105,7 @@ module Civitas
 		def construirHotel(jugador)
 			b = esEsteElPropietario(jugador)
 			if b
-				jugador.paga(@precioEdificar*5)
+				@propietario.paga(@precioEdificar*5)
 				@numHoteles += 1
 			end
 			return b
@@ -130,6 +130,8 @@ module Civitas
       end
       return false
     end
+    
+    attr_reader :numCasas,:numHoteles,:nombre,:propietario,:precioCompra,:precioEdificar,:hipotecado
 
 	end
 end
