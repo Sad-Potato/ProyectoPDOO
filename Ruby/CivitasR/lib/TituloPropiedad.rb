@@ -55,13 +55,13 @@ module Civitas
 			return b
 		end
 
-		def tramitarAlquiler(jugador)
-			b = @propietario != nil && !esEsteElPropietario(jugador)
-			if b
-				jugador.pagaAlquiler(getPrecioAlquiler)
-				@propietario.recibe(getPrecioAlquiler)
-			end
+	def tramitarAlquiler(jugador)
+		b = tienePropietario && !esEsteElPropietario(jugador)
+		if b
+			jugador.pagaAlquiler(getPrecioAlquiler)
+			@propietario.recibe(getPrecioAlquiler)
 		end
+	end
     
     def esEsteElPropietario(jugador)
       return jugador==@propietario

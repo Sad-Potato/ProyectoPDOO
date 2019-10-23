@@ -4,11 +4,6 @@ module Civitas
     require_relative 'diario'
     require_relative 'Dado'
 
-    # Cosas pendientes:
-    #   -Generalizar el uso de la clase diario
-    #   -Constructores
-    #   -Visibilidad de los metodos
-
     class Jugador
 
         include Comparable

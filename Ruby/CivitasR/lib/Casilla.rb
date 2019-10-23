@@ -48,7 +48,36 @@ module Civitas
       )
     end
     private :informe
+
+    def recibeJugador(iactual,todos)
+      case @tipo
+        when TipoCasilla::CALLE
+          recibeJugador_calle(iactual,todos)
+        when TipoCasilla::IMPUESTO
+          recibeJugador_impuesto(iactual,todos)
+        when TipoCasilla::JUEZ
+          recibeJugador_juez(iactual,todos)
+        when TipoCasilla::SORPRESA
+          recibeJugador_sorpresa(iactual,todos)
+        else
+          informe(iactual,todos)
+        end
+    end
     
+    def recibeJugador_calle(iactual,todos)
+      if(jugadorCorrecto(iactual,todos))
+        informe(iactual,todos)
+        jugador=Jugador.copia(todos.at(iactual))
+        if(!@titulo.tienePropietario)
+          jugador.puedeComprarCasilla
+        else
+          @titulo.tramitarAlquiler(jugador)
+        end
+      end
+    end
+
+    private :recibeJugador_calle
+
     def recibeJugador_impuesto(actual, todos)
       if jugadorCorrecto(actual, todos)
         informe(actual, todos)

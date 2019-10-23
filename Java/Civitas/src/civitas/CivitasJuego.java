@@ -127,9 +127,18 @@ public class CivitasJuego{
 		return jugadores.get(indiceJugadorActual).salirCarcelTirando();
 	}
 
-	public void siguientePaso(){
-		int i = 0;
-
+	public OperacionesJuego siguientePaso(){
+		Jugador jugadorActual=jugadores.get(indiceJugadorActual);
+		OperacionesJuego operacion=GestorEstados.operacionesPermitidas(jugadorActual,estado);
+		if(operacion==OperacionesJuego.PASAR_TURNO){
+			this.pasarTurno();
+			this.siguientePasoCompletado(operacion);
+		}
+		else if(operacion==OperacionesJuego.AVANZAR){
+			this.avanzaJugador();
+			this.siguientePasoCompletado(operacion);
+		}
+		return operacion;
 	}
 
 	public void siguientePasoCompletado(OperacionesJuego operacion){

@@ -249,7 +249,18 @@ public class Jugador implements Comparable<Jugador>{
 	}
 
     Boolean hipotecar(int ip) {
-        return true;
+       	Boolean result=false;
+	   	if(encarcelado){
+			return result;
+	   	}
+		if(existeLaPropiedad(ip)){
+			TituloPropiedad propiedad=propiedades.get(ip);
+			result=propiedad.hipotecar(this);
+		}
+		if(result){
+			Diario.getInstance().ocurreEvento("El jugador "+nombre+" hipoteca la propiedad "+ip);
+		}
+		return result;
     }
 	
 }

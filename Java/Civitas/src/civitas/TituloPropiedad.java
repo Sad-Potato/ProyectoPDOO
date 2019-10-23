@@ -109,7 +109,13 @@ public class TituloPropiedad {
     }
     
     Boolean hipotecar(Jugador jugador){
-        return true;
+        boolean salida=false;
+        if(!hipotecado && esEsteElPropietario(jugador)){
+            propietario.recibe(getImporteHipoteca());
+            hipotecado=true;
+            salida=true;
+        }
+        return salida;
     }
     
     private Boolean propietarioEncarcelado(){
