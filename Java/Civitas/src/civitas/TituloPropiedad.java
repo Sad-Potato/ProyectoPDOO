@@ -32,7 +32,13 @@ public class TituloPropiedad {
     }
     
     Boolean comprar(Jugador jugador){
-      throw new UnsupportedOperationException("No implementado");
+      boolean result=false;
+      if(!tienePropietario()){
+          propietario=jugador;
+          result=true;
+          propietario.paga(getPrecioCompra());
+      }
+      return result;
     }
     
     Boolean construirCasa(Jugador jugador){

@@ -83,7 +83,27 @@ public class Jugador implements Comparable<Jugador>{
 		}
 		return sum;
 	}
+        
+        boolean comprar(TituloPropiedad titulo){
+            boolean result=false;
+            if(encarcelado){
+                return result;
+            }
+            if(puedeComprar){
+                float precio=titulo.getPrecioCompra();
+                if(puedoGastar(precio)){
+                    result=titulo.comprar(this);
+                    if(result){
+                        propiedades.add(titulo);
+                        Diario.getInstance().ocurreEvento("El jugador "+nombre+" compra la propiedad "+ titulo.toString());
+                    }
+                    puedeComprar=false;
+                }
+            }
+            return result;
+        }
 	
+        
 	
     protected boolean debeSerEncarcelado(){
         if(!encarcelado && tieneSalvoconducto()){
