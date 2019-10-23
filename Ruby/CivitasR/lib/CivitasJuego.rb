@@ -97,15 +97,13 @@ module Civitas
     private :ranking
     
     def avanzaJugador
-      jugadorActual = @jugadores[@indiceJugadorActual]
-      posicionActual = jugadorActual.getNumCasillaActual
-      tirada = Dado.instance.tirar
-      posicionNueva = @tablero.nuevaPosicion(posicionActual,tirada)
-      casilla = @tablero.getCasilla(posicionNueva)
-      contabilizarPasosPorSalida(jugadorActual)
-      jugadorActual.moverACasilla(posicionNueva)
-      casilla.recibeJugador(@indiceJugadorActual,@jugadores)
-      contabilizarPasosPorSalida(jugadorActual)
+      jugadorActual = @jugadores[@indiceJugadorActual] #1.1
+      posicionNueva = @tablero.nuevaPosicion(jugadorActual.getNumCasillaActual,Dado.instance.tirar)  #1.2, 1.3 y 1.4
+      casilla = @tablero.getCasilla(posicionNueva) #1.5
+      contabilizarPasosPorSalida(jugadorActual) #1.6
+      jugadorActual.moverACasilla(posicionNueva) #1.7
+      casilla.recibeJugador(@indiceJugadorActual,@jugadores) #1.8
+      contabilizarPasosPorSalida(jugadorActual) #1.9
     end
 
   end

@@ -25,7 +25,7 @@ module Civitas
             @nombre=name
             @encarcelado=false
             @salvoconducto=nil
-            @puedeComprar=nil
+            @puedeComprar=false
             @propiedades=nil
             @numCasillaActual=0
         end
@@ -140,7 +140,40 @@ module Civitas
                 end
             end
         end
+        
+        def comprar(titulo)
+          result = false
+          if(@encarcelado)
+            return result
+          end
+          if @puedeComprar
+            precio = titulo.getPrecioCompra
+            if puedoGastar(precio)
+              result = titulo.comprar(self)
+              if result
+                @propiedades << titulo
+                Diario.instance.ocurre_evento("El jugador " + @nombre + " compra la propiedad " + titulo.toString);
+              end
+              @puedeComprar = false
+            end
+            return result
+          end
+        end
 
+        def hipotecar(ip)
+          result = false
+          if @encarcelado
+            return result
+          end
+          if existeLaPropiedad(ip)
+            propiedad = @propiedades[ip]
+            result = propiedad.hipotecar(self)
+          end
+          if result
+            Diario.instance.ocurre_evento("El jugador " + @jugador.getNombre + " compra la propiedad " + titulo.toString)  
+          end
+        end
+          
         def tieneAlgoQueGestionar
             return getPropiedades.empty?
         end
