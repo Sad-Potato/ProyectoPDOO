@@ -188,7 +188,7 @@ module Civitas
             return false
         end
         
-        def comprar(titulo)
+        def comprar(titulo) #COMPROBAR VISUALIZACION
           result = false
           if(@encarcelado)
             return result
@@ -203,24 +203,23 @@ module Civitas
               end
               @puedeComprar = false
             end
-            return result
           end
+          return result
         end
 
-        def hipotecar(ip)
+        def hipotecar(ip) #COMPROBAR VISUALIZACION
           result = false
           if @encarcelado
             return result
           end
           if existeLaPropiedad(ip)
-            propiedad = @propiedades[ip]
-            result = propiedad.hipotecar(self)
+            result = @propiedades[ip].hipotecar(self)
           end
           if result
             Diario.instance.ocurre_evento("El jugador " + @jugador.getNombre + " compra la propiedad " + titulo.toString)  
           end
         end
-          
+        
         def tieneAlgoQueGestionar
             return getPropiedades.empty?
         end
