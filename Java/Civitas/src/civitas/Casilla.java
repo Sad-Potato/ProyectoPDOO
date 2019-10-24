@@ -76,7 +76,7 @@ public class Casilla {
     }
 
     private void recibeJugador_calle(int actual,ArrayList<Jugador> todos){
-        int i = 0;
+        if( jugadorCorrecto)
     }
 
     private void recibeJugador_impuesto(int actual,ArrayList <Jugador> todos){

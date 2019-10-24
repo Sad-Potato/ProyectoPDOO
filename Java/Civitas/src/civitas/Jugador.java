@@ -236,15 +236,30 @@ public class Jugador implements Comparable<Jugador>{
 		return (int) Math.signum(saldo - otro.saldo);
 	}
         
-	Boolean cancelarHipoteca(int ip){
+	boolean cancelarHipoteca(int ip){
+		boolean result = false;
+		if( encarcelado ){
+			return result;
+		}
+		if( existeLaPropiedad(ip) ){
+			TituloPropiedad propiedad = propiedades.get(ip);
+			float cantidad = propiedad.getImporteCancelarHipoteca();
+			if( puedoGastar(cantidad) ){
+				result = propiedad.cancelarHipoteca(this);
+				if( result ){
+					Diario.getInstance().ocurreEvento("Jugador -- El jugador " + 
+							nombre + " cancela la hipoteca de la propiedad " + propiedades.get(ip).toString());
+				}
+			}
+		}
+		return result;
+	}
+
+	boolean construirCasa(int ip){
 		return true;
 	}
 
-	Boolean construirCasa(int ip){
-		return true;
-	}
-
-	Boolean construirHotel(int ip){
+	boolean construirHotel(int ip){
 		return true;
 	}
 

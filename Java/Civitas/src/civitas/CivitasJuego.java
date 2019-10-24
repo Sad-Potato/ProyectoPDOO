@@ -129,7 +129,7 @@ public class CivitasJuego{
 
 	public OperacionesJuego siguientePaso(){
 		Jugador jugadorActual=jugadores.get(indiceJugadorActual);
-		OperacionesJuego operacion=GestorEstados.operacionesPermitidas(jugadorActual,estado);
+		OperacionesJuego operacion = gestorEstados.operacionesPermitidas(jugadorActual,estado);
 		if(operacion==OperacionesJuego.PASAR_TURNO){
 			this.pasarTurno();
 			this.siguientePasoCompletado(operacion);
