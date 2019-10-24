@@ -1,5 +1,12 @@
 #encoding:utf-8
 
+require_relative "Tablero"
+require_relative "Diario"
+require_relative "Dado"
+require_relative "MazoSorpresas"
+require_relative "Jugador"
+require_relative "Enum"
+
 module Civitas
   class CivitasJuego
     
@@ -46,11 +53,6 @@ module Civitas
       @mazo.alMazo(Sorpresa.new(TipoSorpresa::PAGARCOBRAR,-100,"A pagar por gracioso"))
       @mazo.alMazo(Sorpresa.new(TipoSorpresa::PAGARCOBRAR,100,"Toma crack"))
     
-        
-      
-      
-      
-      
       
     end
     
@@ -121,5 +123,17 @@ module Civitas
       contabilizarPasosPorSalida(jugadorActual) #1.9
     end
 
+    def siguientePaso
+      # 1, 2
+      operacion = @gestorEstados.operacionesPermitidas(@jugadores[@indiceJugadorActual],@estado);
+      case operacion
+        when OperacionesJuego::PASAR_TURNO
+          pasarTurno # 3
+        when OperacionesJuego::AVANZAR
+          avanzaJugador # 5
+      end
+      siguientePasoCompletado(operacion) # 4, 6
+      return operacion
+    end
   end
 end

@@ -1,6 +1,6 @@
 #encoding:utf-8
 
-require_relative 'diario'
+require_relative 'Diario'
 require_relative 'Enum'
 require_relative 'MazoSorpresas'
 

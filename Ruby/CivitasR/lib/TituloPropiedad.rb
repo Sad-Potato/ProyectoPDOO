@@ -1,5 +1,7 @@
 #encoding:utf-8
 
+require_relative "Jugador"
+
 module Civitas
 	class TituloPropiedad
 		@@factorInteresesHipoteca = 1.1

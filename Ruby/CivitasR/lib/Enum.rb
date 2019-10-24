@@ -1,7 +1,7 @@
 #encoding:utf-8
 
 module Civitas
-  module Operaciones_juego
+  module OperacionesJuego
     AVANZAR=:avanzar
     COMPRAR=:comprar
     GESTIONAR=:gestionar
@@ -26,7 +26,7 @@ module Civitas
     SALIRCARCEL=:salircarcel
   end
   
-  module Estados_juego
+  module EstadosJuego
     
 		INICIO_TURNO = :inicio_turno  
 		DESPUES_CARCEL =:despues_carcel
