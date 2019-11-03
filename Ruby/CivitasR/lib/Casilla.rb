@@ -63,6 +63,16 @@ module Civitas
           informe(iactual,todos)
         end
     end
+
+    def recibeJugador_sorpresa(iactual,todos) 
+      if(jugadorCorrecto(iactual,todos))
+        sorpresa=@mazo.siguiente() #1
+        this.informe(iactual,todos)
+        sorpresa.aplicarAJugador(iactual,todos)
+      end
+    end
+
+    private :recibeJugador_sorpresa
     
     def recibeJugador_calle(iactual,todos)
       if(jugadorCorrecto(iactual,todos))

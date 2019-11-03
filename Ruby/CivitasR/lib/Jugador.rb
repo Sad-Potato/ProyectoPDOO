@@ -281,7 +281,7 @@ module Civitas
     private :puedeEdificarCasa
 
     def puedeEdificarHotel(propiedad)
-      return propiedad.getNumCasas==4
+      return (propiedad.numCasas==4 && propiedad.numHoteles < @@HotelesMax)
     end
 
     private :puedeEdificarHotel

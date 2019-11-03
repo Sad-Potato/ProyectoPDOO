@@ -135,5 +135,15 @@ module Civitas
       siguientePasoCompletado(operacion) # 4, 6
       return operacion
     end
+
+    def comprar
+      jugadorActual=@jugadores[indiceJugadorActual] #1
+      numCasillaActu=jugadorActual.getNumCasillaActual  #2
+      casilla=@tablero.getCasilla(numCasillaActu) #3
+      titulo=casilla.getTituloPropiedad   #4
+      res=jugadorActual.comprar(titulo) #5
+      return res
+    end
+
   end
 end
