@@ -20,7 +20,7 @@ module Civitas
     end
 
     def salgoDeLaCarcel
-      return @@SalidaCarcel >= rand(1..6)
+      return rand(1..6) >= @@SalidaCarcel
     end
 
     def quienEmpieza(n)

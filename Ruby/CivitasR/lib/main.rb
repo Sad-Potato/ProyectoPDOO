@@ -1,14 +1,19 @@
 #encoding:utf-8
 
-MAIN = "casilla"
+require_relative "Casilla"
+require_relative "TituloPropiedad"
+require_relative "Jugador"
+require_relative "MazoSorpresas"
+require_relative "Tablero"
+
+#MAIN = "casilla"
+#MAIN = "dado"
+MAIN = "sorpresa"
+#MAIN = "tablero"
 
 module Civitas
   case MAIN
   when "casilla"
-    require_relative "Casilla"
-    require_relative "TituloPropiedad"
-    require_relative "Jugador"
-    require_relative "MazoSorpresas"
     
     jugadores = [Jugador.new("Test de pruebas"), Jugador.new("Test Comprador")]
     
@@ -34,7 +39,77 @@ module Civitas
       puts Diario.instance.leer_evento
     end
     
+  when "dado"
+    resultado = [0,0,0,0,0,0]
+    for i in 1..100
+      resultado[Dado.instance.tirar()-1] += 1
+    end
+    
+    puts "Se ha lanzado el dado 100 veces. Los resultados son:"
+    for i in 0..5
+      puts (i+1).to_s + ":   " + resultado[i].to_s
+    end
+    
+    puts "Se va a intentar salir de la carcel 10 veces"
+    for i in 1..10
+      puts Dado.instance.salgoDeLaCarcel().to_s
+    end
+    
+  when "sorpresa"
+    mazo = MazoSorpresas.new(true)
+    tablero = Tablero.new(3)
+    for i in 1..10
+      tablero.añadeCasilla(Casilla.descanso("Descanso " + i.to_s))
+    end
+    tablero.añadeJuez
+    
+    mazo.alMazo(
+      Sorpresa.new4(TipoSorpresa::SALIRCARCEL, mazo)
+    )
+    
+    mazo.alMazo(
+      Sorpresa.new1(TipoSorpresa::IRCARCEL, tablero)
+    )
+    
+    mazo.alMazo(
+      Sorpresa.new2(TipoSorpresa::IRCASILLA, tablero, 7, "Haces autostop")
+    )
+    
+    mazo.alMazo(
+      Sorpresa.new3(TipoSorpresa::PAGARCOBRAR, 5000, "Ganas la lotería")
+    )
+    
+    mazo.alMazo(
+      Sorpresa.new4(TipoSorpresa::SALIRCARCEL, mazo)
+    )
+    
+    mazo.alMazo(
+      Sorpresa.new3(TipoSorpresa::PORCASAHOTEL, -150, "Reparaciones generales")
+    )
+    
+    mazo.alMazo(
+      Sorpresa.new3(TipoSorpresa::PORJUGADOR, 50, "¡Felicidades, es tu cumpleaños!")
+    )
+    
+    jugadores = []
+    for i in 1..4
+      jugadores << Jugador.new("Jugador " + i.to_s)
+    end
+    
+    for i in 1..6
+      mazo.siguiente.aplicarAJugador(0, jugadores)
+    end
+    
+    while Diario.instance.eventos_pendientes
+      puts Diario.instance.leer_evento
+    end
+    
+   when "tablero"
+     tablero = Tablero.new(5)
+     for i in 1..10
+      tablero.añadeCasilla(Casilla.descanso("Descanso " + i.to_s))
+    end
+    tablero.añadeJuez
+    
   end
-  
-  
 end

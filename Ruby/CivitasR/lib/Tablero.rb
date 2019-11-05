@@ -64,7 +64,7 @@ module Civitas
       return resul
     end
     
-    attr_reader:casillas,:numCasillaCarcel
+    attr_reader :casillas,:numCasillaCarcel
     
   end
 end

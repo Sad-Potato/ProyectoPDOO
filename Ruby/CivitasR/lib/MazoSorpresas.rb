@@ -41,32 +41,27 @@ module Civitas
       return @ultimaSorpresa
     end
 
-    def inhabilitarCartaEspecial(s)   
-      p=false
-      for g in @sorpresas do
-        if s==g
-          p=true
-          @sorpresas.delete(g)
-        end
+    def inhabilitarCartaEspecial(s)
+      p = false
+      if @sorpresas.include?(s)
+          p = true
+          @sorpresas.delete(s)
+          @cartasEspeciales.push(s)
+          Diario.instance.ocurre_evento("MazoSorpresas -- Se ha eliminado la carta especial "+ s.toString)
       end
-      if(p)
-        @cartasEspeciales.push(s)
-      end
-      Diario.instance.ocurre_evento("Se ha eliminado la carta especial "+s.to_s)
+      return p
     end
 
+
     def habilitarCartaEspecial(s)
-      p=false
-      for g in @cartasEspeciales do
-        if(g==s)
-          p=true
-          @cartasEspeciales.delete(g)
-        end
+      p = false
+      if @cartasEspeciales.include?(s)
+          p = true
+          @cartasEspeciales.delete(s)
+          @sorpresas.push(s)
+          Diario.instance.ocurre_evento("MazoSorpresas -- Se ha añadido la carta especial "+ s.toString)
       end
-      if(p)
-        @sorpresas.push(s)
-      end
-      Diario.instance.ocurre_evento("Se ha añadido la carta especial "+s.to_s)
+      return p
     end
     private :init
   end

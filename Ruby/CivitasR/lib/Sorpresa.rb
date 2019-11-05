@@ -60,14 +60,14 @@ module Civitas
 
     def salirDelMazo
       if(@tipo==TipoSorpresa::SALIRCARCEL)
-        @mazo.inhabilitarCartaEspecial()
+        @mazo.inhabilitarCartaEspecial(self)
       end
     end
 
 
     def usada
       if(@tipo==TipoSorpresa::SALIRCARCEL)
-          @mazo.inhabilitarCartaEspecial()
+          @mazo.inhabilitarCartaEspecial(self)
       end
     end
 
@@ -80,16 +80,16 @@ module Civitas
     def aplicarAJugador_irCarcel(actual,todos)
       if(jugadorCorrecto(actual,todos))
         informe(actual,todos)
-        todos[actual].encarcelar(@tablero.getCarcel)
+        todos[actual].encarcelar(@tablero.numCasillaCarcel)
       end
     end
 
     def aplicarAJugador_irACasilla(actual,todos)
       if(jugadorCorrecto(actual,todos))
         informe(actual,todos)
-        p=todos[actual].getNumCasillaActual
-        todos[actual].moverACasilla(@tablero.nuevaPosicion(p,@tablero.calcularTirada(p,@valor)))
-        @tablero.getCasilla.recibeJugador(actual,todos)
+        p = todos[actual].numCasillaActual
+        todos[actual].moverACasilla( @tablero.nuevaPosicion(p,@tablero.calcularTirada(p,@valor) ) )
+        @tablero.getCasilla(@valor).recibeJugador(actual,todos)
       end
     end
 
@@ -103,19 +103,16 @@ module Civitas
     def aplicarAJugador_porCasaHotel(actual,todos)
       if(jugadorCorrecto(actual,todos))
         informe(actual,todos)
-        todos[actual].modificarSaldo(@valor*todos[actual].getCasasPorHotel)
+        todos[actual].modificarSaldo(@valor*todos[actual].cantidadCasasHoteles)
       end
     end
 
     def aplicarAJugador_porJugador(actual,todos)
       if(jugadorCorrecto(actual,todos))
         informe(actual,todos)
-        h=0
-        l.aplicarAJugador(actual,todos)
-        for g in todos do
-          p=new.Sorpresa(TipoSorpresa::PAGARCOBRAR,h==actual ? @valor*-1 : @valor*todos.length,"aplicarAJugador_porJugador")
-          p.aplicarAJugador(h,todos)
-          h+=1
+        for i in 0..todos.size-1 do
+          p = Sorpresa.new3(TipoSorpresa::PAGARCOBRAR,i==actual ? @valor*(todos.length-1) : @valor*-1,"aplicarAJugador_porJugador")
+          p.aplicarAJugador(i,todos)
         end
       end
     end
@@ -124,7 +121,7 @@ module Civitas
       if(jugadorCorrecto(actual,todos))
         informe(actual,todos)
         if(!todos.any? { |jugador| jugador.tieneSalvoconducto })
-          todos[actual].obtenerSalvoconducto
+          todos[actual].obtenerSalvoconducto(self)
           salirDelMazo
         end
       end

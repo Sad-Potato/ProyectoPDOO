@@ -21,7 +21,7 @@ module Civitas
       @encarcelado=false
       @salvoconducto=nil
       @puedeComprar=false
-      @propiedades=nil
+      @propiedades=[]
       @numCasillaActual=0
       @saldo = @@SaldoInicial
     end
@@ -86,7 +86,7 @@ module Civitas
       else
         if(tieneSalvoconducto)
           perderSalvoconducto
-          Diario.ocurre_evento("El jugador se libra de ir a la carcel.")
+          Diario.instance.ocurre_evento("El jugador se libra de ir a la carcel.")
           resul=false
         else
           resul=true
@@ -285,13 +285,22 @@ module Civitas
     private :puedeEdificarHotel
 
     def toString
-      return @nombre + ": [Saldo: " + @saldo.to_s + "; Casilla: " + @numCasillaActual.to_s + "; Encarcelado: " + @encarcelado.to_s + "]"
+      return @nombre + " (Saldo: " + @saldo.to_s + "; Casilla: " + @numCasillaActual.to_s + 
+             "; Propiedades: " + @propiedades.size().to_s + "; Encarcelado: " + @encarcelado.to_s + ")"
+    end
+    
+    def cantidadCasasHoteles
+      i = 0
+      for p in @propiedades
+        i += p.numCasas + p.numHoteles
+      end
+      return i
     end
 
     attr_reader :CasasPorHotel,:encarcelado,:puedeComprar,:numCasillaActual
 
     private 
-      attr_reader  :HotelesMax,:CasasMax,:numCasillaActual,:PasoPorSalida,:PrecioLibertad
+      attr_reader  :HotelesMax,:CasasMax,:PasoPorSalida,:PrecioLibertad
 
     protected
       attr_reader :nombre,:saldo,:propiedades
