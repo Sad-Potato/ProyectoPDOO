@@ -1,5 +1,10 @@
 #encoding:utf-8
 
+require_relative "TituloPropiedad"
+require_relative "Enum"
+require_relative "Diario"
+require_relative "Jugador"
+
 module Civitas
   class Casilla
     @@carcel = 0
@@ -9,7 +14,6 @@ module Civitas
       @importe = 0
       @nombre = "Sample Text"
     end
-    
     private :init
     
     def initialize(tipo, nombre, titulo, cantidad, mazo)
@@ -25,7 +29,7 @@ module Civitas
     end
     
     def self.calle(titulo)
-      return new(TipoCasilla::CALLE, titulo.getNombre(), titulo, nil, nil)
+      return new(TipoCasilla::CALLE, "PROPIEDAD", titulo, nil, nil)
     end
     
     def self.impuesto(cantidad, nombre)
@@ -43,7 +47,7 @@ module Civitas
     
     def informe(actual, todos)
       Diario.instance.ocurre_evento(
-        "Casilla -- El jugador " + todos[actual].getNombre() +
+        "Casilla -- El jugador " + todos[actual].toString() +
         " ha caido en la casilla " + toString()
       )
     end
@@ -67,17 +71,16 @@ module Civitas
     def recibeJugador_sorpresa(iactual,todos) 
       if(jugadorCorrecto(iactual,todos))
         sorpresa=@mazo.siguiente() #1
-        this.informe(iactual,todos)
+        informe(iactual,todos)
         sorpresa.aplicarAJugador(iactual,todos)
       end
     end
-
     private :recibeJugador_sorpresa
     
     def recibeJugador_calle(iactual,todos)
       if(jugadorCorrecto(iactual,todos))
         informe(iactual,todos)
-        jugador=Jugador.copia(todos.at(iactual))
+        jugador=todos[iactual]
         if(!@titulo.tienePropietario)
           jugador.puedeComprarCasilla
         else
@@ -85,7 +88,6 @@ module Civitas
         end
       end
     end
-
     private :recibeJugador_calle
 
     def recibeJugador_impuesto(actual, todos)
@@ -99,14 +101,14 @@ module Civitas
     def recibeJugador_juez(actual, todos)
       if jugadorCorrecto(actual, todos)
         informe(actual, todos)
-        actual[todos].encarcelar
+        todos[actual].encarcelar(@@carcel)
       end
     end
     private :recibeJugador_juez
     
     def toString()
       s = "[Nombre: " + @nombre + "; "
-      s += "Tipo: " + @tipo + "]"
+      s += "Tipo: " + @tipo.to_s + "]"
       return s
     end
     
@@ -121,7 +123,6 @@ module Civitas
     def getTituloPropiedad
       return @titulo
     end
-    
     
   end
 end

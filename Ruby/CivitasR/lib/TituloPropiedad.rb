@@ -27,6 +27,10 @@ module Civitas
 			s += "Hipotecado: " + @hipotecado.to_s + "; "
 			return s
 		end
+    
+    def tienePropietario
+      return nil != @propietario
+    end
 
 		def getPrecioAlquiler
 			return @alquilerBase*(1+(@numCasas*0.5)+(@numHoteles*2.5))
@@ -67,14 +71,12 @@ module Civitas
     
     def esEsteElPropietario(jugador)
       return jugador==@propietario
-    end
-    
-    private :esEstePropietario
+    end    
+    private :esEsteElPropietario
 
 		def propietarioEncarcelado
 			return @propietario != nil && @propietario.isEncarcelado
-		end
-    
+    end
     private :propietarioEncarcelado
 
 		def cantidadCasasHoteles

@@ -1,7 +1,7 @@
 #encoding:utf-8
 
 module Civitas
-  require_relative 'diario'
+  require_relative 'Diario'
   require_relative 'Dado'
 
   class Jugador
@@ -23,6 +23,7 @@ module Civitas
       @puedeComprar=false
       @propiedades=nil
       @numCasillaActual=0
+      @saldo = @@SaldoInicial
     end
 
     def self.copia(tjugador)
@@ -53,6 +54,7 @@ module Civitas
       end
       return result
     end
+    private :cancelarHipoteca
 
     def construirHotel(ip)
       result=false
@@ -76,6 +78,7 @@ module Civitas
       end
       return result
     end
+    private :construirHotel
 
     def debeSerEncarcelado
       if(@encarcelado)
@@ -91,14 +94,13 @@ module Civitas
       end
       return resul 
     end
-
     protected :debeSerEncarcelado
 
     def encarcelar(numCasillaCarcel)
       if(debeSerEncarcelado)
         moverACasilla(numCasillaCarcel)
         @encarcelado=true
-        Diario.ocurre_evento("El jugador ha sido encarcelado")
+        Diario.instance.ocurre_evento("Jugador -- El jugador " + toString + " ha sido encarcelado")
       end
       return @encarcelado
     end
@@ -113,15 +115,14 @@ module Civitas
       return resul
     end 
 
-    def perderSalvoConducto
+    def perderSalvoconducto
       @salvoconducto.usada
       @salvoconducto=nil
     end
-
-    private :perderSalvoConducto
+    private :perderSalvoconducto
 
     def tieneSalvoconducto 
-      @salvoconducto == nil
+      @salvoconducto != nil
     end
 
     def puedeComprarCasilla
@@ -147,7 +148,7 @@ module Civitas
 
     def modificarSaldo(cantidad)
       @saldo+=cantidad
-      Diario.ocurre_evento("Se ha modificado el saldo en " + cantidad.to_s + " euros.")
+      Diario.instance.ocurre_evento("Jugador -- Se ha modificado el saldo de " + toString + " en " + cantidad.to_s + " euros.")
       return true
     end
 
@@ -157,7 +158,7 @@ module Civitas
       else
         @numCasillaActual=numCasilla
         @puedeComprar=false
-        Diario.ocurre_evento("Se ha movido al jugador a la casilla "+@numCasillaActual.to_s)
+        Diario.instance.ocurre_evento("Jugador -- Se ha movido al jugador a la casilla "+@numCasillaActual.to_s)
         return true
       end
     end
@@ -165,7 +166,6 @@ module Civitas
     def puedoGastar(precio)
       @encarcelado ? false : @saldo>=precio
     end
-
     private :puedoGastar
 
     def vender(ip)
@@ -201,6 +201,7 @@ module Civitas
       end
       return result
     end
+    private :comprar
 
     def hipotecar(ip) #COMPROBAR VISUALIZACION
       result = false
@@ -214,6 +215,7 @@ module Civitas
         Diario.instance.ocurre_evento("El jugador " + @jugador.getNombre + " compra la propiedad " + titulo.toString)  
       end
     end
+    private :hipotecar
 
     def tieneAlgoQueGestionar
       return getPropiedades.empty?
@@ -222,14 +224,13 @@ module Civitas
     def puedeSalirCarcelPagando
       return @saldo>=@@PrecioLibertad
     end
-
     private :puedeSalirCarcelPagando
 
     def salirCarcelPagando
       if(@encarcelado && puedeSalirCarcelPagando)
         paga(@@PrecioLibertad)
         @encarcelado=false
-        Diario.ocurre_evento("El jugador deja de estar encarcelado.")
+        Diario.instance.ocurre_evento("Jugador -- El jugador " + toString + " paga para salir de la carcel.")
         return true
       else
         return false
@@ -239,7 +240,7 @@ module Civitas
     def salirCarcelTirando
       if(Dado.salgoDeLaCarcel)
         @encarcelado=false
-        Diario.ocurre_evento("El jugador deja de estar encarcelado.")
+        Diario.instance.ocurre_evento("El jugador " + toString + " sale de la carcel tirando dados.")
         return true
       else
         return false
@@ -270,24 +271,21 @@ module Civitas
     def existeLaPropiedad(ip)
       @propiedades.length<ip
     end
-
     private :existeLaPropiedad
 
 
     def puedeEdificarCasa(propiedad)
       return propiedad.getNumCasas<@@CasasMax
     end
-
     private :puedeEdificarCasa
 
     def puedeEdificarHotel(propiedad)
       return (propiedad.numCasas==4 && propiedad.numHoteles < @@HotelesMax)
     end
-
     private :puedeEdificarHotel
 
     def toString
-      return "Jugador/ Nombre: " + @nombre + " Saldo: " + @saldo + " Casilla: " + @numCasillaActual
+      return @nombre + ": [Saldo: " + @saldo.to_s + "; Casilla: " + @numCasillaActual.to_s + "; Encarcelado: " + @encarcelado.to_s + "]"
     end
 
     attr_reader :CasasPorHotel,:encarcelado,:puedeComprar,:numCasillaActual

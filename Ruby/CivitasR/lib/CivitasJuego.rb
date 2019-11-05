@@ -122,6 +122,7 @@ module Civitas
       casilla.recibeJugador(@indiceJugadorActual,@jugadores) #1.8
       contabilizarPasosPorSalida(jugadorActual) #1.9
     end
+    private :avanzaJugador
 
     def siguientePaso
       # 1, 2

@@ -37,7 +37,7 @@ module Civitas
     end
 
     def informe(actual,todos)
-      Diario.instance.ocurre_evento("Sorpresa -- Se aplica una sorpresa al jugador " + todos[actual].getNombre())
+      Diario.instance.ocurre_evento("Sorpresa -- Se aplica la sorpresa " + toString + " al jugador " + todos[actual].toString())
     end
 
     def aplicarAJugador(actual,todos)
@@ -72,7 +72,7 @@ module Civitas
     end
 
     def toString
-      return @tipo.to_s
+      return @nombre.to_s + ":[Tipo: " + @tipo.to_s + "]"
     end
 
     private

@@ -13,9 +13,13 @@ module Civitas
     end
 
 
-    def initialize(n=false)
-      @debug=n
-      n ? Diario.instance.ocurre_evento("Se ha activado el modo debug del mazo.") : Diario.instance.ocurre_evento("Se ha desactivado el modo debug del mazo.")
+    def initialize(n=nil)
+      if n != nil
+        @debug= n
+        Diario.instance.ocurre_evento("Diario -- Se inicializa el mazo con debug = " + n.to_s)
+      else
+        @debug = false
+      end
       init
     end
 
