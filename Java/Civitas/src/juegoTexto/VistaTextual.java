@@ -4,6 +4,7 @@ import civitas.CivitasJuego;
 import civitas.Diario;
 import civitas.OperacionesJuego;
 import civitas.SalidasCarcel;
+import civitas.Respuestas;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;

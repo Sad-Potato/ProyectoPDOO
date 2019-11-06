@@ -25,15 +25,7 @@ enum EstadosJuego {
 	DESPUES_GESTIONAR
 }
 
-enum OperacionesJuego{
-	AVANZAR,
- 	COMPRAR,
-    	GESTIONAR,
-    	SALIR_CARCEL,
-    	PASAR_TURNO
-}
-
-enum GestionesInmobiliarias{
+enum OperacionesInmobiliarias{
 	VENDER,
 	HIPOTECAR,
 	CANCELAR_HIPOTECA,
@@ -42,12 +34,3 @@ enum GestionesInmobiliarias{
 	TERMINAR
 }
 
-enum SalidasCarcel{
-	PAGANDO,
-	TIRANDO
-}
-
-enum Respuestas{
-	NO,
-	SI
-}
