@@ -36,6 +36,7 @@ public class CivitasJuego{
 		mazo=new MazoSorpresas();
 		inicializarTablero(mazo);
 		inicializarMazoSorpresas(tablero);
+		
 	}
 
 	public Boolean cancelarHipoteca(int ip){
