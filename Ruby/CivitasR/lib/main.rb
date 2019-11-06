@@ -63,6 +63,8 @@ module Civitas
     end
     tablero.añadeJuez
     
+    
+    
     mazo.alMazo(
       Sorpresa.new4(TipoSorpresa::SALIRCARCEL, mazo)
     )
@@ -95,6 +97,10 @@ module Civitas
     for i in 1..4
       jugadores << Jugador.new("Jugador " + i.to_s)
     end
+    jugadores[0].comprar(TituloPropiedad.new("TEST", 50, 1.1, 500, 300, 60))
+    jugadores[0].construirCasa(0);
+    jugadores[0].construirCasa(0);
+    
     
     for i in 1..6
       mazo.siguiente.aplicarAJugador(0, jugadores)

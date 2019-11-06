@@ -72,7 +72,7 @@ module Civitas
     end
 
     def toString
-      return @nombre.to_s + ":[Tipo: " + @tipo.to_s + "]"
+      return @texto.to_s + "(Tipo: " + @tipo.to_s + "; Valor: " + @valor.to_s + ")"
     end
 
     private
