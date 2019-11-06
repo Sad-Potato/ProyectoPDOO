@@ -18,11 +18,11 @@ module Civitas
 
     def initialize(name)
       @nombre=name
-      @encarcelado=false
-      @salvoconducto=nil
-      @puedeComprar=false
-      @propiedades=[]
-      @numCasillaActual=0
+      @encarcelado = false
+      @salvoconducto = nil
+      @puedeComprar = true
+      @propiedades = []
+      @numCasillaActual = 0
       @saldo = @@SaldoInicial
     end
 
@@ -56,29 +56,49 @@ module Civitas
     end
     private :cancelarHipoteca
 
+    def puedoEdificarHotel(propiedad)
+      return puedoGastar(propiedad.getPrecioEdificar) && (propiedad.numHoteles<@@HotelesMax) && (propiedad.numCasas>=@@CasasPorHotel)
+    end
+    
     def construirHotel(ip)
       result=false
       if @encarcelado
         return result
       end
       if existeLaPropiedad(ip)
-        propiedad=@propiedades.at(ip)
-        puedoEdificarHotel=puedoEdificarHotel(propiedad)
-        puedoEdificarHotel=false
-        precio=propiedad.getPrecioEdificar
-        if(puedoGastar(precio) && (propiedad.numHoteles<@@HotelesMax) && (propiedad.numCasas>=@@CasasPorHotel))
-          puedoEdificarHotel=true
-        end
-        if puedoEdificarHotel
+        propiedad = @propiedades.at(ip)
+        if puedoEdificarHotel(propiedad)
           result=propiedad.construirHotel(self)
           casasPorHotel=@@CasasPorHotel
           propiedad.derruirCasas(casasPorHotel,self)
         end
-        Diario.ocurre_evento("El jugador "+@nombre+" construye hotel en la propiedad "+ip.to_s)
+        Diario.instance.ocurre_evento("El jugador "+ toString + " construye hotel en la propiedad "+ ip.toString)
       end
       return result
     end
-    private :construirHotel
+    
+    def puedoEdificarCasa(propiedad)
+      return puedoGastar(propiedad.precioEdificar) && (propiedad.numCasas < @@CasasMax)
+    end
+    
+    def construirCasa(ip)
+      result = false
+      if @encarcelado
+        return result
+      end
+      if existeLaPropiedad(ip)
+        propiedad = @propiedades[ip]
+        if puedoEdificarCasa(propiedad)
+          result = propiedad.construirCasa(self)
+          if result
+            Diario.instance.ocurre_evento(
+              "El jugador " + toString + " construye casa en la propiedad "+ propiedad.toString
+            )
+          end
+        end
+      end
+      return result
+    end
 
     def debeSerEncarcelado
       if(@encarcelado)
@@ -86,7 +106,7 @@ module Civitas
       else
         if(tieneSalvoconducto)
           perderSalvoconducto
-          Diario.instance.ocurre_evento("El jugador se libra de ir a la carcel.")
+          Diario.instance.ocurre_evento("Jugador -- El jugador " + toString + " se libra de ir a la carcel.")
           resul=false
         else
           resul=true
@@ -126,7 +146,7 @@ module Civitas
     end
 
     def puedeComprarCasilla
-      @encarcelado ? @puedeComprar=false : @puedeComprar=true
+      @puedeComprar = !@encarcelado
       return @puedeComprar
     end
 
@@ -183,13 +203,13 @@ module Civitas
       return false
     end
 
-    def comprar(titulo) #COMPROBAR VISUALIZACION
+    def comprar(titulo)
       result = false
       if(@encarcelado)
         return result
       end
       if @puedeComprar
-        precio = titulo.getPrecioCompra
+        precio = titulo.precioCompra
         if puedoGastar(precio)
           result = titulo.comprar(self)
           if result
@@ -201,9 +221,8 @@ module Civitas
       end
       return result
     end
-    private :comprar
 
-    def hipotecar(ip) #COMPROBAR VISUALIZACION
+    def hipotecar(ip)
       result = false
       if @encarcelado
         return result
@@ -215,7 +234,6 @@ module Civitas
         Diario.instance.ocurre_evento("El jugador " + @jugador.getNombre + " compra la propiedad " + titulo.toString)  
       end
     end
-    private :hipotecar
 
     def tieneAlgoQueGestionar
       return getPropiedades.empty?
@@ -269,7 +287,7 @@ module Civitas
     end
 
     def existeLaPropiedad(ip)
-      @propiedades.length<ip
+      @propiedades.size > ip
     end
     private :existeLaPropiedad
 
