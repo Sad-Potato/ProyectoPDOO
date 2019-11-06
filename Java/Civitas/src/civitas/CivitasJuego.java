@@ -36,7 +36,7 @@ public class CivitasJuego{
 		mazo=new MazoSorpresas();
 		inicializarTablero(mazo);
 		inicializarMazoSorpresas(tablero);
-		
+
 	}
 
 	public Boolean cancelarHipoteca(int ip){
@@ -56,6 +56,7 @@ public class CivitasJuego{
 		return jugadores.get(indiceJugadorActual).construirHotel(ip);
 	}
 
+	
 	private void contabilizarPasosPorSalida(Jugador jugadorActual){
 		while(tablero.getPorSalida()>0){
 			jugadorActual.pasaPorSalida();
