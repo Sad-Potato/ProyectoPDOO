@@ -55,13 +55,23 @@ module Civitas
 	end
 
 	lista_GestionesInmobiliarias=[
-			GestionesInmobiliarias::VENDER,
-			GestionesInmobiliarias::HIPOTECAR,
-			GestionesInmobiliarias::CANCELAR_HIPOTECA,
-			GestionesInmobiliarias::CONSTRUIR_CASA,
-			GestionesInmobiliarias::CONSTRUIR_HOTEL,
-			GestionesInmobiliarias::TERMINAR
-	]	
+		GestionesInmobiliarias::VENDER,
+		GestionesInmobiliarias::HIPOTECAR,
+		GestionesInmobiliarias::CANCELAR_HIPOTECA,
+		GestionesInmobiliarias::CONSTRUIR_CASA,
+		GestionesInmobiliarias::CONSTRUIR_HOTEL,
+		GestionesInmobiliarias::TERMINAR
+	]
+	
+	lista_respuestas=[
+		Respuestas::NO,
+		Respuestas::SI
+	]
+
+	lista_SalidasCarcel=[
+		SalidasCarcel::PAGANDO,
+		SalidasCarcel::TIRANDO
+	]
 
 
 
