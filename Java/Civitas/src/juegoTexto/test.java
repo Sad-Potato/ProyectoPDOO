@@ -2,8 +2,8 @@ package juegoTexto;
 
 import civitas.OperacionesJuego;
 
-public class main{
-    static void Test(){
+public class test{
+    public static void main(String args[]){
         OperacionesJuego oper=OperacionesJuego.PASAR_TURNO;
         System.out.println(oper);
     }
