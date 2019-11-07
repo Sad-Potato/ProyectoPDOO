@@ -14,16 +14,16 @@ public class CivitasJuego{
 	private EstadosJuego estado;
         
         
-        private void avanzaJugador(){
-            Jugador jugadorActual=jugadores.get(indiceJugadorActual);
-            int posicionActual=jugadorActual.getNumCasillaActual();
-            int tirada=Dado.getInstance().tirar();
-            int posicionNueva=tablero.nuevaPosicion(posicionActual,tirada);
-            Casilla casilla=tablero.getCasilla(posicionNueva);
-            contabilizarPasosPorSalida(jugadorActual);
-            casilla.recibeJugador(indiceJugadorActual, jugadores);
-            contabilizarPasosPorSalida(jugadorActual); 
-        }
+	private void avanzaJugador(){
+		Jugador jugadorActual=jugadores.get(indiceJugadorActual);
+		int posicionActual=jugadorActual.getNumCasillaActual();
+		int tirada=Dado.getInstance().tirar();
+		int posicionNueva=tablero.nuevaPosicion(posicionActual,tirada);
+		Casilla casilla=tablero.getCasilla(posicionNueva);
+		contabilizarPasosPorSalida(jugadorActual);
+		casilla.recibeJugador(indiceJugadorActual, jugadores);
+		contabilizarPasosPorSalida(jugadorActual); 
+	}
 
 	public CivitasJuego(ArrayList <String> nombres){
 		jugadores=new ArrayList<>();

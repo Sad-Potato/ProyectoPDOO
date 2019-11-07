@@ -25,7 +25,7 @@ enum EstadosJuego {
 	DESPUES_GESTIONAR
 }
 
-enum OperacionesInmobiliarias{
+enum GestionesInmobiliarias{
 	VENDER,
 	HIPOTECAR,
 	CANCELAR_HIPOTECA,

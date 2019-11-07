@@ -48,6 +48,7 @@ class VistaTextual {
         System.out.println (msg2);
         ok = false;  
       }
+      
       if (ok && (numero < 0 || numero >= max)) {
         System.out.println (msg2);
         ok = false;
@@ -77,7 +78,11 @@ class VistaTextual {
     return (SalidasCarcel.values()[opcion]);
   }
 
-  Respuestas comprar() {}
+  Respuestas comprar() {
+    int opcion = menu("Elige si quieres comprar la calle actual",
+                      new ArrayList<> (Arrays.asList("Si","No")));
+    return (Respuestas.values()[opcion]);
+  }
 
   void gestionar () {}
   
@@ -97,5 +102,8 @@ class VistaTextual {
 
     }
   
-  void actualizarVista(){} 
+  void actualizarVista(){
+    System.out.println(juegoModel.infoJugadorTexto());
+  } 
+
 }
