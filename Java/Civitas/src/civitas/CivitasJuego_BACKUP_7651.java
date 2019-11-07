@@ -135,7 +135,10 @@ public class CivitasJuego{
 	public OperacionesJuego siguientePaso(){
 		Jugador jugadorActual=jugadores.get(indiceJugadorActual);
 		OperacionesJuego operacion = gestorEstados.operacionesPermitidas(jugadorActual,estado);
+<<<<<<< HEAD
+=======
 		contabilizarPasosPorSalida(jugadorActual);
+>>>>>>> d66ba9422e97c2f0c76886baabfca5afaec94dcc
 		if(operacion==OperacionesJuego.PASAR_TURNO){
 			this.pasarTurno();
 			this.siguientePasoCompletado(operacion);
@@ -144,7 +147,10 @@ public class CivitasJuego{
 			this.avanzaJugador();
 			this.siguientePasoCompletado(operacion);
 		}
+<<<<<<< HEAD
+=======
 		contabilizarPasosPorSalida(jugadorActual);
+>>>>>>> d66ba9422e97c2f0c76886baabfca5afaec94dcc
 		return operacion;
 	}
 
