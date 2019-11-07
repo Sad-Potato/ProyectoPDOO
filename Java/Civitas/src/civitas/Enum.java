@@ -25,10 +25,11 @@ enum EstadosJuego {
   DESPUES_GESTIONAR
 }
 
-enum OperacionesJuego{
-    AVANZAR,
-    COMPRAR,
-    GESTIONAR,
-    SALIR_CARCEL,
-    PASAR_TURNO,
+enum GestionesInmobiliarias{
+	VENDER,
+	HIPOTECAR,
+	CANCELAR_HIPOTECA,
+	CONSTRUIR_CASA,
+	CONSTRUIR_HOTEL,
+	TERMINAR
 }

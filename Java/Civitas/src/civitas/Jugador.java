@@ -317,6 +317,6 @@ public class Jugador implements Comparable<Jugador>{
 			}
 		}
 		return result;
-    }
-	
+	}
+
 }

@@ -30,10 +30,10 @@ public class Controlador{
                         vista.gestionar();
                         int iGest=vista.getGestion();
                         int iProp=vista.getPropiedad();
-                        OperacionInmobiliaria operacion=new OperacionInmobiliaria(Gesti, iProp);
+                        OperacionInmobiliaria operacion=new OperacionInmobiliaria(iGest, iProp);
                         
                         break;
-                    case 
+                   
                 }
             }
         }

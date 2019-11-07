@@ -145,9 +145,9 @@ public class CivitasJuego{
 			this.siguientePasoCompletado(operacion);
 		}
 		contabilizarPasosPorSalida(jugadorActual);
-		return operacion;
+			return operacion;
 	}
-
+	
 	public void siguientePasoCompletado(OperacionesJuego operacion){
 			estado=gestorEstados.siguienteEstado(jugadores.get(indiceJugadorActual),estado,operacion);
 	}
