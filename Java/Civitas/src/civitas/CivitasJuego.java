@@ -36,33 +36,38 @@ public class CivitasJuego{
 		mazo=new MazoSorpresas();
 		inicializarTablero(mazo);
 		inicializarMazoSorpresas(tablero);
+
 	}
 
-	public Boolean cancelarHipoteca(int ip){
+	public boolean cancelarHipoteca(int ip){
 		return jugadores.get(indiceJugadorActual).cancelarHipoteca(ip);
 	}
 
-	public Boolean comprar(){
-		int i = 0;
-		return true;
+	public boolean comprar(){
+		Jugador jugador = jugadores.get(indiceJugadorActual);
+		int num = jugador.getNumCasillaActual();
+		Casilla casilla = tablero.getCasilla(num);
+		TituloPropiedad titulo = casilla.getTituloPropiedad();
+		return jugador.comprar(titulo);
 	}
 
-	public Boolean construirCasa(int ip){
+	public boolean construirCasa(int ip){
 		return jugadores.get(indiceJugadorActual).construirCasa(ip);
 	}
 
-	public Boolean construirHotel(int ip){
+	public boolean construirHotel(int ip){
 		return jugadores.get(indiceJugadorActual).construirHotel(ip);
 	}
 
+	
 	private void contabilizarPasosPorSalida(Jugador jugadorActual){
 		while(tablero.getPorSalida()>0){
 			jugadorActual.pasaPorSalida();
 		}
 	}
 
-	public Boolean finalDelJuego(){
-		Boolean result=false;
+	public boolean finalDelJuego(){
+		boolean result=false;
 		for(int i=0;i<jugadores.size();i++){
 			if(jugadores.get(i).enBancarrota()){
 				result=true;
@@ -79,7 +84,7 @@ public class CivitasJuego{
 		return jugadores.get(indiceJugadorActual);
 	}
 
-	public Boolean hipotecar(int ip){
+	public boolean hipotecar(int ip){
 		return jugadores.get(indiceJugadorActual).hipotecar(ip);
 	}
 
@@ -130,6 +135,7 @@ public class CivitasJuego{
 	public OperacionesJuego siguientePaso(){
 		Jugador jugadorActual=jugadores.get(indiceJugadorActual);
 		OperacionesJuego operacion = gestorEstados.operacionesPermitidas(jugadorActual,estado);
+		contabilizarPasosPorSalida(jugadorActual);
 		if(operacion==OperacionesJuego.PASAR_TURNO){
 			this.pasarTurno();
 			this.siguientePasoCompletado(operacion);
@@ -138,6 +144,7 @@ public class CivitasJuego{
 			this.avanzaJugador();
 			this.siguientePasoCompletado(operacion);
 		}
+		contabilizarPasosPorSalida(jugadorActual);
 		return operacion;
 	}
 
