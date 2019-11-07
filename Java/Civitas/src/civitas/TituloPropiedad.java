@@ -140,6 +140,7 @@ public class TituloPropiedad {
         this.propietario=null;
     }
     
+    @Override
     public String toString(){
         return "Nombre de la propiedad: " + nombre + "; Precio de compra: "+ precioCompra + "; Precio de edificar: " + precioEdificar + "; Propietario: " + propietario + ";";
     }
