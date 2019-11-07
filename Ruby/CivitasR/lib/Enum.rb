@@ -34,49 +34,5 @@ module Civitas
   	DESPUES_COMPRAR =:despues_comprar
   	DESPUES_GESTIONAR =:despues_gestionar
   end
-
-	module GestionesInmobiliarias
-		VENDER=:vender
-		HIPOTECAR=:hipotecar
-		CANCELAR_HIPOTECA=:cancelar_hipoteca
-		CONSTRUIR_CASA=:construir_casa
-		CONSTRUIR_HOTEL=:construir_hotel
-		TERMINAR=:terminar
-	end
-
-	module SalidasCarcel
-		PAGANDO=:pagando
-		TIRANDO=:tirando
-	end
-
-	module Respuestas
-		NO=:no
-		SI=:si
-	end
-
-	lista_GestionesInmobiliarias=[
-		GestionesInmobiliarias::VENDER,
-		GestionesInmobiliarias::HIPOTECAR,
-		GestionesInmobiliarias::CANCELAR_HIPOTECA,
-		GestionesInmobiliarias::CONSTRUIR_CASA,
-		GestionesInmobiliarias::CONSTRUIR_HOTEL,
-		GestionesInmobiliarias::TERMINAR
-	]
-	
-	lista_respuestas=[
-		Respuestas::NO,
-		Respuestas::SI
-	]
-
-	lista_SalidasCarcel=[
-		SalidasCarcel::PAGANDO,
-		SalidasCarcel::TIRANDO
-	]
-
-
-
-
-
-
    
 end
