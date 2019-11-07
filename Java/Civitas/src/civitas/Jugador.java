@@ -84,24 +84,24 @@ public class Jugador implements Comparable<Jugador>{
 		return sum;
 	}
         
-	boolean comprar(TituloPropiedad titulo){
-		boolean result=false;
-		if(encarcelado){
-			return result;
-		}
-		if(puedeComprar){
-			float precio=titulo.getPrecioCompra();
-			if(puedoGastar(precio)){
-				result=titulo.comprar(this);
-				if(result){
-					propiedades.add(titulo);
-					Diario.getInstance().ocurreEvento("El jugador "+nombre+" compra la propiedad "+ titulo.toString());
-				}
-				puedeComprar=false;
-			}
-		}
-		return result;
-	}
+        boolean comprar(TituloPropiedad titulo){
+            boolean result=false;
+            if(encarcelado){
+                return result;
+            }
+            if(puedeComprar){
+                float precio=titulo.getPrecioCompra();
+                if(puedoGastar(precio)){
+                    result=titulo.comprar(this);
+                    if(result){
+                        propiedades.add(titulo);
+                        Diario.getInstance().ocurreEvento("El jugador "+nombre+" compra la propiedad "+ titulo.toString());
+                    }
+                    puedeComprar=false;
+                }
+            }
+            return result;
+        }
 	
         
 	
@@ -229,11 +229,7 @@ public class Jugador implements Comparable<Jugador>{
 	}
 	
 	public String toString(){
-		String resul="Jugador: " + nombre + "; Casilla: " + numCasillaActual+ "; \nPropiedades:\n ";
-		for(int i=0;i<propiedades.size();i++){
-			 resul+=propiedades.get(i).toString() +"\n";
-		}
-		return resul;
+		return "Jugador: " + nombre + "; Casilla: " + numCasillaActual+ "; ";
 	}
 	
 	public int compareTo(Jugador otro){
