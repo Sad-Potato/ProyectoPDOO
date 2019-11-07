@@ -247,63 +247,74 @@ public class Jugador implements Comparable<Jugador>{
 		}
 		if( existeLaPropiedad(ip) ){
 			TituloPropiedad propiedad = propiedades.get(ip);
-			float cantidad = propiedad.getImporteCancelarHipoteca();
-			if( puedoGastar(cantidad) ){
+			if( puedoGastar( propiedad.getImporteCancelarHipoteca() ) ){
 				result = propiedad.cancelarHipoteca(this);
 				if( result ){
 					Diario.getInstance().ocurreEvento("Jugador -- El jugador " + 
-							nombre + " cancela la hipoteca de la propiedad " + propiedades.get(ip).toString());
+							toString() + " cancela la hipoteca de la propiedad " + propiedad.toString());
 				}
 			}
 		}
 		return result;
 	}
-
-	boolean puedoEdificarCasa(TituloPropiedad propiedad){
-		return propiedad.getNumCasas()<CasasMax;
-	}
-
-	boolean puedoEdificarHotel(TituloPropiedad propiedad){
-		return (propiedad.getNumCasas()==CasasMax && propiedad.getNumHoteles() < HotelesMax);
+	
+	private boolean puedoEdificarCasa(TituloPropiedad prop){
+		return  puedoGastar( prop.getPrecioEdificar() ) &&
+				prop.getNumCasas() < CasasMax;
 	}
 
 	boolean construirCasa(int ip){
 		boolean result=false;
-		boolean puedoEdificarCasa=false;
 		if(!encarcelado){	//1
 			boolean existe=existeLaPropiedad(ip); //2
 			if(existe){
 				TituloPropiedad propiedad=propiedades.get(ip); //3
-				puedoEdificarCasa=this.puedoEdificarCasa(propiedad); //4
-				float precio=propiedad.getPrecioEdificar(); //4.1
-				if(this.puedoGastar(precio) && propiedad.getNumCasas() < this.getCasasMax()){
-					puedoEdificarCasa=true;//4.2
-				}
-				if(puedoEdificarCasa){
+				if(this.puedoEdificarCasa(propiedad)){
 					result=propiedad.construirCasa(this);//5
 					if(result)
-						Diario.getInstance().ocurreEvento("El jugador "+nombre+" construye casa en la propiedad "+ip); //6
+						Diario.getInstance().ocurreEvento("El jugador "+toString()+" construye casa en la propiedad "+ propiedad.toString()); //6
 				}
 			}
 		}
 		return result; //1
 	}
-
-	boolean construirHotel(int ip){
-		return true;
+	
+	private boolean puedoEdificarHotel(TituloPropiedad prop){
+		return  puedoGastar( prop.getPrecioEdificar() ) &&
+				prop.getNumHoteles() < HotelesMax &&
+				prop.getNumCasas() >= CasasPorHotel;
 	}
 
-    Boolean hipotecar(int ip) {
-       	Boolean result=false;
+	boolean construirHotel(int ip){
+		boolean result = false;
+		if(encarcelado){
+			return result;
+		}
+		if( existeLaPropiedad(ip) ){
+			TituloPropiedad prop = propiedades.get(ip);
+			if(puedoEdificarHotel(prop)){
+				result = prop.construirHotel(this);
+				prop.derruirCasas( CasasPorHotel , this);
+			}
+			Diario.getInstance().ocurreEvento("Jugador -- El jugador " + toString() +
+						" construye hotel en la propiedad " + prop.toString());
+		}
+		return result;
+	}
+
+    boolean hipotecar(int ip) {
+       	boolean result=false;
+		TituloPropiedad propiedad;
 	   	if(encarcelado){
 			return result;
 	   	}
 		if(existeLaPropiedad(ip)){
-			TituloPropiedad propiedad=propiedades.get(ip);
+			propiedad=propiedades.get(ip);
 			result=propiedad.hipotecar(this);
-		}
-		if(result){
-			Diario.getInstance().ocurreEvento("El jugador "+nombre+" hipoteca la propiedad "+ip);
+			if(result){
+				Diario.getInstance().ocurreEvento("El jugador "+ toString() +
+							" hipoteca la propiedad "+ propiedad.toString() );
+			}
 		}
 		return result;
     }

@@ -14,16 +14,16 @@ public class CivitasJuego{
 	private EstadosJuego estado;
         
         
-	private void avanzaJugador(){
-		Jugador jugadorActual=jugadores.get(indiceJugadorActual);
-		int posicionActual=jugadorActual.getNumCasillaActual();
-		int tirada=Dado.getInstance().tirar();
-		int posicionNueva=tablero.nuevaPosicion(posicionActual,tirada);
-		Casilla casilla=tablero.getCasilla(posicionNueva);
-		contabilizarPasosPorSalida(jugadorActual);
-		casilla.recibeJugador(indiceJugadorActual, jugadores);
-		contabilizarPasosPorSalida(jugadorActual); 
-	}
+        private void avanzaJugador(){
+            Jugador jugadorActual=jugadores.get(indiceJugadorActual);
+            int posicionActual=jugadorActual.getNumCasillaActual();
+            int tirada=Dado.getInstance().tirar();
+            int posicionNueva=tablero.nuevaPosicion(posicionActual,tirada);
+            Casilla casilla=tablero.getCasilla(posicionNueva);
+            contabilizarPasosPorSalida(jugadorActual);
+            casilla.recibeJugador(indiceJugadorActual, jugadores);
+            contabilizarPasosPorSalida(jugadorActual); 
+        }
 
 	public CivitasJuego(ArrayList <String> nombres){
 		jugadores=new ArrayList<>();
@@ -36,38 +36,33 @@ public class CivitasJuego{
 		mazo=new MazoSorpresas();
 		inicializarTablero(mazo);
 		inicializarMazoSorpresas(tablero);
-
 	}
 
-	public boolean cancelarHipoteca(int ip){
+	public Boolean cancelarHipoteca(int ip){
 		return jugadores.get(indiceJugadorActual).cancelarHipoteca(ip);
 	}
 
-	public boolean comprar(){
-		Jugador jugador = jugadores.get(indiceJugadorActual);
-		int num = jugador.getNumCasillaActual();
-		Casilla casilla = tablero.getCasilla(num);
-		TituloPropiedad titulo = casilla.getTituloPropiedad();
-		return jugador.comprar(titulo);
+	public Boolean comprar(){
+		int i = 0;
+		return true;
 	}
 
-	public boolean construirCasa(int ip){
+	public Boolean construirCasa(int ip){
 		return jugadores.get(indiceJugadorActual).construirCasa(ip);
 	}
 
-	public boolean construirHotel(int ip){
+	public Boolean construirHotel(int ip){
 		return jugadores.get(indiceJugadorActual).construirHotel(ip);
 	}
 
-	
 	private void contabilizarPasosPorSalida(Jugador jugadorActual){
 		while(tablero.getPorSalida()>0){
 			jugadorActual.pasaPorSalida();
 		}
 	}
 
-	public boolean finalDelJuego(){
-		boolean result=false;
+	public Boolean finalDelJuego(){
+		Boolean result=false;
 		for(int i=0;i<jugadores.size();i++){
 			if(jugadores.get(i).enBancarrota()){
 				result=true;
@@ -84,7 +79,7 @@ public class CivitasJuego{
 		return jugadores.get(indiceJugadorActual);
 	}
 
-	public boolean hipotecar(int ip){
+	public Boolean hipotecar(int ip){
 		return jugadores.get(indiceJugadorActual).hipotecar(ip);
 	}
 
@@ -135,7 +130,7 @@ public class CivitasJuego{
 	public OperacionesJuego siguientePaso(){
 		Jugador jugadorActual=jugadores.get(indiceJugadorActual);
 		OperacionesJuego operacion = gestorEstados.operacionesPermitidas(jugadorActual,estado);
-		contabilizarPasosPorSalida(jugadorActual);
+		jugadorActual.contabilizarPasosPorSalida();
 		if(operacion==OperacionesJuego.PASAR_TURNO){
 			this.pasarTurno();
 			this.siguientePasoCompletado(operacion);
@@ -144,7 +139,7 @@ public class CivitasJuego{
 			this.avanzaJugador();
 			this.siguientePasoCompletado(operacion);
 		}
-		contabilizarPasosPorSalida(jugadorActual);
+		jugadorActual.contabilizarPasosPorSalida();
 		return operacion;
 	}
 
