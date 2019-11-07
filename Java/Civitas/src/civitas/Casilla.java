@@ -121,4 +121,5 @@ public class Casilla {
     public String toString(){
         return "Nombre: " + nombre;
     }
+
 }

@@ -43,7 +43,7 @@ public class Tablero {
     
     public void añadeJuez(){
         if (!tieneJuez){
-            añadeCasilla(new Casilla(2,"Juez"));
+            añadeCasilla(new Casilla("Juez"));
             tieneJuez = true;
         }
     }

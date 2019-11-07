@@ -20,7 +20,9 @@ public class CivitasJuego{
 		int tirada=Dado.getInstance().tirar();
 		int posicionNueva=tablero.nuevaPosicion(posicionActual,tirada);
 		Casilla casilla=tablero.getCasilla(posicionNueva);
+                casilla.toString();
 		contabilizarPasosPorSalida(jugadorActual);
+                jugadores.get(0).toString();
 		casilla.recibeJugador(indiceJugadorActual, jugadores);
 		contabilizarPasosPorSalida(jugadorActual); 
 	}
@@ -31,7 +33,7 @@ public class CivitasJuego{
 			jugadores.add(new Jugador(nombres.get(i)));
 		}
 		gestorEstados=new GestorEstados();
-		gestorEstados.estadoInicial();
+		estado=gestorEstados.estadoInicial();
 		indiceJugadorActual=Dado.getInstance().quienEmpieza(nombres.size());
 		mazo=new MazoSorpresas();
 		inicializarTablero(mazo);
@@ -105,11 +107,15 @@ public class CivitasJuego{
 	}
 
 	private void inicializarTablero(MazoSorpresas mazo){
-		tablero=new Tablero(15);
+		tablero=new Tablero(3);
 		tablero.añadeCasilla(new Casilla(1,"Impuesto 1"));
 		tablero.añadeCasilla(new Casilla(2,"Impuesto 2"));
 		tablero.añadeCasilla(new Casilla(3,"Impuesto 3"));
 		tablero.añadeCasilla(new Casilla(4,"Impuesto 4"));
+                tablero.añadeCasilla(new Casilla(5,"Impuesto 1"));
+		tablero.añadeCasilla(new Casilla(6,"Impuesto 2"));
+		tablero.añadeCasilla(new Casilla(7,"Impuesto 3"));
+		tablero.añadeCasilla(new Casilla(8,"Impuesto 4"));  
 	}
 
 	private void pasarTurno(){
