@@ -12,7 +12,7 @@ import civitas.Casilla;
 import civitas.Jugador;
 import civitas.TituloPropiedad;
 
-class VistaTextual {
+public class VistaTextual {
   
   CivitasJuego juegoModel; 
   int iGestion=-1;
@@ -86,10 +86,11 @@ class VistaTextual {
   }
 
   void gestionar () {
-    int opcion = menu("Elige una gestión inmobiliaria",new ArrayList<> 
+    iGestion = menu("Elige una gestión inmobiliaria",new ArrayList<> 
     (Arrays.asList("Vender","Hipotecar","Cancelar la hipoteca"
                   ,"Construir una casa","Construir un hotel","Terminar")));
-
+    
+    iPropiedad= leeEntero(1000, "Introduce el indice de la propiedad a gestionar.", "Error"); //Fix this.
   }
   
   public int getGestion(){
@@ -106,7 +107,11 @@ class VistaTextual {
   }
 
 
-  void mostrarEventos() {}
+  void mostrarEventos() {
+    while(Diario.getInstance().eventosPendientes()){
+      System.out.println(Diario.getInstance().leerEvento() + "\n");
+    }
+  }
   
   public void setCivitasJuego(CivitasJuego civitas){ 
         juegoModel=civitas;

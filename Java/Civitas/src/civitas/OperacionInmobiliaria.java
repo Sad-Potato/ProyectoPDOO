@@ -12,7 +12,7 @@ public class OperacionInmobiliaria{
         return numPropiedad;
     }
 
-    public OperacionInmobiliaria(GestionesInmobiliarias gest,int ip){
+    OperacionInmobiliaria(GestionesInmobiliarias gest,int ip){
         gestion=gest;
         numPropiedad=ip;
     }
