@@ -3,6 +3,7 @@ package juegoTexto;
 import civitas.CivitasJuego;
 import civitas.OperacionInmobiliaria;
 import civitas.OperacionesJuego;
+import civitas.GestionesInmobiliarias;
 
 public class Controlador{
     private CivitasJuego juego;
@@ -25,17 +26,41 @@ public class Controlador{
             if(!juego.finalDelJuego()){
                 switch(ope){
                     case COMPRAR:
-                        vista.comprar(); break;
+                        vista.comprar(); 
+                    break;
                     case GESTIONAR:
                         vista.gestionar();
                         int iGest=vista.getGestion();
                         int iProp=vista.getPropiedad();
-                        OperacionInmobiliaria operacion=new OperacionInmobiliaria(iGest, iProp);
-                        
-                        break;
+                        OperacionInmobiliaria operacion=new OperacionInmobiliaria(GestionesInmobiliarias.values()[iGest], iProp);
+                        switch(operacion.getGestion()){
+                            case VENDER:
+                                juego.vender(operacion.getNumPropiedad()); break;
+                            case HIPOTECAR:
+                                juego.hipotecar(operacion.getNumPropiedad()); break;
+                            case CANCELAR_HIPOTECA:
+                                juego.cancelarHipoteca(operacion.getNumPropiedad()); break;
+                            case CONSTRUIR_CASA:
+                                juego.construirCasa(operacion.getNumPropiedad()); break;
+                            case CONSTRUIR_HOTEL:
+                                juego.construirHotel(operacion.getNumPropiedad()); break;
+                            case TERMINAR:
+                                juego.siguientePasoCompletado(ope); break;
+                        }
+                    break;
+                    case SALIR_CARCEL:
+                        switch(vista.salirCarcel()){
+                            case PAGANDO:
+                                juego.salirCarcelPagando(); break;
+                            case TIRANDO:
+                                juego.salirCarcelTirando(); break;
+                        }
+                        juego.siguientePasoCompletado(ope);
+                    break;
                    
                 }
             }
         }
+        
     }
 }
