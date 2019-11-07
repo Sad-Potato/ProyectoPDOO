@@ -74,25 +74,36 @@ class VistaTextual {
 
   SalidasCarcel salirCarcel() {
     int opcion = menu ("Elige la forma para intentar salir de la carcel",
-      new ArrayList<> (Arrays.asList("Pagando","Tirando el dado")));
+                      new ArrayList<> (Arrays.asList("Pagando","Tirando el dado")));
     return (SalidasCarcel.values()[opcion]);
   }
 
-  
+
   Respuestas comprar() {
     int opcion = menu("Elige si quieres comprar la calle actual",
-                      new ArrayList<> (Arrays.asList("Si","No")));
+                      new ArrayList<> (Arrays.asList("No","Si")));
     return (Respuestas.values()[opcion]);
   }
 
-  void gestionar () {}
+  void gestionar () {
+    int opcion = menu("Elige una gestión inmobiliaria",new ArrayList<> 
+    (Arrays.asList("Vender","Hipotecar","Cancelar la hipoteca"
+                  ,"Construir una casa","Construir un hotel","Terminar")));
+
+  }
   
-  public int getGestion(){}
+  public int getGestion(){
+    return iGestion;
+  }
   
-  public int getPropiedad(){}
+  public int getPropiedad(){
+    return iPropiedad;
+  }
     
 
-  void mostrarSiguienteOperacion(OperacionesJuego operacion) {}
+  void mostrarSiguienteOperacion(OperacionesJuego operacion) {
+    System.out.println("Siguiente operacion: " + operacion);
+  }
 
 
   void mostrarEventos() {}
