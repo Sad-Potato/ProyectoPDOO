@@ -78,6 +78,7 @@ class VistaTextual {
     return (SalidasCarcel.values()[opcion]);
   }
 
+  
   Respuestas comprar() {
     int opcion = menu("Elige si quieres comprar la calle actual",
                       new ArrayList<> (Arrays.asList("Si","No")));
