@@ -72,29 +72,12 @@ public class Casilla {
     }
 
     void recibeJugador(int iactual,ArrayList<Jugador> todos){
-		switch(tipo){
-			case CALLE:
-				recibeJugador_calle(iactual,todos);
-			case IMPUESTO:
-				recibeJugador_impuesto(iactual,todos);
-			case JUEZ:
-				recibeJugador_juez(iactual,todos);
-			case SORPRESA:
-				recibeJugador_sorpresa(iactual,todos);
-			default:
-				informe(iactual,todos);
-		}
+		int i = 0;
     }
 
     private void recibeJugador_calle(int actual,ArrayList<Jugador> todos){
-		if(jugadorCorrecto(actual, todos)){
-			informe(actual,todos);
-		}
-		Jugador jugador = todos.get(actual);
-		if( tituloPropiedad.tienePropietario() ){
-			jugador.puedeComprarCasilla();
-			tituloPropiedad.tramitarAlquiler(jugador);
-		}
+
+
     }
 
     private void recibeJugador_impuesto(int actual,ArrayList <Jugador> todos){
@@ -111,11 +94,8 @@ public class Casilla {
         }
     }
 
-    private void recibeJugador_sorpresa(int actual,ArrayList <Jugador> todos){
-        if(jugadorCorrecto(actual,todos)){
-			informe(actual, todos);
-			mazo.siguiente().aplicarAJugador(actual, todos);
-		}
+    private void recibeJugador_sorpresa(int iactual,Jugador todos){
+        
     }
 
     public String toString(){
