@@ -4,6 +4,8 @@ import civitas.CivitasJuego;
 import civitas.OperacionInmobiliaria;
 import civitas.OperacionesJuego;
 import civitas.GestionesInmobiliarias;
+import civitas.Jugador;
+import java.util.ArrayList;
 
 public class Controlador{
     private CivitasJuego juego;
@@ -61,6 +63,10 @@ public class Controlador{
                 }
             }
         }
-        
+        ArrayList <Jugador> ranking=juego.ranking();
+        for(int i=0;i<ranking.size();i++){
+            System.out.println("En " + (i+1) + "ª posición: " + ranking.get(i) + "\n");
+        }
+
     }
 }

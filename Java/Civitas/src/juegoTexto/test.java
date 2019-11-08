@@ -1,6 +1,5 @@
 package juegoTexto;
 
-import civitas.OperacionesJuego;
 import civitas.CivitasJuego;
 import java.util.ArrayList;
 

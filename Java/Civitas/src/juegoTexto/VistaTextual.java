@@ -120,7 +120,8 @@ public class VistaTextual {
     }
   
   void actualizarVista(){
-    System.out.println(juegoModel.infoJugadorTexto());
+    System.out.println(juegoModel.getCasillaActual().toString());
+    System.out.println(juegoModel.getJugadorActual().toString());
   } 
 
 }

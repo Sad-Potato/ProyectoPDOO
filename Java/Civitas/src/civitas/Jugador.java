@@ -229,10 +229,10 @@ public class Jugador implements Comparable<Jugador>{
 	}
 	
 	public String toString(){
-		String resul="Jugador: " + nombre + "; Casilla: " + numCasillaActual+ "; \nPropiedades:\n ";
+		String resul="Jugador: " + nombre + "; Posicion: " + numCasillaActual+ "; \nPropiedades:\n ";
 		for(int i=0;i<propiedades.size();i++){
-			 resul+=propiedades.get(i).toString() +"\n";
-		}
+			resul+=propiedades.get(i).toString() +"\n";
+	   	}
 		return resul;
 	}
 	

@@ -119,7 +119,7 @@ public class Casilla {
     }
 
     public String toString(){
-        return "Nombre: " + nombre;
+        return "Casilla: " + nombre +"; Tipo: " + tipo;
     }
 
 }

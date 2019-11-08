@@ -91,7 +91,10 @@ public class CivitasJuego{
 	}
 
 	public String infoJugadorTexto(){
-		return jugadores.get(indiceJugadorActual).toString();
+		String info="";
+		info+=jugadores.get(indiceJugadorActual).toString() + "\n";
+		info+=this.getCasillaActual().toString() + "\n" + "Propiedades:\n";
+		return info;
 	}
 
 	private void inicializarMazoSorpresas(Tablero tablero){
@@ -159,7 +162,9 @@ public class CivitasJuego{
 		indiceJugadorActual = (indiceJugadorActual + 1) % jugadores.size();
 	}
 
-	private ArrayList<Jugador> ranking(){
+	//Modified from private to public to match with the script.
+
+	public ArrayList<Jugador> ranking(){
 		int p;
 		ArrayList<Jugador> copia;
 		copia=new ArrayList<>(jugadores);
