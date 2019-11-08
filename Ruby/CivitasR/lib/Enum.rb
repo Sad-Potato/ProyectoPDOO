@@ -63,7 +63,7 @@ module Civitas
 		GestionesInmobiliarias::TERMINAR
 	]
 	
-	lista_respuestas=[
+	lista_Respuestas=[
 		Respuestas::NO,
 		Respuestas::SI
 	]

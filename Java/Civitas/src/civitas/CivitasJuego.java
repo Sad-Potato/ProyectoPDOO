@@ -107,15 +107,52 @@ public class CivitasJuego{
 	}
 
 	private void inicializarTablero(MazoSorpresas mazo){
-		tablero=new Tablero(3);
-		tablero.añadeCasilla(new Casilla(1,"Impuesto 1"));
-		tablero.añadeCasilla(new Casilla(2,"Impuesto 2"));
-		tablero.añadeCasilla(new Casilla(3,"Impuesto 3"));
-		tablero.añadeCasilla(new Casilla(4,"Impuesto 4"));
-                tablero.añadeCasilla(new Casilla(5,"Impuesto 1"));
-		tablero.añadeCasilla(new Casilla(6,"Impuesto 2"));
-		tablero.añadeCasilla(new Casilla(7,"Impuesto 3"));
-		tablero.añadeCasilla(new Casilla(8,"Impuesto 4"));  
+		tablero = new Tablero(5);
+		float revalorizacion = (float) 1.15;
+		// =>  La casilla del inicio se introduce automáticamente
+		tablero.añadeCasilla(new Casilla(
+		  new TituloPropiedad("Calle Caramelo", 50, revalorizacion, 150, 200, 120)
+		));
+		tablero.añadeCasilla(new Casilla(
+		  new TituloPropiedad("Plaza Galleta", 50, revalorizacion, 150, 200, 120)
+		));
+		tablero.añadeCasilla(new Casilla(mazo, "Esquina de las Pizzas"));
+		tablero.añadeCasilla(new Casilla(
+		  new TituloPropiedad("Estación de los gofres", 50, revalorizacion, 150, 200, 120)
+		));
+		// =>  Aquí meterá tablero a la carcel
+		tablero.añadeCasilla(new Casilla(
+		  new TituloPropiedad("Ruta glaseada", 50, revalorizacion, 150, 200, 120)
+		));
+		tablero.añadeCasilla(new Casilla(
+		  new TituloPropiedad("Rio Cremoso", 50, revalorizacion, 150, 200, 120)
+		));
+		tablero.añadeCasilla(new Casilla(mazo, "Puente Hamburguesa"));
+		tablero.añadeCasilla(new Casilla(
+		  new TituloPropiedad("Zoo de los dulces", 50, revalorizacion, 150, 200, 120)
+		));
+		tablero.añadeCasilla(new Casilla("Parking Gratuito"));
+		tablero.añadeCasilla(new Casilla(
+		  new TituloPropiedad("Cruce Gominolas", 50, revalorizacion, 150, 200, 120)
+		));
+		tablero.añadeCasilla(new Casilla(
+		  new TituloPropiedad("Chocolate Street", 50, revalorizacion, 150, 200, 120)
+		));
+		tablero.añadeCasilla(new Casilla(300, "Impuesto del Azucar"));
+		tablero.añadeCasilla(new Casilla(
+		  new TituloPropiedad("Avenida de las Avellanas", 50, revalorizacion, 150, 200, 120)
+		));
+		tablero.añadeJuez();
+		tablero.añadeCasilla(new Casilla(
+		  new TituloPropiedad("Banco de monedas de chocolate", 50, revalorizacion, 150, 200, 120)
+		));
+		tablero.añadeCasilla(new Casilla(
+		  new TituloPropiedad("Palacio del dulce de leche", 50, revalorizacion, 150, 200, 120)
+		));
+		tablero.añadeCasilla(new Casilla(mazo, "Puente Hamburguesa"));
+		tablero.añadeCasilla(new Casilla(
+		  new TituloPropiedad("Hotel de los batidos", 50, revalorizacion, 150, 200, 120)
+		));
 	}
 
 	private void pasarTurno(){
@@ -158,7 +195,10 @@ public class CivitasJuego{
 			estado=gestorEstados.siguienteEstado(jugadores.get(indiceJugadorActual),estado,operacion);
 	}
 
-	public Boolean vender(int ip){
+	public boolean vender(int ip){
 		return jugadores.get(indiceJugadorActual).vender(ip);
 	}
+	
+
+	
 }

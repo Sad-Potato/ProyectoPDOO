@@ -5,11 +5,13 @@ require_relative "TituloPropiedad"
 require_relative "Jugador"
 require_relative "MazoSorpresas"
 require_relative "Tablero"
+require_relative "CivitasJuego"
 
 #MAIN = "casilla"
 #MAIN = "dado"
-MAIN = "sorpresa"
+#MAIN = "sorpresa"
 #MAIN = "tablero"
+MAIN = "civitasjuego"
 
 module Civitas
   case MAIN
@@ -110,12 +112,19 @@ module Civitas
       puts Diario.instance.leer_evento
     end
     
-   when "tablero"
+  when "tablero"
      tablero = Tablero.new(5)
      for i in 1..10
       tablero.añadeCasilla(Casilla.descanso("Descanso " + i.to_s))
     end
     tablero.añadeJuez
     
+  when "civitasjuego"
+    nombres = ["Roboto", "Felipez", "Roomba", "Enrique"]
+    juego = CivitasJuego.new(nombres)
+    
+    while Diario.instance.eventos_pendientes
+      puts Diario.instance.leer_evento
+    end
   end
 end
