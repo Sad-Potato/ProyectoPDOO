@@ -142,7 +142,8 @@ public class TituloPropiedad {
     
     @Override
     public String toString(){
-        return "Nombre de la propiedad: " + nombre + "; Precio de compra: "+ precioCompra + "; Precio de edificar: " + precioEdificar + "; Propietario: " + propietario + ";";
+        return "Nombre de la propiedad: " + nombre + "; Precio de compra: "+ String.valueOf(precioCompra) + 
+                "; Precio de edificar: " + String.valueOf(precioEdificar) + "; Propietario: " + propietario.getNombre() + ";";
     }
     
     void tramitarAlquiler(Jugador jugador){

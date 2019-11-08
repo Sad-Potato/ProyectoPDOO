@@ -5,6 +5,7 @@ import civitas.OperacionInmobiliaria;
 import civitas.OperacionesJuego;
 import civitas.GestionesInmobiliarias;
 import civitas.Jugador;
+import civitas.Respuestas;
 import java.util.ArrayList;
 
 public class Controlador{
@@ -22,13 +23,17 @@ public class Controlador{
             vista.actualizarVista();
             vista.pausa();
             OperacionesJuego ope=juego.siguientePaso();
+            vista.mostrarSiguienteOperacion(ope);
             if(ope!=OperacionesJuego.PASAR_TURNO){
                 vista.mostrarEventos();
             }
             if(!juego.finalDelJuego()){
                 switch(ope){
                     case COMPRAR:
-                        vista.comprar(); 
+                        if(vista.comprar() == Respuestas.SI){
+                            juego.comprar();
+                        }
+                        juego.siguientePasoCompletado(ope);
                     break;
                     case GESTIONAR:
                         vista.gestionar();

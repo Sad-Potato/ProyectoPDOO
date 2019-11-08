@@ -74,15 +74,15 @@ public class Casilla {
     void recibeJugador(int iactual,ArrayList<Jugador> todos){
 		switch(tipo){
 			case CALLE:
-				recibeJugador_calle(iactual,todos);
+				recibeJugador_calle(iactual,todos); break;
 			case IMPUESTO:
-				recibeJugador_impuesto(iactual,todos);
+				recibeJugador_impuesto(iactual,todos); break;
 			case JUEZ:
-				recibeJugador_juez(iactual,todos);
+				recibeJugador_juez(iactual,todos); break;
 			case SORPRESA:
-				recibeJugador_sorpresa(iactual,todos);
+				recibeJugador_sorpresa(iactual,todos); break;
 			default:
-				informe(iactual,todos);
+				informe(iactual,todos); break;
 		}
     }
 
@@ -115,7 +115,7 @@ public class Casilla {
         if(jugadorCorrecto(actual,todos)){
 			informe(actual, todos);
 			mazo.siguiente().aplicarAJugador(actual, todos);
-		}
+	}
     }
 
     public String toString(){

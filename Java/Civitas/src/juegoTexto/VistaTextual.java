@@ -89,7 +89,7 @@ public class VistaTextual {
     iGestion = menu("Elige una gestión inmobiliaria",new ArrayList<> 
     (Arrays.asList("Vender","Hipotecar","Cancelar la hipoteca"
                   ,"Construir una casa","Construir un hotel","Terminar")));
-    
+    if(iGestion!=5)
     iPropiedad= leeEntero(1000, "Introduce el indice de la propiedad a gestionar.", "Error"); //Fix this.
   }
   

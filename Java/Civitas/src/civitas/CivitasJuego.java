@@ -20,9 +20,8 @@ public class CivitasJuego{
 		int tirada=Dado.getInstance().tirar();
 		int posicionNueva=tablero.nuevaPosicion(posicionActual,tirada);
 		Casilla casilla=tablero.getCasilla(posicionNueva);
-                casilla.toString();
 		contabilizarPasosPorSalida(jugadorActual);
-                jugadores.get(0).toString();
+                jugadorActual.moverACasilla(posicionNueva);
 		casilla.recibeJugador(indiceJugadorActual, jugadores);
 		contabilizarPasosPorSalida(jugadorActual); 
 	}
@@ -38,7 +37,6 @@ public class CivitasJuego{
 		mazo=new MazoSorpresas();
 		inicializarTablero(mazo);
 		inicializarMazoSorpresas(tablero);
-
 	}
 
 	public boolean cancelarHipoteca(int ip){
@@ -193,7 +191,7 @@ public class CivitasJuego{
 			this.siguientePasoCompletado(operacion);
 		}
 		contabilizarPasosPorSalida(jugadorActual);
-			return operacion;
+                return operacion;
 	}
 	
 	public void siguientePasoCompletado(OperacionesJuego operacion){

@@ -51,17 +51,17 @@ public class Sorpresa {
     void aplicarAJugador(int actual, ArrayList<Jugador> todos){
         switch(tipo){
             case IRCARCEL:
-                aplicarAJugador_irCarcel(actual, todos);
+                aplicarAJugador_irCarcel(actual, todos); break;
             case IRCASILLA:
-                aplicarAJugador_irACasilla(actual, todos);
+                aplicarAJugador_irACasilla(actual, todos); break;
             case PAGARCOBRAR:
-                aplicarAJugador_pagarCobrar(actual, todos);
+                aplicarAJugador_pagarCobrar(actual, todos); break;
             case SALIRCARCEL:
-                aplicarAJugador_salirCarcel(actual, todos);
+                aplicarAJugador_salirCarcel(actual, todos); break;
             case PORCASAHOTEL:
-               aplicarAJugador_porCasaHotel(actual, todos);
+               aplicarAJugador_porCasaHotel(actual, todos); break;
             case PORJUGADOR:
-                aplicarAJugador_porJugador(actual, todos);
+                aplicarAJugador_porJugador(actual, todos); break;
         }
     }
     
@@ -92,20 +92,21 @@ public class Sorpresa {
 	
 	private void aplicarAJugador_porCasaHotel(int actual, ArrayList<Jugador> todos){
 		if(jugadorCorrecto(actual, todos)){
-            informe(actual, todos);
+                        informe(actual, todos);
 			todos.get(actual).modificarSaldo(valor*todos.get(actual).cantidadCasasHoteles());
 		}
 	}
 	
 	private void aplicarAJugador_porJugador(int actual, ArrayList<Jugador> todos){
 		if(jugadorCorrecto(actual, todos)){
-            informe(actual, todos);
+                informe(actual, todos);
 			for(int i = 0; i < todos.size(); i++){
-				new Sorpresa(
+				Sorpresa a=new Sorpresa(
 						TipoSorpresa.PAGARCOBRAR,
 						tablero,
 						valor * (i==actual ? todos.size()-1 : -1 ),
-						"AplicarAJugador_porJugador").aplicarAJugador(i, todos);
+						"AplicarAJugador_porJugador");
+                                a.aplicarAJugador(i, todos);
 			}
 		}
 	}
