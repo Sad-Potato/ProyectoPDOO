@@ -27,6 +27,10 @@ public class CivitasJuego{
 	}
 
 	public CivitasJuego(ArrayList <String> nombres){
+            
+                //Debug mode of Dado.
+                Dado.getInstance().setDebug(true);
+            
 		jugadores=new ArrayList<>();
 		for(int i=0;i<nombres.size();i++){
 			jugadores.add(new Jugador(nombres.get(i)));

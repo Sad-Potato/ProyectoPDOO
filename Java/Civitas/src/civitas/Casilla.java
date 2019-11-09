@@ -88,13 +88,14 @@ public class Casilla {
 
     private void recibeJugador_calle(int actual,ArrayList<Jugador> todos){
 		if(jugadorCorrecto(actual, todos)){
-			informe(actual,todos);
-		}
-		Jugador jugador = todos.get(actual);
-		if( tituloPropiedad.tienePropietario() ){
-			jugador.puedeComprarCasilla();
-			tituloPropiedad.tramitarAlquiler(jugador);
-		}
+                    informe(actual,todos);
+                    Jugador jugador = todos.get(actual);
+                    if( !tituloPropiedad.tienePropietario() ) 
+                        jugador.puedeComprarCasilla();
+                    else{      
+                        tituloPropiedad.tramitarAlquiler(jugador);
+                    }
+                }   
     }
 
     private void recibeJugador_impuesto(int actual,ArrayList <Jugador> todos){

@@ -142,7 +142,8 @@ public class Jugador implements Comparable<Jugador>{
 	}
 	
 	boolean puedeComprarCasilla(){
-		return !encarcelado;
+                puedeComprar=(!encarcelado);
+		return puedeComprar;
 	}
 	
 	boolean modificarSaldo(float cantidad){
@@ -172,8 +173,11 @@ public class Jugador implements Comparable<Jugador>{
 			puedeComprar = false;
 			Diario.getInstance().ocurreEvento("Jugador -- "
 					+ nombre + " se ha movido a la casilla " + String.valueOf(numCasilla));
+                        return true;
 		}
-		return !encarcelado;
+                else{
+                    return encarcelado;
+                }
 	}
 	
 	private boolean puedoGastar(float precio){
@@ -196,7 +200,7 @@ public class Jugador implements Comparable<Jugador>{
 	
 	
 	boolean tieneAlgoQueGestionar(){
-		return propiedades.isEmpty();
+		return !propiedades.isEmpty();
 	}
 	
 	boolean salirCarcelPagando(){

@@ -9,7 +9,6 @@ public class test{
         ArrayList<String> nombres=new ArrayList<String>();
         nombres.add("Sergio");
         nombres.add("Maki-chan");
-        nombres.add("Don Juanjo");
         CivitasJuego juego=new CivitasJuego(nombres);
         Controlador game=new Controlador(juego,vista);
         game.juega();

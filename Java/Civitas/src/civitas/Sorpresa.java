@@ -30,6 +30,7 @@ public class Sorpresa {
     Sorpresa(TipoSorpresa ttipo, Tablero ttablero, int tvalor, String ttexto){
         init();
         tipo = ttipo;
+        tablero=ttablero;
         valor = tvalor;
         texto = ttexto;
     }
@@ -77,9 +78,9 @@ public class Sorpresa {
             informe(actual, todos);
             int casillaActual = todos.get(actual).getNumCasillaActual();
             int tirada = tablero.calcularTirada(casillaActual, valor);
-			int nuevaPosicion = tablero.nuevaPosicion(actual, tirada);
-			todos.get(actual).moverACasilla(nuevaPosicion);
-			tablero.getCasilla(nuevaPosicion).recibeJugador(actual, todos);
+            int nuevaPosicion = tablero.nuevaPosicion(casillaActual, tirada);
+            todos.get(actual).moverACasilla(nuevaPosicion);
+            tablero.getCasilla(nuevaPosicion).recibeJugador(actual, todos);
         }
     }
 	
