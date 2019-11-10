@@ -73,25 +73,49 @@ public class VistaTextual {
   }
 
   SalidasCarcel salirCarcel() {
-    int opcion = menu ("Elige la forma para intentar salir de la carcel",
+    int opcion = menu ("*****************************************************\n" +
+                       "*                                                   *\n" +
+                       "*         ¿Como desea salir de la carcel?           *\n" +
+                       "*                                                   *\n" +
+                       "*****************************************************",
                       new ArrayList<> (Arrays.asList("Pagando","Tirando el dado")));
     return (SalidasCarcel.values()[opcion]);
   }
 
 
   Respuestas comprar() {
-    int opcion = menu("Elige si quieres comprar la calle actual",
+    int opcion = menu("*****************************************************\n" +
+                       "*                                                   *\n" +
+                       "*         ¿Desea comprar la propiedad?              *\n" +
+                       "*                                                   *\n" +
+                       "*****************************************************",
                       new ArrayList<> (Arrays.asList("No","Si")));
     return (Respuestas.values()[opcion]);
   }
 
   void gestionar () {
-    iGestion = menu("Elige una gestión inmobiliaria",new ArrayList<> 
+    iGestion = menu("*****************************************************\n" +
+                    "*                                                   *\n" +
+                    "*          ¿Que gestion desea realizar?             *\n" +
+                    "*                                                   *\n" +
+                    "*****************************************************"
+                    ,new ArrayList<> 
     (Arrays.asList("Vender","Hipotecar","Cancelar la hipoteca"
                   ,"Construir una casa","Construir un hotel","Terminar")));
-    if(iGestion<5)
-    iPropiedad= leeEntero(1000, "Introduce el indice de la propiedad a gestionar.", "Error"); //Fix this.
-  }
+    if(iGestion<5){
+        ArrayList <String> propiedades=new ArrayList<>();
+        for(int i=0;i<juegoModel.getJugadorActual().getPropiedades().size();i++){
+            propiedades.add(juegoModel.getJugadorActual().getPropiedades().get(i).toString());
+        }
+        iPropiedad= menu("*****************************************************\n" +
+                         "*                                                   *\n" +
+                         "*              ¿Sobre que propiedad?                *\n" +
+                         "*                                                   *\n" +
+                         "*****************************************************"
+                         ,propiedades); //Fix this.
+    }
+    
+    }
   
   public int getGestion(){
     return iGestion;
@@ -109,7 +133,7 @@ public class VistaTextual {
 
   void mostrarEventos() {
     while(Diario.getInstance().eventosPendientes()){
-      System.out.println(Diario.getInstance().leerEvento() + "\n");
+      System.out.println("\n" + Diario.getInstance().leerEvento() + "\n");
     }
   }
   

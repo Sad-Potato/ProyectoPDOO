@@ -24,7 +24,13 @@ public class TituloPropiedad {
     }
     
     Boolean cancelarHipoteca(Jugador jugador){
-        throw new UnsupportedOperationException("No implementado");
+        Boolean result=false;
+        if(hipotecado && esEsteElPropietario(jugador)){
+            propietario.paga(getImporteCancelarHipoteca());
+            hipotecado=false;
+            result=true;
+        }
+        return result;
     }
     
     int cantidadCasasHoteles(){
@@ -42,12 +48,21 @@ public class TituloPropiedad {
     }
     
     Boolean construirCasa(Jugador jugador){
-        throw new UnsupportedOperationException("No implementado");
+        Boolean b=esEsteElPropietario(jugador);
+        if(b){
+            jugador.paga(precioEdificar);
+            numCasas+=1;
+        }
+        return b;
     }
     
     Boolean construirHotel(Jugador jugador){
-        
-        throw new UnsupportedOperationException("No implementado");
+        Boolean b=esEsteElPropietario(jugador);
+        if(b){
+            propietario.paga(precioEdificar*5);
+            numHoteles+=1;
+        }
+        return b;
     }
     
     Boolean derruirCasas(int n,Jugador jugador){
@@ -89,7 +104,7 @@ public class TituloPropiedad {
     }
     
     private float getPrecioAlquiler(){
-        return (float) ((propietarioEncarcelado() || hipotecado) ? 0 : alquilerBase*(1+(numCasas*0.5)+(numHoteles*2.5)));
+        return (float) (alquilerBase*(1+(numCasas*0.5)+(numHoteles*2.5)));
     }
     
     float getPrecioCompra(){
@@ -142,12 +157,12 @@ public class TituloPropiedad {
     
     @Override
     public String toString(){
-        return "Nombre de la propiedad: " + nombre + "; Precio de compra: "+ String.valueOf(precioCompra) + 
-                "; Precio de edificar: " + String.valueOf(precioEdificar) + "; Propietario: " + propietario.getNombre() + ";";
+        return "Propiedad: " + nombre + "; Precio de compra: "+ String.valueOf(precioCompra) + 
+                "; Precio de edificar: " + String.valueOf(precioEdificar) + "; Propietario: " + propietario.getNombre() + "; Casas: " + String.valueOf(numCasas) + "; Hoteles: " + String.valueOf(numHoteles);
     }
     
     void tramitarAlquiler(Jugador jugador){
-        if(tienePropietario() && esEsteElPropietario(jugador)){
+        if(tienePropietario() && !esEsteElPropietario(jugador)){
             float p=this.getPrecioAlquiler();
             jugador.pagaAlquiler(p);
             propietario.recibe(p);

@@ -36,7 +36,7 @@ public class Tablero {
     
     public void añadeCasilla(Casilla casilla){
         casillas.add(casilla);
-        if (casillas.size() >= numCasillaCarcel){
+        if (casillas.size() == numCasillaCarcel){
             casillas.add(new Casilla("Carcel"));
         }
     }

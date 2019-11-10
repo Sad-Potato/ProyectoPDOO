@@ -45,8 +45,8 @@ public class Sorpresa {
     }
     
     private void informe(int actual, ArrayList<Jugador> todos){
-        Diario.getInstance().ocurreEvento("Sorpresa -- "
-                + "Se aplica sorpresa al jugador " + todos.get(actual).getNombre());
+        Diario.getInstance().ocurreEvento("Sorpresa -- " + this.toString() +
+                 " -- Se aplica sorpresa al jugador " + todos.get(actual).getNombre());
     }
     
     void aplicarAJugador(int actual, ArrayList<Jugador> todos){
