@@ -92,13 +92,6 @@ public class CivitasJuego{
 		return jugadores.get(indiceJugadorActual).hipotecar(ip);
 	}
 
-	public String infoJugadorTexto(){
-		String info="";
-		info+=jugadores.get(indiceJugadorActual).toString() + "\n";
-		info+=this.getCasillaActual().toString() + "\n" + "Propiedades:\n";
-		return info;
-	}
-
 	private void inicializarMazoSorpresas(Tablero tablero){
 		mazo.alMazo(new Sorpresa(TipoSorpresa.PAGARCOBRAR, 500, "Concurso de belleza, cobra 500."));
 		mazo.alMazo(new Sorpresa(TipoSorpresa.PAGARCOBRAR, -500, "Multa de trafico, paga 500."));

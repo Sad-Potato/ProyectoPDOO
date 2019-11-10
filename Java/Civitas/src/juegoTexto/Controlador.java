@@ -30,7 +30,6 @@ public class Controlador{
             if(!juego.finalDelJuego()){
                 switch(ope){
                     case COMPRAR:
-                        vista.comprar();
                         if(vista.comprar() == Respuestas.SI){
                             juego.comprar();
                         }
