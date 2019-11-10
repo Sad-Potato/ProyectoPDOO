@@ -2,12 +2,10 @@
 
 module Civitas
     class OperacionInmobiliaria
-        @numPropiedad
-        @gestion
 
-        def OperacionInmobiliaria(gest,ip)
-            @gestion=gest
-            @numPropiedad=ip
+        def initialize(gestion,iprop)
+            @gestion=gestion
+            @numPropiedad=iprop
         end
         
         attr_reader :numPropiedad,:gestion

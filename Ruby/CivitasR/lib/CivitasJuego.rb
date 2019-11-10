@@ -13,7 +13,7 @@ module Civitas
     
     def initialize(nombres)
       @jugadores = nombres.map { |nombre|  Jugador.new(nombre) }
-      @gestorEstados = Gestor_estados.new()
+      @gestorEstados = Gestor_estados.new
       @estado = @gestorEstados.estado_inicial
       @indiceJugadorActual = Dado.instance.quienEmpieza(nombres.size)
       @mazo = MazoSorpresas.new(true)
@@ -97,7 +97,7 @@ module Civitas
     private :pasarTurno
 
 		def siguientePasoCompletado(operacion)
-			@estado = GestorEstados.siguienteEstado(@jugadores[@indiceJugadorActual], @estado, operacion)
+			@estado = @gestorEstados.siguiente_estado(@jugadores[@indiceJugadorActual], @estado, operacion)
 		end
 
 		def construirCasa(ip)
@@ -120,30 +120,34 @@ module Civitas
 			return @jugadores[@indiceJugadorActual].cancelarHipoteca(ip)
 		end
 
-		def salirCarcelPagando(ip)
-			return @jugadores[@indiceJugadorActual].salirCarcelPagando(ip)
+		def salirCarcelPagando
+			return @jugadores[@indiceJugadorActual].salirCarcelPagando
 		end
 
-		def salirCarcelTirando(ip)
-			return @jugadores[@indiceJugadorActual].salirCarcelTirando(ip)
+		def salirCarcelTirando
+			return @jugadores[@indiceJugadorActual].salirCarcelTirando
 		end
 
-		def finalDelJugeo
+		def finalDelJuego
 			return @jugadores.any? { |jugador| jugador.enBancarrota() }
 		end
 
+    # => Ranking se hace público para que pueda ser mostrado si el juego se acaba
 		def ranking
-			return @jugadores.sort
+			return @jugadores.sort!
 		end
-    private :ranking
     
     def getJugadorActual
       return @jugadores[@indiceJugadorActual]
     end
     
+    def getCasillaActual
+      return @tablero.getCasilla(@jugadores[@indiceJugadorActual].numCasillaActual)
+    end
+    
     def avanzaJugador
       jugadorActual = @jugadores[@indiceJugadorActual] #1.1
-      posicionNueva = @tablero.nuevaPosicion(jugadorActual.getNumCasillaActual,Dado.instance.tirar)  #1.2, 1.3 y 1.4
+      posicionNueva = @tablero.nuevaPosicion( jugadorActual.numCasillaActual,Dado.instance.tirar )  #1.2, 1.3 y 1.4
       casilla = @tablero.getCasilla(posicionNueva) #1.5
       contabilizarPasosPorSalida(jugadorActual) #1.6
       jugadorActual.moverACasilla(posicionNueva) #1.7
@@ -155,7 +159,7 @@ module Civitas
     def siguientePaso
       # 1, 2
       contabilizarPasosPorSalida(@jugadorActual)
-      operacion = @gestorEstados.operacionesPermitidas(@jugadores[@indiceJugadorActual],@estado);
+      operacion = @gestorEstados.operaciones_permitidas(@jugadores[@indiceJugadorActual],@estado);
       case operacion
       when OperacionesJuego::PASAR_TURNO
         pasarTurno # 3
@@ -170,20 +174,20 @@ module Civitas
     end
 
     def comprar
-      jugadorActual=@jugadores[@indiceJugadorActual] #1
-      numCasillaActu=jugadorActual.getNumCasillaActual  #2
-      casilla=@tablero.getCasilla(numCasillaActu) #3
-      titulo=casilla.getTituloPropiedad   #4
-      res=jugadorActual.comprar(titulo) #5
+      jugadorActual = @jugadores[@indiceJugadorActual] #1
+      numCasillaActu = jugadorActual.numCasillaActual  #2
+      casilla = @tablero.getCasilla(numCasillaActu) #3
+      titulo = casilla.getTituloPropiedad   #4
+      res = jugadorActual.comprar(titulo) #5
       return res
     end
 
     def infoJugadorTexto
       jugador = @jugadores[ @indiceJugadorActual ]
-      s = jugador.toString +
+      s = jugador.toString + "\n" +
         "Propiedades:  \n"
-      jugador.propiedades.each { |p| s += p.toString + '\n' }
-      s += @tablero.getCasilla( jugador.numCasillaActual ).toString
+      jugador.nombrePropiedades.each { |p| s += p + '\n' }
+      s += "\n" + @tablero.getCasilla( jugador.numCasillaActual ).toString
       return s
     end
     
