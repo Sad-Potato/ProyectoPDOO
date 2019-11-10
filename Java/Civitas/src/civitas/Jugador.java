@@ -233,12 +233,17 @@ public class Jugador implements Comparable<Jugador>{
 	}
 	
 	public String toString(){
-		String resul="Jugador: " + nombre + "; Posicion: " + String.valueOf(numCasillaActual)+ "; \nPropiedades:\n ";
-		for(int i=0;i<propiedades.size();i++){
-			resul+=propiedades.get(i).toString() +"\n";
-	   	}
+		String resul="Jugador: " + nombre + "; Posicion: " + String.valueOf(numCasillaActual);
 		return resul;
 	}
+        
+        public String toStringPropiedades(){
+            String resul="Propiedades:\n";
+            for(int i=0;i<propiedades.size();i++){
+		resul+=propiedades.get(i).toString() +"\n";
+	   }
+            return resul+"\n";
+        }
 	
 	public int compareTo(Jugador otro){
 		return (int) Math.signum(saldo - otro.saldo);
