@@ -4,9 +4,9 @@ require 'io/console'
 
 module Civitas
 
-  class Vista_textual
+  class VistaTextual
     
-    attr_reader :iGestion, :iPropiedad
+    attr_reader :gestion, :propiedad
 
     def mostrar_estado(estado)
       puts estado
@@ -63,20 +63,18 @@ module Civitas
 
     
     def comprar
-      puts "*****************************************************"
-      puts "*                                                   *"
-      puts "*         ¿Desea comprar la propiedad?              *"
-      puts "*                                                   *"
-      puts "*****************************************************"
-      
-      return lista_Respuestas[ menu(
-              "\n¿Comprar?",
-              ["No","Si"]
+      return Lista_Respuestas[ menu(
+      "*****************************************************\n" +
+      "*                                                   *\n" +
+      "*         ¿Desea comprar la propiedad?              *\n" +
+      "*                                                   *\n" +
+      "*****************************************************\n" ,
+        ["No","Si"]
       ) ]
     end
     
     def salirCarcel
-      return lista_SalidasCarcel[ menu(
+      return Lista_SalidasCarcel[ menu(
         "*****************************************************\n" +
         "*                                                   *\n" +
         "*         ¿Cómo quieres salir de la carcel?         *\n" +
@@ -88,7 +86,7 @@ module Civitas
     end
 
     def gestionar
-      @iGestion = lista_GestionesInmobiliarias[ menu(
+      @gestion = Lista_GestionesInmobiliarias[ menu(
         "*****************************************************\n" +
         "*                                                   *\n" +
         "*          ¿Qué gestión quiere realizar?            *\n" +
@@ -102,26 +100,28 @@ module Civitas
            "Terminar"]
       ) ]
     
-      if @iGestion != GestionesInmobiliarias::TERMINAR
-        @iPropiedad = @juegoModel.getJugadorActual.propiedades[ menu(
+      if @gestion != GestionesInmobiliarias::TERMINAR
+        @propiedad = menu(
         "*****************************************************\n" +
         "*                                                   *\n" +
         "*               ¿Sobre qué propiedad?               *\n" +
         "*                                                   *\n" +
         "*****************************************************\n",
-        @juegoModel.getJugadorActual.propiedades.map { |prop| prop.toString }
-      ) ]
+        @juegoModel.getJugadorActual.nombrePropiedades
+      )
       end
     end
 
     def mostrarSiguienteOperacion(operacion)
-      puts "Siguiente operacion: " + operacion.toString + "\n"
+      puts "Siguiente operacion: " + operacion.to_s + "\n"
     end
 
     def mostrarEventos
+      puts "\tDIARIO:"
       while Diario.instance.eventos_pendientes
         puts Diario.instance.leer_evento
       end
+      puts "\tFin del diario"
     end
 
     def setCivitasJuego(civitas)
@@ -130,7 +130,20 @@ module Civitas
     end
 
     def actualizarVista
-      puts @juegoModel.infoJugadorTexto
+      puts "\n-----------------------------------------"
+      puts "Jugador actual: "
+      j = @juegoModel.getJugadorActual
+      puts j.toString
+      l = j.nombrePropiedades
+      print "Propiedades:"
+      if l.size == 0
+        puts " ninguna"
+      else
+        puts ""
+        l.each { |prop| puts prop }
+      end
+      puts "\nCasilla en la que se ha caido:"
+      puts @juegoModel.getCasillaActual.toString
     end
 
     

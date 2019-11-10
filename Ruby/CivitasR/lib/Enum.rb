@@ -54,7 +54,7 @@ module Civitas
 		SI=:si
 	end
 
-	lista_GestionesInmobiliarias=[
+	Lista_GestionesInmobiliarias=[
 		GestionesInmobiliarias::VENDER,
 		GestionesInmobiliarias::HIPOTECAR,
 		GestionesInmobiliarias::CANCELAR_HIPOTECA,
@@ -63,12 +63,12 @@ module Civitas
 		GestionesInmobiliarias::TERMINAR
 	]
 	
-	lista_Respuestas=[
+	Lista_Respuestas=[
 		Respuestas::NO,
 		Respuestas::SI
 	]
 
-	lista_SalidasCarcel=[
+	Lista_SalidasCarcel=[
 		SalidasCarcel::PAGANDO,
 		SalidasCarcel::TIRANDO
 	]

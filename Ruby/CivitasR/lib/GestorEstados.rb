@@ -27,10 +27,10 @@ module Civitas
         if (jugador.encarcelado)
           op = OperacionesJuego::PASAR_TURNO
         else
-          if (jugador.puede_comprar)
+          if (jugador.puedeComprar)
             op = OperacionesJuego::COMPRAR
           else
-            if (jugador.tiene_algo_que_gestionar)
+            if (jugador.tieneAlgoQueGestionar)
               op = OperacionesJuego::GESTIONAR
             else
               op = OperacionesJuego::PASAR_TURNO
@@ -39,7 +39,7 @@ module Civitas
         end
 
       when EstadosJuego::DESPUES_COMPRAR
-        if (jugador.tiene_algo_que_gestionar)
+        if (jugador.tieneAlgoQueGestionar)
           op = OperacionesJuego::GESTIONAR
         else
           op = OperacionesJuego::PASAR_TURNO
@@ -103,7 +103,7 @@ module Civitas
         end
       end
 
-      Diario.instance.ocurre_evento("De: "+estado.to_s+ " con "+operacion.to_s+ " sale: "+siguiente.to_s)
+      Diario.instance.ocurre_evento("GestorEstados -- Del estado " + estado.to_s+ " con "+operacion.to_s+ " se pasa a "+siguiente.to_s)
 
       return siguiente
     end

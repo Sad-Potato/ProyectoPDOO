@@ -6,12 +6,15 @@ require_relative "Jugador"
 require_relative "MazoSorpresas"
 require_relative "Tablero"
 require_relative "CivitasJuego"
+require_relative "VistaTextual"
+require_relative "Controlador"
 
 #MAIN = "casilla"
 #MAIN = "dado"
 #MAIN = "sorpresa"
 #MAIN = "tablero"
-MAIN = "civitasjuego"
+#MAIN = "civitasjuego"
+MAIN = "main"
 
 module Civitas
   case MAIN
@@ -126,5 +129,19 @@ module Civitas
     while Diario.instance.eventos_pendientes
       puts Diario.instance.leer_evento
     end
+    
+  when "main"
+    class Main
+      def initialize
+        @vista = VistaTextual.new
+        @juego = CivitasJuego.new(["Juan","María","Carlos","Ana"])
+        Dado.instance.setDebug(true)
+        @control = Controlador.new(@juego, @vista)
+        @control.juega
+      end
+    end
+    
+    Main.new
+    
   end
 end

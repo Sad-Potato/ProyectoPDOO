@@ -214,7 +214,7 @@ module Civitas
           result = titulo.comprar(self)
           if result
             @propiedades << titulo
-            Diario.instance.ocurre_evento("El jugador " + @nombre + " compra la propiedad " + titulo.toString);
+            Diario.instance.ocurre_evento("Jugador -- El jugador " + @nombre + " compra la propiedad " + titulo.toString);
           end
           @puedeComprar = false
         end
@@ -231,12 +231,12 @@ module Civitas
         result = @propiedades[ip].hipotecar(self)
       end
       if result
-        Diario.instance.ocurre_evento("El jugador " + @jugador.getNombre + " compra la propiedad " + titulo.toString)  
+        Diario.instance.ocurre_evento("Jugador -- El jugador " + @jugador.getNombre + " hipoteca la propiedad " + titulo.toString)  
       end
     end
 
     def tieneAlgoQueGestionar
-      return getPropiedades.empty?
+      return @propiedades.empty?
     end
 
     def puedeSalirCarcelPagando
@@ -313,6 +313,12 @@ module Civitas
         i += p.numCasas + p.numHoteles
       end
       return i
+    end
+    
+    # => Para el método gestionar de VistaTextual necesito al menos los nombres de los títulos del jugador
+    
+    def nombrePropiedades
+      return @propiedades.map { |prop| prop.nombre }
     end
 
     attr_reader :CasasPorHotel,:encarcelado,:puedeComprar,:numCasillaActual
