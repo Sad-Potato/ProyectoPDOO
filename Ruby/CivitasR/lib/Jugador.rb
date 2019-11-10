@@ -42,22 +42,21 @@ module Civitas
         return result
       end
       if existeLaPropiedad(ip)
-        propiedad=@propiedades.get(ip);
+        propiedad=@propiedades[ip];
         cantidad=propiedad.getImporteCancelarHipoteca
         puedoGastar=puedoGastar(cantidad)
         if puedoGastar
           result=propiedad.cancelarHipoteca(self)
           if result
-            Diario.ocurreEvento("El jugador "+@nombre+" cancela la hipoteca de la propiedad "+ip.to_s)
+            Diario.instance.ocurre_evento("El jugador  " + @nombre + " cancela la hipoteca de la propiedad " + propiedad.nombre)
           end
         end
       end
       return result
     end
-    private :cancelarHipoteca
 
     def puedoEdificarHotel(propiedad)
-      return puedoGastar(propiedad.getPrecioEdificar) && (propiedad.numHoteles<@@HotelesMax) && (propiedad.numCasas>=@@CasasPorHotel)
+      return puedoGastar(propiedad.precioEdificar) && (propiedad.numHoteles<@@HotelesMax) && (propiedad.numCasas>=@@CasasPorHotel)
     end
     
     def construirHotel(ip)
@@ -72,7 +71,7 @@ module Civitas
           casasPorHotel=@@CasasPorHotel
           propiedad.derruirCasas(casasPorHotel,self)
         end
-        Diario.instance.ocurre_evento("El jugador "+ toString + " construye hotel en la propiedad "+ ip.toString)
+        Diario.instance.ocurre_evento("El jugador "+ toString + " construye hotel en la propiedad "+ propiedad.nombre)
       end
       return result
     end
@@ -92,7 +91,7 @@ module Civitas
           result = propiedad.construirCasa(self)
           if result
             Diario.instance.ocurre_evento(
-              "El jugador " + toString + " construye casa en la propiedad "+ propiedad.toString
+              "El jugador " + toString + " construye casa en la propiedad "+ propiedad.nombre
             )
           end
         end
@@ -106,7 +105,7 @@ module Civitas
       else
         if(tieneSalvoconducto)
           perderSalvoconducto
-          Diario.instance.ocurre_evento("Jugador -- El jugador " + toString + " se libra de ir a la carcel.")
+          Diario.instance.ocurre_evento("Jugador -- El jugador " + toString + " usa su carta de salir a la carcel.")
           resul=false
         else
           resul=true
@@ -168,7 +167,7 @@ module Civitas
 
     def modificarSaldo(cantidad)
       @saldo+=cantidad
-      Diario.instance.ocurre_evento("Jugador -- Se ha modificado el saldo de " + toString + " en " + cantidad.to_s + " euros.")
+      Diario.instance.ocurre_evento("Jugador -- Se ha modificado el saldo del jugador " + @nombre + " en " + cantidad.to_s + " euros.")
       return true
     end
 
@@ -178,7 +177,7 @@ module Civitas
       else
         @numCasillaActual=numCasilla
         @puedeComprar=false
-        Diario.instance.ocurre_evento("Jugador -- Se ha movido al jugador a la casilla "+@numCasillaActual.to_s)
+        Diario.instance.ocurre_evento("Jugador -- Se ha movido al jugador " + @nombre + " a la casilla " + @numCasillaActual.to_s)
         return true
       end
     end
@@ -195,8 +194,8 @@ module Civitas
       if(existeLaPropiedad(ip))
         resul=@propiedades.at(ip).vender(self)
         if resul
+          Diario.instance.ocurre_evento("Jugador -- El jugador " + @nombre + " vende la propiedad " + @propiedades[ip].nombre)
           @propiedades.delete_at(ip)
-          Diario.ocurre_evento("Vendida la propiedad : "+ip.to_s)
           return true
         end
       end
@@ -231,12 +230,12 @@ module Civitas
         result = @propiedades[ip].hipotecar(self)
       end
       if result
-        Diario.instance.ocurre_evento("Jugador -- El jugador " + @jugador.getNombre + " hipoteca la propiedad " + titulo.toString)  
+        Diario.instance.ocurre_evento("Jugador -- El jugador " + @nombre + " hipoteca la propiedad " + @propiedades[ip].nombre)  
       end
     end
 
     def tieneAlgoQueGestionar
-      return @propiedades.empty?
+      return !@propiedades.empty?
     end
 
     def puedeSalirCarcelPagando
@@ -258,7 +257,7 @@ module Civitas
     def salirCarcelTirando
       if(Dado.salgoDeLaCarcel)
         @encarcelado=false
-        Diario.instance.ocurre_evento("El jugador " + toString + " sale de la carcel tirando dados.")
+        Diario.instance.ocurre_evento("Jugador -- El jugador " + toString + " consigue salir de la carcel tirando dados.")
         return true
       else
         return false
@@ -267,7 +266,7 @@ module Civitas
 
     def pasaPorSalida
       modificarSaldo(@@PasoPorSalida)
-      Diario.ocurre_evento("El jugador ha pasado por salida.")
+      Diario.instance.ocurre_evento("Jugador -- El jugador " + @nombre + " ha pasado por salida.")
       return true
     end 
 
@@ -318,7 +317,7 @@ module Civitas
     # => Para el método gestionar de VistaTextual necesito al menos los nombres de los títulos del jugador
     
     def nombrePropiedades
-      return @propiedades.map { |prop| prop.nombre }
+      return @propiedades.map { |prop| prop.nombre + ( prop.hipotecado ? " (hipotecado)" : "") }
     end
 
     attr_reader :CasasPorHotel,:encarcelado,:puedeComprar,:numCasillaActual

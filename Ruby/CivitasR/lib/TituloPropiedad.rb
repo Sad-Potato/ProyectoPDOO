@@ -70,12 +70,12 @@ module Civitas
 		end
     
 		def esEsteElPropietario(jugador)
-			return jugador==@propietario
+			return @propietario==jugador
 		end    
 		private :esEsteElPropietario
 
 		def propietarioEncarcelado
-			return @propietario != nil && @propietario.isEncarcelado
+			return tienePropietario && @propietario.isEncarcelado
 		end
 		private :propietarioEncarcelado
 

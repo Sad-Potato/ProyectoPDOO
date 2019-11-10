@@ -86,29 +86,34 @@ module Civitas
     end
 
     def gestionar
-      @gestion = Lista_GestionesInmobiliarias[ menu(
-        "*****************************************************\n" +
-        "*                                                   *\n" +
-        "*          ¿Qué gestión quiere realizar?            *\n" +
-        "*                                                   *\n" +
-        "*****************************************************\n",
-          ["Vender",
-           "Hipotecar",
-           "Cancelar hipoteca",
-           "Construir casa",
-           "Construir hotel",
-           "Terminar"]
-      ) ]
-    
-      if @gestion != GestionesInmobiliarias::TERMINAR
-        @propiedad = menu(
-        "*****************************************************\n" +
-        "*                                                   *\n" +
-        "*               ¿Sobre qué propiedad?               *\n" +
-        "*                                                   *\n" +
-        "*****************************************************\n",
-        @juegoModel.getJugadorActual.nombrePropiedades
-      )
+      if @juegoModel.getJugadorActual.tieneAlgoQueGestionar
+        @gestion = Lista_GestionesInmobiliarias[ menu(
+          "*****************************************************\n" +
+          "*                                                   *\n" +
+          "*          ¿Qué gestión quiere realizar?            *\n" +
+          "*                                                   *\n" +
+          "*****************************************************\n",
+            ["Vender",
+             "Hipotecar",
+             "Cancelar hipoteca",
+             "Construir casa",
+             "Construir hotel",
+             "Terminar"]
+        ) ]
+
+        if @gestion != GestionesInmobiliarias::TERMINAR
+          @propiedad = menu(
+          "*****************************************************\n" +
+          "*                                                   *\n" +
+          "*               ¿Sobre qué propiedad?               *\n" +
+          "*                                                   *\n" +
+          "*****************************************************\n",
+          @juegoModel.getJugadorActual.nombrePropiedades
+        )
+        end
+      else
+        puts "No hay propiedades que gestionar!"
+        @gestion = GestionesInmobiliarias::TERMINAR
       end
     end
 
@@ -130,7 +135,7 @@ module Civitas
     end
 
     def actualizarVista
-      puts "\n-----------------------------------------"
+      puts "\n\n"
       puts "Jugador actual: "
       j = @juegoModel.getJugadorActual
       puts j.toString

@@ -1,6 +1,7 @@
 
 require_relative "VistaTextual"
 require_relative "CivitasJuego"
+require_relative "OperacionInmobiliaria"
 
 module Civitas
   class Controlador
@@ -35,26 +36,26 @@ module Civitas
             g = OperacionInmobiliaria.new(@vista.gestion, @vista.propiedad)
             
             case g.gestion
-            when VENDER
+            when GestionesInmobiliarias::VENDER
               @juego.vender(g.numPropiedad)
-            when HIPOTECAR
+            when GestionesInmobiliarias::HIPOTECAR
               @juego.hipotecar(g.numPropiedad)
-            when CANCELAR_HIPOTECA
+            when GestionesInmobiliarias::CANCELAR_HIPOTECA
               @juego.cancelarHipoteca(g.numPropiedad)
-            when CONSTRUIR_CASA
+            when GestionesInmobiliarias::CONSTRUIR_CASA
               @juego.construirCasa(g.numPropiedad)
-            when CONSTRUIR_HOTEL
+            when GestionesInmobiliarias::CONSTRUIR_HOTEL
               @juego.construirHotel(g.numPropiedad)
-            when TERMINAR
+            when GestionesInmobiliarias::TERMINAR
               @juego.siguientePasoCompletado( p )
             end
             
             
           when OperacionesJuego::SALIR_CARCEL
             case @vista.salirCarcel
-            when PAGANDO
+            when SalidasCarcel::PAGANDO
               @juego.salirCarcelPagando
-            when TIRANDO
+            when SalidasCarcel::TIRANDO
               @juego.salirCarcelTirando
             end
             @juego.siguientePasoCompletado( p )

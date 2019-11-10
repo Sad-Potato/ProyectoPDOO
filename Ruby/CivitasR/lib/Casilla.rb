@@ -107,8 +107,8 @@ module Civitas
     private :recibeJugador_juez
     
     def toString()
-      s = "[Nombre: " + @nombre + "; "
-      s += "Tipo: " + @tipo.to_s + "]"
+      s = (@tipo == TipoCasilla::CALLE ? @titulo.nombre : @nombre) + " (" +
+          "Tipo: " + @tipo.to_s + (@importe == nil ? "" : ("Valor: " + @importe.to_s) ) + ")"
       return s
     end
     
