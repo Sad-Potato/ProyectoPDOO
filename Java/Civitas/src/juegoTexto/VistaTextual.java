@@ -8,7 +8,7 @@ import civitas.Respuestas;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
-import civitas.Casilla;
+import civitas.Casilla_Descanso;
 import civitas.Jugador;
 import civitas.TituloPropiedad;
 

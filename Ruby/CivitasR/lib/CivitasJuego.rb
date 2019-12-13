@@ -134,7 +134,7 @@ module Civitas
 
     # => Ranking se hace público para que pueda ser mostrado si el juego se acaba
 		def ranking
-			return @jugadores.sort!
+			return @jugadores.sort!.reverse!
 		end
     
     def getJugadorActual

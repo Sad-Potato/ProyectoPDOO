@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class Tablero {
     private int numCasillaCarcel;
-    private ArrayList<Casilla> casillas;
+    private ArrayList<Casilla_Descanso> casillas;
     private int porSalida;
     private boolean tieneJuez;
     
@@ -34,21 +34,21 @@ public class Tablero {
         return t;
     }
     
-    public void añadeCasilla(Casilla casilla){
+    public void añadeCasilla(Casilla_Descanso casilla){
         casillas.add(casilla);
         if (casillas.size() == numCasillaCarcel){
-            casillas.add(new Casilla("Carcel"));
+            casillas.add(new Casilla_Descanso("Carcel"));
         }
     }
     
     public void añadeJuez(){
         if (!tieneJuez){
-            añadeCasilla(new Casilla("Juez"));
+            añadeCasilla(new Casilla_Juez(numCasillaCarcel,"Juez"));
             tieneJuez = true;
         }
     }
     
-    public Casilla getCasilla(int numCasilla){
+    public Casilla_Descanso getCasilla(int numCasilla){
         return (numCasilla >= 0) && (numCasilla < casillas.size()) ? casillas.get(numCasilla) : null;
     }
     

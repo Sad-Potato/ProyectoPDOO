@@ -19,7 +19,7 @@ public class CivitasJuego{
 		int posicionActual=jugadorActual.getNumCasillaActual();
 		int tirada=Dado.getInstance().tirar();
 		int posicionNueva=tablero.nuevaPosicion(posicionActual,tirada);
-		Casilla casilla=tablero.getCasilla(posicionNueva);
+		Casilla_Descanso casilla=tablero.getCasilla(posicionNueva);
 		contabilizarPasosPorSalida(jugadorActual);
                 jugadorActual.moverACasilla(posicionNueva);
 		casilla.recibeJugador(indiceJugadorActual, jugadores);
@@ -50,8 +50,7 @@ public class CivitasJuego{
 	public boolean comprar(){
 		Jugador jugador = jugadores.get(indiceJugadorActual);
 		int num = jugador.getNumCasillaActual();
-		Casilla casilla = tablero.getCasilla(num);
-		TituloPropiedad titulo = casilla.getTituloPropiedad();
+		TituloPropiedad titulo = ((Casilla_Propiedad)tablero.getCasilla(num)).getTituloPropiedad();
 		return jugador.comprar(titulo);
 	}
 
@@ -80,7 +79,7 @@ public class CivitasJuego{
 		return result;
 	}
 
-	public Casilla getCasillaActual(){
+	public Casilla_Descanso getCasillaActual(){
 		return tablero.getCasilla(jugadores.get(indiceJugadorActual).getNumCasillaActual());
 	}
 
@@ -108,47 +107,47 @@ public class CivitasJuego{
 		tablero = new Tablero(5);
 		float revalorizacion = (float) 1.15;
 		// =>  La casilla del inicio se introduce automáticamente
-		tablero.añadeCasilla(new Casilla(
+		tablero.añadeCasilla(new Casilla_Propiedad(
 		  new TituloPropiedad("Calle Caramelo", 50, revalorizacion, 150, 200, 120)
 		));
-		tablero.añadeCasilla(new Casilla(
+		tablero.añadeCasilla(new Casilla_Propiedad(
 		  new TituloPropiedad("Plaza Galleta", 50, revalorizacion, 150, 200, 120)
 		));
-		tablero.añadeCasilla(new Casilla(mazo, "Esquina de las Pizzas"));
-		tablero.añadeCasilla(new Casilla(
+		tablero.añadeCasilla(new Casilla_Sorpresa(mazo, "Esquina de las Pizzas"));
+		tablero.añadeCasilla(new Casilla_Propiedad(
 		  new TituloPropiedad("Estación de los gofres", 50, revalorizacion, 150, 200, 120)
 		));
 		// =>  Aquí meterá tablero a la carcel
-		tablero.añadeCasilla(new Casilla(
+		tablero.añadeCasilla(new Casilla_Propiedad(
 		  new TituloPropiedad("Ruta glaseada", 50, revalorizacion, 150, 200, 120)
 		));
-		tablero.añadeCasilla(new Casilla(
+		tablero.añadeCasilla(new Casilla_Propiedad(
 		  new TituloPropiedad("Rio Cremoso", 50, revalorizacion, 150, 200, 120)
 		));
-		tablero.añadeCasilla(new Casilla(mazo, "Puente Hamburguesa"));
-		tablero.añadeCasilla(new Casilla(
+		tablero.añadeCasilla(new Casilla_Sorpresa(mazo, "Puente Hamburguesa"));
+		tablero.añadeCasilla(new Casilla_Propiedad(
 		  new TituloPropiedad("Zoo de los dulces", 50, revalorizacion, 150, 200, 120)
 		));
-		tablero.añadeCasilla(new Casilla("Parking Gratuito"));
-		tablero.añadeCasilla(new Casilla(
+		tablero.añadeCasilla(new Casilla_Descanso("Parking Gratuito"));
+		tablero.añadeCasilla(new Casilla_Propiedad(
 		  new TituloPropiedad("Cruce Gominolas", 50, revalorizacion, 150, 200, 120)
 		));
-		tablero.añadeCasilla(new Casilla(
+		tablero.añadeCasilla(new Casilla_Propiedad(
 		  new TituloPropiedad("Chocolate Street", 50, revalorizacion, 150, 200, 120)
 		));
-		tablero.añadeCasilla(new Casilla(300, "Impuesto del Azucar"));
-		tablero.añadeCasilla(new Casilla(
+		tablero.añadeCasilla(new Casilla_Impuesto(300, "Impuesto del Azucar"));
+		tablero.añadeCasilla(new Casilla_Propiedad(
 		  new TituloPropiedad("Avenida de las Avellanas", 50, revalorizacion, 150, 200, 120)
 		));
 		tablero.añadeJuez();
-		tablero.añadeCasilla(new Casilla(
+		tablero.añadeCasilla(new Casilla_Propiedad(
 		  new TituloPropiedad("Banco de monedas de chocolate", 50, revalorizacion, 150, 200, 120)
 		));
-		tablero.añadeCasilla(new Casilla(
+		tablero.añadeCasilla(new Casilla_Propiedad(
 		  new TituloPropiedad("Palacio del dulce de leche", 50, revalorizacion, 150, 200, 120)
 		));
-		tablero.añadeCasilla(new Casilla(mazo, "Puente Hamburguesa"));
-		tablero.añadeCasilla(new Casilla(
+		tablero.añadeCasilla(new Casilla_Sorpresa(mazo, "Puente Hamburguesa"));
+		tablero.añadeCasilla(new Casilla_Propiedad(
 		  new TituloPropiedad("Hotel de los batidos", 50, revalorizacion, 150, 200, 120)
 		));
 	}
