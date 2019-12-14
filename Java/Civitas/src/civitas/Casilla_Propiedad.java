@@ -36,7 +36,6 @@ public class Casilla_Propiedad extends Casilla_Descanso {
 		}   
 	}
 	
-	
 	@Override
 	public String toString(){
         return tituloPropiedad.toString();
