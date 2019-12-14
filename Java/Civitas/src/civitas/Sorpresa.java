@@ -138,6 +138,7 @@ public class Sorpresa {
 		}
 	}
 	
+        @Override
 	public String toString(){
 		return texto;
 	}

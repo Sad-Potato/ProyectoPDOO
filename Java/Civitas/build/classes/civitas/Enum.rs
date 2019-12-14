@@ -1,0 +1,3 @@
+civitas.EstadosJuego
+civitas.TipoCasilla
+civitas.TipoSorpresa
