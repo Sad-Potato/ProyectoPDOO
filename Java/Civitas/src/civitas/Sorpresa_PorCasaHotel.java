@@ -18,6 +18,7 @@ public class Sorpresa_PorCasaHotel extends Sorpresa{
         this.valor = valor;
     }
 	
+	@Override
 	public void aplicarAJugador(int actual, ArrayList<Jugador> todos){
 		if(jugadorCorrecto(actual, todos)){
             informe(actual, todos);

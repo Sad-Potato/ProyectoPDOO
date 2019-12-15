@@ -19,6 +19,7 @@ public class Sorpresa_SalirCarcel extends Sorpresa{
         this.mazo = mazo;
     }
 	
+	@Override
 	public void aplicarAJugador(int actual, ArrayList<Jugador> todos){
 		if(jugadorCorrecto(actual, todos)){
             informe(actual, todos);

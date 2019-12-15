@@ -1,0 +1,18 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - test4",
+            "request": "launch",
+            "mainClass": "civitas.test4",
+            "projectName": "ProyectoPDOO_ef498b72"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - test",
+            "request": "launch",
+            "mainClass": "juegoTexto.test",
+            "projectName": "ProyectoPDOO_ef498b72"
+        }
+    ]
+}

@@ -42,13 +42,13 @@ public class Jugador implements Comparable<Jugador>{
             return encarcelado;
     }
 
-    private int getCasasMax(){
+    protected int getCasasMax(){
             return CasasMax;
     }
     int getCasasPorHotel(){
             return CasasPorHotel;
     }
-    private int getHotelesMax(){
+    protected int getHotelesMax(){
             return HotelesMax;
     }
     protected String getNombre(){
@@ -133,7 +133,7 @@ public class Jugador implements Comparable<Jugador>{
             return !encarcelado;
     }
 
-    private void perderSalvoconducto(){
+    protected void perderSalvoconducto(){
             salvoconducto.usada();
             salvoconducto = null;
     }
@@ -271,7 +271,7 @@ public class Jugador implements Comparable<Jugador>{
 
     private boolean puedoEdificarCasa(TituloPropiedad prop){
             return  puedoGastar( prop.getPrecioEdificar() ) &&
-                            prop.getNumCasas() < CasasMax;
+                            prop.getNumCasas() < this.getCasasMax();
     }
 
     boolean construirCasa(int ip){
@@ -293,7 +293,7 @@ public class Jugador implements Comparable<Jugador>{
 
     private boolean puedoEdificarHotel(TituloPropiedad prop){
             return  puedoGastar( prop.getPrecioEdificar() ) &&
-                            prop.getNumHoteles() < HotelesMax &&
+                            prop.getNumHoteles() < this.getHotelesMax() &&
                             prop.getNumCasas() >= CasasPorHotel;
     }
 

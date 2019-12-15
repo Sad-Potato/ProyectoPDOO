@@ -14,17 +14,43 @@ public class Jugador_Especulador extends Jugador{
         }
     }
 
+    // Not sure if its like this.
+    @Override
+    protected int getCasasMax(){
+        return super.getCasasMax()*2;
+    }
+
+    @Override
+    protected int getHotelesMax(){
+        return super.getHotelesMax()*2;
+    }
+
+    /**********************************************/
+
     @Override
     protected boolean debeSerEncarcelado(){
         if(!encarcelado && tieneSalvoconducto()){
-            Diario.getInstance().ocurreEvento("Jugador -- "
-                + nombre + " usa su carta sorpresa para evitar la carcel");
+            Diario.getInstance().ocurreEvento("Jugador Especulador-- "
+            + nombre + " usa su carta sorpresa para evitar la carcel");
             perderSalvoconducto();
+            return false;
+        }
+        else if(!tieneSalvoconducto()){
+            Diario.getInstance().ocurreEvento("Jugador Especulador-- "
+            + nombre + " usa fianza para evitar la carcel.");
+            //?¿ Ambiguous 
+            this.paga(fianza);
             return false;
         }
         return !encarcelado;
     }
 
+    @Override   
+    boolean pagaImpuesto(float cantidad){
+        return !encarcelado && paga(cantidad/2);
+    }
+
+    @Override
     public String toString(){
         String resul="Jugador Especulador: " + nombre + "; Posicion: " + String.valueOf(numCasillaActual) + "; Saldo: " + String.valueOf(getSaldo())+
         "; Propiedades: " + String.valueOf(propiedades.size()) + "; Encarcelado: " 

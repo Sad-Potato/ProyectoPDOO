@@ -20,7 +20,8 @@ public class Sorpresa_IrACasilla extends Sorpresa{
         tablero=ttablero;
         this.valor = valor;
     }
-	
+    
+    @Override
 	public void aplicarAJugador(int actual, ArrayList<Jugador> todos){
         if(jugadorCorrecto(actual, todos)){
             informe(actual, todos);
