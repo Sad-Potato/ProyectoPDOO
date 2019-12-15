@@ -13,8 +13,7 @@ public class Sorpresa_Especulador extends Sorpresa{
 	public void aplicarAJugador(int actual, ArrayList<Jugador> todos){
         if(jugadorCorrecto(actual, todos)){
             informe(actual, todos);
-            Jugador tjugador=todos.get(actual);
-            tjugador=((Jugador_Especulador)new Jugador_Especulador(todos.get(actual),valor));
+            todos.set(actual,(Jugador_Especulador)new Jugador_Especulador(todos.get(actual),valor));
         }
     }
 }
