@@ -19,7 +19,7 @@ public class Jugador implements Comparable<Jugador>{
     protected Sorpresa_SalirCarcel salvoconducto;
     protected ArrayList<TituloPropiedad> propiedades;
 
-    Jugador(String tnombre){
+    public Jugador(String tnombre){
             nombre = tnombre;
             encarcelado = false;
             numCasillaActual = 0;
@@ -29,7 +29,7 @@ public class Jugador implements Comparable<Jugador>{
             propiedades = new ArrayList<>();
     }
 
-    protected Jugador(Jugador otro){
+    public Jugador(Jugador otro){
             nombre = otro.nombre;
             encarcelado = otro.encarcelado;
             numCasillaActual = otro.numCasillaActual;

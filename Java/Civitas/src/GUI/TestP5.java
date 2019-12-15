@@ -7,6 +7,7 @@ package GUI;
 import java.util.ArrayList;
 import civitas.Jugador;
 import civitas.Sorpresa_Especulador;
+import civitas.Jugador_Especulador;
 import civitas.TituloPropiedad;
 import civitas.CivitasJuego;
 

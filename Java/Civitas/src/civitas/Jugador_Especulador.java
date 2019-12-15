@@ -6,7 +6,7 @@ public class Jugador_Especulador extends Jugador{
     private float fianza;
 
 
-    Jugador_Especulador(Jugador tjugador,float tfianza){
+    public Jugador_Especulador(Jugador tjugador,float tfianza){
         super(tjugador);
         fianza=tfianza;
         for(TituloPropiedad p:propiedades){
