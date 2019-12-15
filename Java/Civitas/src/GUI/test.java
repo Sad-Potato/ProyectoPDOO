@@ -1,4 +1,4 @@
-package juegoTexto;
+package GUI;
 
 import civitas.CivitasJuego;
 import java.util.ArrayList;

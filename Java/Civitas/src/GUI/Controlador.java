@@ -1,4 +1,4 @@
-package juegoTexto;
+package GUI;
 
 import civitas.CivitasJuego;
 import civitas.OperacionInmobiliaria;
@@ -10,14 +10,14 @@ import java.util.ArrayList;
 
 public class Controlador{
     private CivitasJuego juego;
-    private VistaTextual vista;
+    private CivitasView vista;
 
-    Controlador(CivitasJuego juego, VistaTextual vista){
+    Controlador(CivitasJuego juego, CivitasView vista){
         this.juego=juego;
         this.vista=vista;
     }
 
-    void juega(){
+    /* void juega(){
         vista.setCivitasJuego(juego);
         while(!juego.finalDelJuego()){
             vista.actualizarVista();
@@ -73,5 +73,5 @@ public class Controlador{
             System.out.println("En " + (i+1) + "ª posición: " + ranking.get(i) + "\n");
         }
 
-    }
+    } */
 }

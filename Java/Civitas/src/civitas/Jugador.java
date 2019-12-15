@@ -1,5 +1,6 @@
 package civitas;
 import java.lang.Math;
+import GUI.Dado;
 import java.util.ArrayList;
 
 public class Jugador implements Comparable<Jugador>{
@@ -51,7 +52,7 @@ public class Jugador implements Comparable<Jugador>{
     protected int getHotelesMax(){
             return HotelesMax;
     }
-    protected String getNombre(){
+    public String getNombre(){
             return nombre;
     }
     int getNumCasillaActual(){
@@ -70,7 +71,7 @@ public class Jugador implements Comparable<Jugador>{
     boolean getPuedeComprar(){
             return puedeComprar;
     }
-    protected float getSaldo(){
+    public float getSaldo(){
             return saldo;
     }
     boolean enBancarrota(){

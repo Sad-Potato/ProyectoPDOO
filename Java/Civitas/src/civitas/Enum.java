@@ -8,15 +8,6 @@ enum TipoCasilla {
     DESCANSO
 }
 
-enum TipoSorpresa {
-    IRCARCEL,       
-    IRCASILLA,       
-    PAGARCOBRAR,       
-    PORCASAHOTEL,
-    PORJUGADOR, 
-    SALIRCARCEL
-}
-
 enum EstadosJuego {
     INICIO_TURNO,
     DESPUES_CARCEL,
