@@ -11,12 +11,12 @@ public class Jugador implements Comparable<Jugador>{
     protected static float SaldoInicial = 7500;
     
     protected boolean encarcelado;
-    private String nombre;
-    private int numCasillaActual;
-    private boolean puedeComprar;
-    private float saldo;
-    private Sorpresa_SalirCarcel salvoconducto;
-    private ArrayList<TituloPropiedad> propiedades;
+    protected String nombre;
+    protected int numCasillaActual;
+    protected boolean puedeComprar;
+    protected float saldo;
+    protected Sorpresa_SalirCarcel salvoconducto;
+    protected ArrayList<TituloPropiedad> propiedades;
 
     Jugador(String tnombre){
             nombre = tnombre;
@@ -63,7 +63,7 @@ public class Jugador implements Comparable<Jugador>{
     private float getPremioPasoSalida(){
             return PasoPorSalida;
     }
-    //Modified
+
     public ArrayList<TituloPropiedad> getPropiedades(){
             return propiedades;
     }
