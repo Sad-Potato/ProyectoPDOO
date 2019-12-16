@@ -22,7 +22,6 @@ public class JugadorPanel extends javax.swing.JPanel {
         jTextField3.setText(String.valueOf(jugador.getSaldo()));
         jTextField4.setText(jugador.isEncarcelado() ? "Si" : "No");
         jTextField5.setText(("Jugador_Especulador".equals(jugador.getClass().getName())) ? "Si" : "No");
-        repaint();
         rellenaPropiedades(jugador.getPropiedades());
     }
     
@@ -68,20 +67,15 @@ public class JugadorPanel extends javax.swing.JPanel {
         jTextField1.setText("jTextField1");
 
         jLabel1.setText("Nombre");
-        jLabel1.setEnabled(false);
 
         jLabel2.setText("Saldo");
-        jLabel2.setEnabled(false);
 
         jLabel3.setText("Encarcelado");
-        jLabel3.setEnabled(false);
 
         jLabel4.setText("Especulador");
-        jLabel4.setEnabled(false);
 
         jTextField2.setEditable(false);
         jTextField2.setText("jTextField2");
-        jTextField2.setEnabled(false);
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField2ActionPerformed(evt);
@@ -90,7 +84,6 @@ public class JugadorPanel extends javax.swing.JPanel {
 
         jTextField3.setEditable(false);
         jTextField3.setText("jTextField3");
-        jTextField3.setEnabled(false);
         jTextField3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField3ActionPerformed(evt);
@@ -99,7 +92,6 @@ public class JugadorPanel extends javax.swing.JPanel {
 
         jTextField4.setEditable(false);
         jTextField4.setText("jTextField4");
-        jTextField4.setEnabled(false);
         jTextField4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField4ActionPerformed(evt);
@@ -108,7 +100,6 @@ public class JugadorPanel extends javax.swing.JPanel {
 
         jTextField5.setEditable(false);
         jTextField5.setText("jTextField5");
-        jTextField5.setEnabled(false);
         jTextField5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField5ActionPerformed(evt);
@@ -159,8 +150,7 @@ public class JugadorPanel extends javax.swing.JPanel {
                     .addComponent(jLabel4)
                     .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(propiedades, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
-                .addGap(12, 12, 12))
+                .addComponent(propiedades, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

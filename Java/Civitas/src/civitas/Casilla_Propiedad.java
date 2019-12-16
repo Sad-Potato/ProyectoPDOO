@@ -19,7 +19,7 @@ public class Casilla_Propiedad extends Casilla_Descanso {
         tituloPropiedad=titulo;
     }
 	
-	TituloPropiedad getTituloPropiedad(){
+	public TituloPropiedad getTituloPropiedad(){
         return tituloPropiedad;
     }
 	
