@@ -25,62 +25,62 @@ module Civitas
       @tablero = Tablero.new(5)
       revalorizacion = 1.15
       # =>  La casilla del inicio se introduce automáticamente
-      @tablero.añadeCasilla(Casilla.calle(
+      @tablero.añadeCasilla(Casilla_Calle.new(
           TituloPropiedad.new("Calle Caramelo", 50, revalorizacion, 150, 200, 120)
       ))
-      @tablero.añadeCasilla(Casilla.calle(
+      @tablero.añadeCasilla(Casilla_Calle.new(
           TituloPropiedad.new("Plaza Galleta", 50, revalorizacion, 150, 200, 120)
       ))
-      @tablero.añadeCasilla(Casilla.sorpresa(mazo, "Esquina de las Pizzas"))
-      @tablero.añadeCasilla(Casilla.calle(
+      @tablero.añadeCasilla(Casilla_Sorpresa.new(mazo, "Esquina de las Pizzas"))
+      @tablero.añadeCasilla(Casilla_Calle.new(
           TituloPropiedad.new("Estación de los gofres", 50, revalorizacion, 150, 200, 120)
       ))
       # =>  Aquí meterá tablero a la carcel
-      @tablero.añadeCasilla(Casilla.calle(
+      @tablero.añadeCasilla(Casilla_Calle.new(
           TituloPropiedad.new("Ruta glaseada", 50, revalorizacion, 150, 200, 120)
       ))
-      @tablero.añadeCasilla(Casilla.calle(
+      @tablero.añadeCasilla(Casilla_Calle.new(
           TituloPropiedad.new("Rio Cremoso", 50, revalorizacion, 150, 200, 120)
       ))
-      @tablero.añadeCasilla(Casilla.sorpresa(mazo, "Puente Hamburguesa"))
-      @tablero.añadeCasilla(Casilla.calle(
+      @tablero.añadeCasilla(Casilla_Sorpresa.new(mazo, "Puente Hamburguesa"))
+      @tablero.añadeCasilla(Casilla_Calle.new(
           TituloPropiedad.new("Zoo de los dulces", 50, revalorizacion, 150, 200, 120)
       ))
-      @tablero.añadeCasilla(Casilla.descanso("Parking Gratuito"))
-      @tablero.añadeCasilla(Casilla.calle(
+      @tablero.añadeCasilla(Casilla_Descanso.new("Parking Gratuito"))
+      @tablero.añadeCasilla(Casilla_Calle.new(
           TituloPropiedad.new("Cruce Gominolas", 50, revalorizacion, 150, 200, 120)
       ))
-      @tablero.añadeCasilla(Casilla.calle(
+      @tablero.añadeCasilla(Casilla_Calle.new(
           TituloPropiedad.new("Chocolate Street", 50, revalorizacion, 150, 200, 120)
       ))
-      @tablero.añadeCasilla(Casilla.impuesto(300, "Impuesto del Azucar"))
-      @tablero.añadeCasilla(Casilla.calle(
+      @tablero.añadeCasilla(Casilla_Impuesto.new(300, "Impuesto del Azucar"))
+      @tablero.añadeCasilla(Casilla_Calle.new(
           TituloPropiedad.new("Avenida de las Avellanas", 50, revalorizacion, 150, 200, 120)
       ))
       @tablero.añadeJuez
-      @tablero.añadeCasilla(Casilla.calle(
+      @tablero.añadeCasilla(Casilla_Calle.new(
           TituloPropiedad.new("Banco de monedas de chocolate", 50, revalorizacion, 150, 200, 120)
       ))
-      @tablero.añadeCasilla(Casilla.calle(
+      @tablero.añadeCasilla(Casilla_Calle.new(
           TituloPropiedad.new("Palacio del dulce de leche", 50, revalorizacion, 150, 200, 120)
       ))
-      @tablero.añadeCasilla(Casilla.sorpresa(mazo, "Puente Hamburguesa"))
-      @tablero.añadeCasilla(Casilla.calle(
+      @tablero.añadeCasilla(Casilla_Sorpresa.new(mazo, "Puente Hamburguesa"))
+      @tablero.añadeCasilla(Casilla_Calle.new(
           TituloPropiedad.new("Hotel de los batidos", 50, revalorizacion, 150, 200, 120)
       ))
     end
     private :inicializaTablero
 
     def inicializaMazoSorpresas(tablero)
-      @mazo.alMazo(Sorpresa.new1(TipoSorpresa::IRCARCEL,tablero))
-      @mazo.alMazo(Sorpresa.new4(TipoSorpresa::SALIRCARCEL,@mazo))
-      @mazo.alMazo(Sorpresa.new2(TipoSorpresa::IRCASILLA,tablero,10,"Te muevo de casilla porque puedo."))
-      @mazo.alMazo(Sorpresa.new2(TipoSorpresa::IRCASILLA,tablero,1,"Por gracioso"))
-      @mazo.alMazo(Sorpresa.new2(TipoSorpresa::IRCASILLA,tablero,20,"Evitar la carcel"))
-      @mazo.alMazo(Sorpresa.new3(TipoSorpresa::PORCASAHOTEL,1,"??????"))
-      @mazo.alMazo(Sorpresa.new3(TipoSorpresa::PORCASAHOTEL,1,"?????"))
-      @mazo.alMazo(Sorpresa.new3(TipoSorpresa::PAGARCOBRAR,-100,"A pagar por gracioso"))
-      @mazo.alMazo(Sorpresa.new3(TipoSorpresa::PAGARCOBRAR,100,"Toma crack"))
+      @mazo.alMazo(Sorpresa_IrCarcel.new("Carcel",tablero))
+      @mazo.alMazo(Sorpresa_SalirCarcel.new("Carta de salir de la carcel",@mazo))
+      @mazo.alMazo(Sorpresa_MoverACasilla.new("Te mudas",tablero,10))
+      @mazo.alMazo(Sorpresa_MoverACasilla.new("A la casilla de salida",tablero,1))
+      @mazo.alMazo(Sorpresa_MoverACasilla.new("Muevete de casilla",tablero,20))
+      @mazo.alMazo(Sorpresa_PorCasaHotel.new("Reparaciones",1))
+      @mazo.alMazo(Sorpresa_PorCasaHotel.new("Tuberias oxidadas",1))
+      @mazo.alMazo(Sorpresa_PagarCobrar.new("Pagas la comunidad",-100))
+      @mazo.alMazo(Sorpresa_PagarCobrar.new("Concurso de belleza",100))
     end
     private :inicializaMazoSorpresas
 
@@ -177,7 +177,7 @@ module Civitas
       jugadorActual = @jugadores[@indiceJugadorActual] #1
       numCasillaActu = jugadorActual.numCasillaActual  #2
       casilla = @tablero.getCasilla(numCasillaActu) #3
-      titulo = casilla.getTituloPropiedad   #4
+      titulo = casilla.titulo #4
       res = jugadorActual.comprar(titulo) #5
       return res
     end

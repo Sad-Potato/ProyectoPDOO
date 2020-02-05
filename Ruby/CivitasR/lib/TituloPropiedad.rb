@@ -124,6 +124,10 @@ module Civitas
 			return b
 		end
     
+    def actualizaPropietarioPorConversion(jugador)
+      @propietario = jugador
+    end
+    
 		def vender(jugador)
 			if(jugador==@propietario && !@hipotecado)
 				jugador.recibe(getPrecioVenta)

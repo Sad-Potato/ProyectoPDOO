@@ -9,7 +9,7 @@ module Civitas
     
     def initialize(carcel)
       @numCasillaCarcel= carcel >= 1 ? carcel : 1
-      @casillas=[Casilla.descanso("Salida")]
+      @casillas=[Casilla_Descanso.new("Salida")]
       @porSalida=0
       @tieneJuez=false
     end
@@ -30,14 +30,17 @@ module Civitas
 
     def añadeCasilla(casilla)
       if(@casillas.length==@numCasillaCarcel)
-        @casillas.push(Casilla.descanso("Carcel"))
+        @casillas.push(Casilla_Descanso.new("Carcel"))
       end
       @casillas.push(casilla)
+      if(@casillas.length==@numCasillaCarcel)
+        @casillas.push(Casilla_Descanso.new("Carcel"))
+      end
     end
 
     def añadeJuez
       if(!@tieneJuez)  
-        @casillas.push(Casilla.juez(@numCasillaCarcel,"Juez"))
+        añadeCasilla(Casilla_Juez.new(@numCasillaCarcel,"Juez"))
         @tieneJuez=true
       end
     end
@@ -48,15 +51,15 @@ module Civitas
 
     def nuevaPosicion(actual,tirada)
       resultado=actual+tirada
-        if(correcto(actual))
-          if((actual+tirada)>=@casillas.length)
-            resultado%=@casillas.length
-            @porSalida+=1
-          end
-        else
-          resultado=-1
+      if(correcto(actual))
+        if((actual+tirada)>=@casillas.length)
+          resultado%=@casillas.length
+          @porSalida+=1
         end
-        return resultado
+      else
+        resultado=-1
+      end
+      return resultado
     end
 
     def calcularTirada(origen,destino)

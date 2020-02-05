@@ -5,7 +5,6 @@
  */
 package GUI;
 import civitas.Casilla_Descanso;
-import civitas.Tablero;
 /**
  *
  * @author phoenix
@@ -23,18 +22,19 @@ public class CasillaPanel extends javax.swing.JPanel {
 	
 	public void setCasilla(Casilla_Descanso c){
 		casilla = c;
-		jTextField1.setText(c.getNombre());
-		jTextField3.setText(c.getClass().getName().substring(9));
-		if(c instanceof civitas.Casilla_Propiedad){
+		jTextField1.setText(casilla.getNombre());
+		jTextField3.setText(casilla.getClass().getName().substring(9));
+		if(casilla instanceof civitas.Casilla_Propiedad){
 			propiedad.removeAll();
 			propiedad.setVisible(true);
 			PropiedadPanel pp = new PropiedadPanel();
-			pp.setPropiedad(((civitas.Casilla_Propiedad)c).getTituloPropiedad());
+			pp.setPropiedad(((civitas.Casilla_Propiedad)casilla).getTituloPropiedad());
 			propiedad.add(pp);
 		}
 		else{
 			propiedad.setVisible(false);
 		}
+		setVisible(true);
 		repaint();
 		revalidate();
 	}
@@ -62,17 +62,6 @@ public class CasillaPanel extends javax.swing.JPanel {
 
         jTextField3.setText("jTextField3");
 
-        javax.swing.GroupLayout propiedadLayout = new javax.swing.GroupLayout(propiedad);
-        propiedad.setLayout(propiedadLayout);
-        propiedadLayout.setHorizontalGroup(
-            propiedadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        propiedadLayout.setVerticalGroup(
-            propiedadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 153, Short.MAX_VALUE)
-        );
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -82,15 +71,14 @@ public class CasillaPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 171, Short.MAX_VALUE)
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(propiedad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
+                    .addComponent(propiedad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -104,7 +92,7 @@ public class CasillaPanel extends javax.swing.JPanel {
                     .addComponent(jLabel3)
                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(49, 49, 49)
-                .addComponent(propiedad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(propiedad, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents

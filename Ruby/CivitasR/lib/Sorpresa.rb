@@ -5,86 +5,76 @@ require_relative 'Enum'
 require_relative 'MazoSorpresas'
 
 
-module Civitas 
+module Civitas
+  
+#_________________________Clases Genericas_________________________
   class Sorpresa
-    def initialize(tipo,valor,texto,tablero,mazo)
-      @valor = valor
-      @tipo = tipo
-      @tablero = tablero
-      @mazo = mazo
-      @valor = valor
+    
+    def initialize(texto)
       @texto = texto
     end
-
-    def self.new1(tipo,tablero)
-      return new(tipo, -1, nil, tablero, nil)
-    end
-
-    def self.new2(tipo,tablero,valor,texto)
-      return new(tipo, valor, texto, tablero, nil)
-    end
-
-    def self.new3(tipo,valor,texto)
-      return new(tipo, valor, texto, nil, nil)
-    end
-
-    def self.new4(tipo,mazo)
-      return new(tipo, -1, nil, nil, mazo)
-    end
-
+    
     def jugadorCorrecto(actual,todos)
       return actual<todos.length
     end
-
+    
     def informe(actual,todos)
       Diario.instance.ocurre_evento("Sorpresa -- Se aplica la sorpresa " + toString + " al jugador " + todos[actual].toString())
     end
-
-    def aplicarAJugador(actual,todos)
-      case @tipo
-        when TipoSorpresa::IRCARCEL
-             aplicarAJugador_irCarcel(actual,todos)
-        when TipoSorpresa::IRCASILLA
-             aplicarAJugador_irACasilla(actual,todos)
-        when TipoSorpresa::PAGARCOBRAR
-             aplicarAJugador_pagarCobrar(actual,todos)
-        when TipoSorpresa::PORCASAHOTEL
-             aplicarAJugador_porCasaHotel(actual,todos)
-        when TipoSorpresa::PORJUGADOR
-             aplicarAJugador_porJugador(actual,todos)
-        when TipoSorpresa::SALIRCARCEL
-             aplicarAJugador_salirCarcel(actual,todos)
-      end
-
+    
+    def toString
+      return @texto + " ( " + this.class.name
     end
-
+    
+  end
+  
+  class Sorpresa_Especial < Sorpresa
+    
+    def initialize(texto,mazo)
+      super(texto)
+      @mazo = mazo
+    end
+    
     def salirDelMazo
-      if(@tipo==TipoSorpresa::SALIRCARCEL)
-        @mazo.inhabilitarCartaEspecial(self)
-      end
+      @mazo.inhabilitarCartaEspecial(self)
     end
-
 
     def usada
-      if(@tipo==TipoSorpresa::SALIRCARCEL)
-          @mazo.inhabilitarCartaEspecial(self)
-      end
+      @mazo.habilitarCartaEspecial(self)
     end
+    
+  end
 
-    def toString
-      return @texto.to_s + "(Tipo: " + @tipo.to_s + "; Valor: " + @valor.to_s + ")"
+  #_________________________Sorpresas No Especiales_________________________
+  
+  class Sorpresa_IrCarcel < Sorpresa
+    def initialize(texto,tablero)
+      super(texto)
+      @tablero = tablero
     end
-
-    private
-
-    def aplicarAJugador_irCarcel(actual,todos)
+    
+    def aplicarAJugador(actual,todos)
       if(jugadorCorrecto(actual,todos))
         informe(actual,todos)
         todos[actual].encarcelar(@tablero.numCasillaCarcel)
       end
     end
-
-    def aplicarAJugador_irACasilla(actual,todos)
+    
+    def toString
+      return super + " )"
+    end
+    
+  end
+  
+  class Sorpresa_MoverACasilla < Sorpresa
+    
+    def initialize(texto,tablero,valor)
+      super(texto)
+      @tablero = tablero
+      @valor = valor
+    end
+    
+    def aplicarAJugador(actual,todos)
       if(jugadorCorrecto(actual,todos))
         informe(actual,todos)
         p = todos[actual].numCasillaActual
@@ -92,31 +82,105 @@ module Civitas
         @tablero.getCasilla(@valor).recibeJugador(actual,todos)
       end
     end
-
+    
+    def toString
+      return super + ", casilla: " + @valor.to_s + " )"
+    end
+    
+  end
+  
+  
+  class Sorpresa_PorCasaHotel < Sorpresa
+    
+    def initialize(texto, valor)
+      super(texto)
+      @valor = valor
+    end
+    
+    def aplicarAJugador(actual,todos)
+      if(jugadorCorrecto(actual,todos))
+        informe(actual,todos)
+        todos[actual].modificarSaldo(@valor*todos[actual].cantidadCasasHoteles)
+      end
+    end
+    
+    def toString
+      return super + ", valor: " + @valor.to_s + " )"
+    end
+    
+  end
+  
+  class Sorpresa_PagarCobrar < Sorpresa
+    
+    def initialize(texto, valor)
+      super(texto)
+      @valor = valor
+    end
+    
     def aplicarAJugador_pagarCobrar(actual,todos)
       if(jugadorCorrecto(actual,todos))
         informe(actual,todos)
         todos[actual].modificarSaldo(@valor)
       end
     end
-
-    def aplicarAJugador_porCasaHotel(actual,todos)
-      if(jugadorCorrecto(actual,todos))
-        informe(actual,todos)
-        todos[actual].modificarSaldo(@valor*todos[actual].cantidadCasasHoteles)
-      end
+    
+    def toString
+      return super + ", valor: " + @valor.to_s + " )"
     end
-
-    def aplicarAJugador_porJugador(actual,todos)
+    
+  end
+  
+  class Sorpresa_PorJugador < Sorpresa
+    
+    def initialize(texto, valor)
+      super(texto)
+      @valor = valor
+    end
+    
+    def aplicarAJugador(actual,todos)
       if(jugadorCorrecto(actual,todos))
         informe(actual,todos)
         for i in 0..todos.size-1 do
-          p = Sorpresa.new3(TipoSorpresa::PAGARCOBRAR,i==actual ? @valor*(todos.length-1) : @valor*-1,"aplicarAJugador_porJugador")
+          p = Sorpresa_PagarCobrar("aplicarAJugador_porJugador", i==actual ? @valor*(todos.length-1) : @valor*-1)
           p.aplicarAJugador(i,todos)
         end
       end
     end
+    
+    def toString
+      return super + ", valor: " + @valor.to_s + " )"
+    end
+    
+  end
+  
+  
+  class Sorpresa_ConversionEspeculador < Sorpresa
+    
+    def initialize(texto)
+      super(texto)
+    end
+    
+    def aplicarAJugador(actual,todos)
+      if(jugadorCorrecto(actual,todos))
+        informe(actual,todos)
+        todos[actual] = Jugador_Especulador.nuevoEspeculador(todos[actual], 200)
+      end
+    end
+    
+    def toString
+      return super + ", valor: " + @valor.to_s + " )"
+    end
+    
+  end
 
+  #_________________________Sorpresas Especiales_________________________
+  
+  class Sorpresa_SalirCarcel < Sorpresa_Especial
+    
+    def initialize(texto,mazo)
+      super(texto,mazo)
+    end
+    
     def aplicarAJugador_salirCarcel(actual,todos)
       if(jugadorCorrecto(actual,todos))
         informe(actual,todos)
@@ -126,6 +190,11 @@ module Civitas
         end
       end
     end
-
+    
+    def toString
+      return super + " )"
+    end
+    
   end
 end
+  

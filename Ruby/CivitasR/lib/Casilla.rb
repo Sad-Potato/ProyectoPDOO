@@ -6,43 +6,11 @@ require_relative "Diario"
 require_relative "Jugador"
 
 module Civitas
-  class Casilla
-    @@carcel = 0
+
+  class Casilla_Descanso
     
-    
-    def init
-      @importe = 0
-      @nombre = "Sample Text"
-    end
-    private :init
-    
-    def initialize(tipo, nombre, titulo, cantidad, mazo)
+    def initialize(nombre)
       @nombre = nombre
-      @titulo = titulo
-      @importe = cantidad
-      @mazo = mazo
-      @tipo = tipo
-    end
-    
-    def self.descanso(nombre)
-      return new(TipoCasilla::DESCANSO, nombre, nil, nil, nil)
-    end
-    
-    def self.calle(titulo)
-      return new(TipoCasilla::CALLE, "PROPIEDAD", titulo, nil, nil)
-    end
-    
-    def self.impuesto(cantidad, nombre)
-      return new(TipoCasilla::IMPUESTO, nombre, nil, cantidad, nil)
-    end
-    
-    def self.juez(numCasillaCarcel, nombre)
-      @@carcel = numCasillaCarcel
-      return new(TipoCasilla::JUEZ, nombre, nil, nil, nil)
-    end
-    
-    def self.sorpresa(mazo, nombre)
-      return new(TipoCasilla::SORPRESA, nombre, nil, nil, mazo)
     end
     
     def informe(actual, todos)
@@ -51,33 +19,102 @@ module Civitas
         " ha caido en la casilla " + toString()
       )
     end
-    private :informe
+    protected :informe
 
     def recibeJugador(iactual,todos)
-      case @tipo
-        when TipoCasilla::CALLE
-          recibeJugador_calle(iactual,todos)
-        when TipoCasilla::IMPUESTO
-          recibeJugador_impuesto(iactual,todos)
-        when TipoCasilla::JUEZ
-          recibeJugador_juez(iactual,todos)
-        when TipoCasilla::SORPRESA
-          recibeJugador_sorpresa(iactual,todos)
-        else
-          informe(iactual,todos)
-        end
+      informe(iactual,todos)
     end
 
-    def recibeJugador_sorpresa(iactual,todos) 
+
+    def toString()
+      s = @nombre
+      return s
+    end
+    
+    def jugadorCorrecto(actual, todos)
+      return actual < todos.size()
+    end
+    
+    attr_reader :nombre
+  end
+  
+  
+  
+  class Casilla_Sorpresa < Casilla_Descanso
+
+    def initialize(mazo, nombre)
+      super(nombre)
+      @mazo = mazo
+    end
+    
+    def recibeJugador(iactual,todos) 
       if(jugadorCorrecto(iactual,todos))
         sorpresa=@mazo.siguiente() #1
         informe(iactual,todos)
         sorpresa.aplicarAJugador(iactual,todos)
       end
     end
-    private :recibeJugador_sorpresa
+
+    def toString
+      return @nombre + " ( Sorpresa )"
+    end
+  
+  end
+  
+  class Casilla_Impuesto < Casilla_Descanso
     
-    def recibeJugador_calle(iactual,todos)
+    def initialize(cantidad, nombre)
+     super(nombre)
+      @cantidad = cantidad
+    end
+    
+    def recibeJugador(actual, todos)
+      if jugadorCorrecto(actual, todos)
+        informe(actual, todos)
+        actual[todos].pagaImpuesto(@importe)
+      end
+    end
+
+    def toString
+      return @nombre + " ( Impuesto, cantidad: " + @cantidad.to_str + " )"
+    end
+    
+    attr_reader :cantidad
+    
+  end
+  
+  class Casilla_Juez < Casilla_Descanso
+    @@carcel = 0
+    
+    def initialize(numCasillaCarcel, nombre)
+      super(nombre)
+      @@carcel = numCasillaCarcel
+    end
+    
+    def recibeJugador_juez(actual, todos)
+      if jugadorCorrecto(actual, todos)
+        informe(actual, todos)
+        todos[actual].encarcelar(@@carcel)
+      end
+    end
+
+    def toString
+      return @nombre + " ( juez )"
+    end
+    
+    
+  end
+  
+  
+  
+  class Casilla_Calle < Casilla_Descanso
+
+    def initialize(titulo)
+      super(titulo.nombre)
+      @titulo = titulo
+    end
+    
+    def recibeJugador(iactual,todos)
       if(jugadorCorrecto(iactual,todos))
         informe(iactual,todos)
         jugador=todos[iactual]
@@ -88,41 +125,12 @@ module Civitas
         end
       end
     end
-    private :recibeJugador_calle
-
-    def recibeJugador_impuesto(actual, todos)
-      if jugadorCorrecto(actual, todos)
-        informe(actual, todos)
-        actual[todos].pagaImpuesto(@importe)
-      end
-    end
-    private :recibeJugador_impuesto
     
-    def recibeJugador_juez(actual, todos)
-      if jugadorCorrecto(actual, todos)
-        informe(actual, todos)
-        todos[actual].encarcelar(@@carcel)
-      end
-    end
-    private :recibeJugador_juez
-    
-    def toString()
-      s = (@tipo == TipoCasilla::CALLE ? @titulo.nombre : @nombre) + " (" +
-          "Tipo: " + @tipo.to_s + (@importe == nil ? "" : ("Valor: " + @importe.to_s) ) + ")"
-      return s
+    def toString
+      return @nombre + " ( Propiedad: " + @titulo.toString + " )"
     end
     
-    def jugadorCorrecto(actual, todos)
-      return actual < todos.size()
-    end
-    
-    def getNombre
-      return @nombre
-    end
-    
-    def getTituloPropiedad
-      return @titulo
-    end
+    attr_reader :titulo
     
   end
 end
