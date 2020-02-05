@@ -134,7 +134,6 @@ public class CivitasView extends javax.swing.JFrame {
         jTextField1.setText("jTextField1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setEnabled(false);
 
         jLabel2.setText("Civitas");
 

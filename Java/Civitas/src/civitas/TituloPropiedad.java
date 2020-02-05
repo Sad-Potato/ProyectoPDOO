@@ -157,7 +157,7 @@ public class TituloPropiedad {
     
     @Override
     public String toString(){
-        return "Propiedad: " + nombre + "\nPrecio de compra: "+ String.valueOf(precioCompra) + 
+        return nombre + "\nPrecio de compra: "+ String.valueOf(precioCompra) + 
                 "\nPrecio de edificar: " + String.valueOf(precioEdificar) + "\nAlquiler: " + String.valueOf(alquilerBase) +
 				"\nCasas: " + String.valueOf(numCasas) + "\nHoteles: " + String.valueOf(numHoteles);
     }

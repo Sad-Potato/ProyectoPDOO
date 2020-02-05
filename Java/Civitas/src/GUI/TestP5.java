@@ -29,6 +29,7 @@ public class TestP5{
 		System.out.println(names.toString());
 				
         CivitasJuego juego=new CivitasJuego(names);
+		
         Controlador controller=new Controlador(juego, vista);
 		System.out.println(juego.getJugadorActual());
         vista.setCivitasJuego(juego);
