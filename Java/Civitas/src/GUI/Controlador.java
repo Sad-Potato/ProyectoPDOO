@@ -17,11 +17,10 @@ public class Controlador{
         this.vista=vista;
     }
 
-    /* void juega(){
+    void juega(){
         vista.setCivitasJuego(juego);
         while(!juego.finalDelJuego()){
             vista.actualizarVista();
-            vista.pausa();
             OperacionesJuego ope=juego.siguientePaso();
             vista.mostrarSiguienteOperacion(ope);
             if(ope!=OperacionesJuego.PASAR_TURNO){
@@ -36,7 +35,8 @@ public class Controlador{
                         juego.siguientePasoCompletado(ope);
                     break;
                     case GESTIONAR:
-                        vista.gestionar();
+						System.out.println(juego.getJugadorActual());
+                        vista.gestionar(juego.getJugadorActual());
                         int iGest=vista.getGestion();
                         int iProp=vista.getPropiedad();
                         OperacionInmobiliaria operacion=new OperacionInmobiliaria(GestionesInmobiliarias.values()[iGest], iProp);
@@ -73,5 +73,5 @@ public class Controlador{
             System.out.println("En " + (i+1) + "ª posición: " + ranking.get(i) + "\n");
         }
 
-    } */
+    } 
 }

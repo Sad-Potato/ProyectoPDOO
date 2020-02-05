@@ -29,6 +29,6 @@ public class Casilla_Juez extends Casilla_Descanso {
 	
 	@Override
 	public String toString(){
-        return nombre + " (Tipo: Juez)";
+        return nombre + "\nTipo: Juez";
     }
 }

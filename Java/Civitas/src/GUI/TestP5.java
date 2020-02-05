@@ -20,21 +20,21 @@ public class TestP5{
     public static void main(String args[]){
         CivitasView vista=new CivitasView();
         Dado.createInstance(vista);
-        Dado.getInstance().setDebug(true);
-        CapturaNombres nombres=new CapturaNombres(vista, true);
-        ArrayList<String> names;
-        names=nombres.getNombres();
+        Dado.getInstance().setDebug(false);
+        //CapturaNombres nombres=new CapturaNombres(vista, true);
+        //ArrayList<String> names;
+        //names=nombres.getNombres();
+		ArrayList<String> names = new ArrayList<>();
+		names.add("Burro");
+		System.out.println(names.toString());
+				
         CivitasJuego juego=new CivitasJuego(names);
         Controlador controller=new Controlador(juego, vista);
+		System.out.println(juego.getJugadorActual());
         vista.setCivitasJuego(juego);
         vista.actualizarVista();
         
-        // VistaTextual vista=new VistaTextual();
-        // ArrayList<String> nombres=new ArrayList<>();
-        // nombres.add("Sergio");
-        // nombres.add("Maki-chan");
-        // CivitasJuego juego=new CivitasJuego(nombres);
-        // Controlador game=new Controlador(juego,vista);
-        // game.juega();
+        Controlador game=new Controlador(juego,vista);
+        game.juega();
     }
 };

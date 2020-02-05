@@ -28,6 +28,6 @@ public class Casilla_Impuesto extends Casilla_Descanso {
 	
 	@Override
 	public String toString(){
-        return nombre + " (Tipo: Impuesto, Importe: " + importe + ")";
+        return nombre + "\nTipo: Impuesto\nImporte: " + importe;
     }
 }

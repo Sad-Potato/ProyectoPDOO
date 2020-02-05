@@ -33,7 +33,7 @@ public class Casilla_Descanso {
     }
 
     public String toString(){
-        return nombre + " (Tipo: Descanso)";
+        return nombre + "\nTipo: Descanso";
     }
 
 }

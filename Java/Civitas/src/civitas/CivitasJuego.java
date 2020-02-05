@@ -29,16 +29,12 @@ public class CivitasJuego{
 
 	public CivitasJuego(ArrayList <String> nombres){
             
-                //Debug mode of Dado.
-                //Dado.getInstance().setDebug(true);
+        
+        
             
 		jugadores=new ArrayList<>();
 		for(int i=0;i<nombres.size();i++){
 			jugadores.add(new Jugador(nombres.get(i)));
-                        //Propiedad de prueba para mostrar las propiedades
-                        //jugadores.get(i).comprar(new TituloPropiedad("jaja", 100, 100, 100, 100, 100));
-                        /*Sorpresa_Especulador a=new Sorpresa_Especulador(100,"hey");
-                        a.aplicarAJugador(i, jugadores);*/
 		}
 		gestorEstados=new GestorEstados();
 		estado=gestorEstados.estadoInicial();

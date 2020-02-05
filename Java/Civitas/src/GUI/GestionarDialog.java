@@ -25,6 +25,13 @@ public class GestionarDialog extends javax.swing.JDialog {
 		propiedadElegida = -1;
 	}
 	
+	int getGestion(){
+		return gestionElegida;
+	}
+	int getPropiedad(){
+		return propiedadElegida;
+	}
+	
 	public void gestionar(Jugador jugador){
 		setGestiones();
 		setPropiedades(jugador);
@@ -52,7 +59,7 @@ public class GestionarDialog extends javax.swing.JDialog {
 		for(civitas.TituloPropiedad s : jugador.getPropiedades()){
 			gestiones.addElement(s.getNombre() + (s.getHipotecado() ? " (Hipotecado)" : ""));
 		}
-		listaGestiones.setModel(gestiones);
+		listaPropiedades.setModel(gestiones);
 	}
 
 	/**
@@ -75,7 +82,7 @@ public class GestionarDialog extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setText("Gestionar:");
+        jLabel1.setText("Gestionar");
 
         gestionesLabel.setText("Gestiones:");
 
@@ -117,39 +124,39 @@ public class GestionarDialog extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
+                        .addGap(50, 50, 50)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(gestionesLabel)
-                            .addComponent(realizarButton))
-                        .addGap(86, 86, 86)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(PropiedadesLabel)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(29, Short.MAX_VALUE))
+                            .addComponent(realizarButton)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(gestionesLabel)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(PropiedadesLabel))))))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(gestionesLabel)
                     .addComponent(PropiedadesLabel))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(realizarButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(realizarButton)
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         pack();
@@ -160,13 +167,18 @@ public class GestionarDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_listaGestionesMouseClicked
 
     private void listaPropiedadesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaPropiedadesMouseClicked
-        gestionElegida = listaGestiones.getSelectedIndex();
+        gestionElegida = listaPropiedades.getSelectedIndex();
     }//GEN-LAST:event_listaPropiedadesMouseClicked
 
     private void realizarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_realizarButtonActionPerformed
-        propiedadElegida = listaGestiones.getSelectedIndex();
+        propiedadElegida = listaPropiedades.getSelectedIndex();
 		gestionElegida = listaGestiones.getSelectedIndex();
-		this.dispose();
+		if( gestionElegida == 5 || (propiedadElegida != -1 && gestionElegida != -1)  ){
+			System.out.println(propiedadElegida);
+			System.out.println(gestionElegida);
+			this.dispose();
+		}
+			
     }//GEN-LAST:event_realizarButtonActionPerformed
 
 	/**
